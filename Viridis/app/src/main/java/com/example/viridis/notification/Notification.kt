@@ -41,7 +41,7 @@ import java.nio.file.WatchEvent
 
 
 @Composable
-fun Notification(navController: NavController) {
+fun NotificationScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()

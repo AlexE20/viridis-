@@ -28,7 +28,7 @@ import com.example.viridis.R
 import com.example.viridis.ui.theme.baloo2Font
 
 @Composable
-fun Meeting(navController: NavController) {
+fun MeetingScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
