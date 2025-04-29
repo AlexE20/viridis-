@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.viridis.Navigation.Navigation
 import com.example.viridis.meeting.MeetingScreen
 import com.example.viridis.notification.NotificationScreen
 import com.example.viridis.ui.theme.ViridisTheme
@@ -31,15 +32,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "Meeting",
+                        startDestination = "meeting",
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable("Meeting") {
-                            MeetingScreen(navController)
-                        }
-                        composable("Notification") {
-                            NotificationScreen(navController)
-                        }
+                        composable(Navigation.Meeting.route) { (MeetingScreen(navController)) }
+                        composable(Navigation.Notification.route){NotificationScreen(navController)}
                     }
 
                 }
