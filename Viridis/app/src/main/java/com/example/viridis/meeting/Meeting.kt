@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.viridis.R
+import com.example.viridis.navigation.Home
+import com.example.viridis.navigation.Notification
 import com.example.viridis.ui.theme.baloo2Font
 
 @Composable
@@ -58,7 +60,7 @@ fun MeetingScreen(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(70.dp))
         Button(
-            onClick = { navController.navigate("Notification") },
+            onClick = { navController.navigate(Notification::class.qualifiedName!!) },
             modifier = Modifier.width(370.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF014946),
