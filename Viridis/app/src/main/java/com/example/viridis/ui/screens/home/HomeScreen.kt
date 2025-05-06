@@ -1,4 +1,4 @@
-package com.example.viridis.ui.screens
+package com.example.viridis.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.viridis.ui.layout.CustomScaffold
 import com.example.viridis.ui.theme.BackgroundColor
