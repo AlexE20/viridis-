@@ -1,4 +1,5 @@
-package com.example.viridis.ui.screens
+package com.example.viridis.ui.screens.notifications
+
 
 
 import androidx.compose.foundation.layout.*
@@ -12,14 +13,14 @@ import androidx.navigation.NavHostController
 import com.example.viridis.ui.layout.CustomScaffold
 
 @Composable
-fun ProfileScreen(navController: NavHostController) {
+fun NotificationsScreen(navController: NavHostController) {
     CustomScaffold(navController = navController) {
         Column(
             modifier = Modifier.fillMaxSize().padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Profile Screen", fontSize = 24.sp)
+            Text("Notifications Screen", fontSize = 24.sp)
         }
     }
 }
