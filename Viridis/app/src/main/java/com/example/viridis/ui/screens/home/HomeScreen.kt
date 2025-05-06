@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.viridis.ui.layout.CustomScaffold
+import com.example.viridis.ui.components.CustomScaffold
 import com.example.viridis.ui.theme.BackgroundColor
 
 @Composable
