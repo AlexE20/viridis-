@@ -29,6 +29,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.viridis.ui.theme.BackgroundColor
+import com.example.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
@@ -48,9 +50,9 @@ fun CustomTextfield(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        label = {Text(label, color = Color(0xFF4CAF50))},
+        label = {Text(label, color = SecondaryAccent)},
         placeholder = { Text(placeholder, color = Color.Gray)},
-        modifier = modifier.clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomStart = 0.dp, bottomEnd = 0.dp)).background(Color(0xFFDFF0CF)),
+        modifier = modifier.clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomStart = 0.dp, bottomEnd = 0.dp)).background(BackgroundColor),
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = if (isPassword) KeyboardType.Password else keyboardType,
             imeAction = ImeAction.Next
@@ -61,12 +63,12 @@ fun CustomTextfield(
         },
         singleLine = isSingleLine,
         leadingIcon = leadingIcon,
-        colors = TextFieldDefaults.colors( // ✅ Esto es válido a partir de Material 3.2+
+        colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             cursorColor = Color.Black,
-            focusedContainerColor = Color(0xFFDFF0CF),
-            unfocusedContainerColor = Color(0xFFDFF0CF)
+            focusedContainerColor = BackgroundColor,
+            unfocusedContainerColor = BackgroundColor
         ),
         trailingIcon = {
             if (isPassword) {

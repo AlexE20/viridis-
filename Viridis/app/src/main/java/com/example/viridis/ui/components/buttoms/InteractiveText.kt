@@ -9,13 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.example.viridis.ui.theme.MainColor
 
 @Composable
 fun InteractiveText(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    textColor: Color = Color(4278274374),
+    textColor: Color = MainColor,
     underline: Boolean = false
 ){
     TextButton(
