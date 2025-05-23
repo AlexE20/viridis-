@@ -7,8 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+
 import com.example.viridis.navigation.NavGraph
 import com.example.viridis.ui.screens.HomeScreen
+
 import com.example.viridis.ui.theme.ViridisTheme
 
 
@@ -19,7 +21,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             ViridisTheme {
                 val navController = rememberNavController()
+
                 NavGraph(navController = navController)
+
             }
         }
     }
