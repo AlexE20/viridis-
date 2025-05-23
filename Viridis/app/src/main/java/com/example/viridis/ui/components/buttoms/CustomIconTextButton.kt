@@ -11,14 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.example.viridis.ui.theme.BackgroundColor
+import com.example.viridis.ui.theme.MainColor
 
 @Composable
 fun CustomIconTextButton(
     onClick: () -> Unit,
     text: String,
     icon: ImageVector,
-    containerColor: Color = Color(4278274374),
-    contentColor: Color = Color(0xFFF9FBE7),
+    containerColor: Color = MainColor,
+    contentColor: Color = BackgroundColor,
     modifier: Modifier = Modifier,
 ){
     Button(

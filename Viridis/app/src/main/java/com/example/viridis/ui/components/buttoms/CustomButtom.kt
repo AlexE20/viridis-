@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.viridis.ui.theme.MainColor
 
 @Composable
 fun CustomButton(
@@ -31,7 +32,7 @@ fun CustomButton(
     Button(
         onClick = onClick,
         modifier = Modifier.width(377.dp).height(52.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Color(4278274374))
+        colors = ButtonDefaults.buttonColors(MainColor)
     ) {
         Text(text)
     }

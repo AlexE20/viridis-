@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.example.viridis.ui.theme.BackgroundColor
+import com.example.viridis.ui.theme.MainAccent
 
 //A icon only that will have the style based on the figma
 @Composable
@@ -18,8 +20,8 @@ fun CustomIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     //These are default colors, but can be change when you call the function
-    containerColor: Color = Color(0xFFBEE698),
-    contentColor: Color = Color(0xFFF9FBE7)
+    containerColor: Color = MainAccent,
+    contentColor: Color = BackgroundColor
 ){
 
     Button(
