@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.viridis.R
+import com.example.viridis.navigation.Home
 import com.example.viridis.ui.theme.urbanistFont
 import java.nio.file.WatchEvent
 
@@ -96,7 +97,7 @@ fun NotificationScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(150.dp))
 
                 Button(
-                    onClick = { println("Botton pressed") },
+                    onClick = { navController.navigate(Home)},
                     modifier = Modifier.width(370.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF014946),
