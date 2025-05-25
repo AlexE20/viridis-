@@ -28,7 +28,6 @@ val baloo2Font = FontFamily(
     Font(R.font.baloo2)
 )
 
-
 /* Other default text styles to override
 titleLarge = TextStyle(
     fontFamily = FontFamily.Default,
