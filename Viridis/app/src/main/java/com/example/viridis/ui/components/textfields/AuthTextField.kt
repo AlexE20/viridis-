@@ -23,7 +23,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.viridis.ui.theme.MainColor
-import com.viridis.ui.login.LoginScreen
 
 @Composable
 fun AuthTextField(

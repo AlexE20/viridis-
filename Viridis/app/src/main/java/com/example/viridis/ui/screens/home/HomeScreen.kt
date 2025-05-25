@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -30,18 +31,23 @@ fun HomeScreen(navController: NavHostController) {
       Column(
          modifier = Modifier
             .background(BackgroundColor)
+            .padding(horizontal = 5.dp)
             .padding(16.dp),
          verticalArrangement = Arrangement.Top,
          horizontalAlignment = Alignment.Start
       )
       {
-         Spacer(modifier = Modifier.height(24.dp))
+         Spacer(modifier = Modifier.height(20.dp))
          Text(
             text = "Hello There!",
             fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
             color = MainColor,
             lineHeight = 40.sp
          )
+
+         Spacer(modifier = Modifier.height(20.dp))
+
          Text(
             text = "We are glad you are here. Let’s pay your gardens a visit, collect information and watch your plants thrive!",
             fontSize = 15.sp, color = MainColor,
