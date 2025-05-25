@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.viridis.meeting.MeetingScreen
 import com.example.viridis.notification.NotificationScreen
-import com.example.viridis.ui.screens.HomeScreen
-import com.example.viridis.ui.screens.ProfileScreen
-import com.example.viridis.ui.screens.NotificationsScreen
+import com.example.viridis.ui.screens.home.HomeScreen
+import com.example.viridis.ui.screens.profile.ProfileScreen
+import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
