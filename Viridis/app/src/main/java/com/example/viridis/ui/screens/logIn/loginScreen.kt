@@ -23,7 +23,6 @@ import com.example.viridis.ui.components.buttons.CustomButton
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.viridis.navigation.Home
 import com.example.viridis.ui.theme.MainColor
@@ -34,8 +33,8 @@ import com.example.viridis.ui.screens.logIn.LoginViewModel
 
 @Composable
 fun LoginScreen(
-  navController: NavController,
-  viewModel: LoginViewModel
+    navController: NavController,
+    viewModel: LoginViewModel
 ) {
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()

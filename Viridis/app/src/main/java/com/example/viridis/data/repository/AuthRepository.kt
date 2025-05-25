@@ -6,7 +6,7 @@ import com.example.viridis.data.AppProvider
 import kotlinx.coroutines.flow.Flow
 
 class AuthRepository {
-
+    //TODO
     suspend fun login(email: String, password: String): Result<String> {
         // Replace with real authentication call
         return if (email == "test@viridis.com" && password == "123456") {

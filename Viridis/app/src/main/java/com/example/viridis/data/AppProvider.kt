@@ -1,51 +1,39 @@
+
 package com.example.viridis.data
 
 import android.content.Context
-import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 
-private const val USER_PREFERENCE_NAME = "user_preferences"
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCE_NAME)
+class AppProvider(private val context: Context) {
 
-class AppProvider(context: Context) {
-    private lateinit var appContext: Context
+    private val Context.dataStore by preferencesDataStore(name = "app_preferences")
+    private val dataStore = context.dataStore
 
-
-
-    //Constructor
-    fun init(context: Context) {
-        appContext = context.applicationContext
-
-    }
-
-    fun getContext(): Context = appContext
-
-
-    // --- DS Helpers ---
-    private val authTokenKey = stringPreferencesKey("auth-token")
+    private val tokenKey = stringPreferencesKey("auth_token")
 
     suspend fun saveToken(token: String) {
-        appContext.dataStore.edit { prefs ->
-            prefs[authTokenKey] = token
+        dataStore.edit { prefs ->
+            prefs[tokenKey] = token
         }
     }
 
-    fun getToken(): Flow<String?> {
-        return appContext.dataStore.data.map { prefs ->
-            prefs[authTokenKey]
+    suspend fun getToken(): String? {
+        val prefs = dataStore.data.first()
+        return prefs[tokenKey]
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppProvider? = null
+
+        fun getInstance(context: Context): AppProvider {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: AppProvider(context.applicationContext).also { INSTANCE = it }
+            }
         }
     }
-
-    suspend fun clearToken() {
-        appContext.dataStore.edit { it.remove(authTokenKey) }
-    }
-
-
-
-
 }
