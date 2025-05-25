@@ -22,24 +22,26 @@ import com.example.viridis.R
 import com.example.viridis.ui.components.buttons.CustomButton
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import com.example.viridis.navigation.Home
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
-
+import com.example.viridis.ui.screens.logIn.LoginViewModel
 
 
 @Composable
 fun LoginScreen(
-    onBack: () -> Unit,
-    onLoginClick: () -> Unit,
-    onSignUpClick: () -> Unit,
-    email: String,
-    password: String,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit
+  navController: NavController,
+  viewModel: LoginViewModel
 ) {
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
     var showPassword by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -68,7 +70,7 @@ fun LoginScreen(
             )
 
             IconButton(
-                onClick = onBack,
+                onClick = {},
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -117,7 +119,7 @@ fun LoginScreen(
         ) {
             AuthTextField(
                 value = email,
-                onValueChange = onEmailChange,
+                onValueChange = {viewModel.onEmailChange(email)},
                 label = "Username",
                 leadingIcon = Icons.Filled.AccountCircle
             )
@@ -126,7 +128,7 @@ fun LoginScreen(
 
             AuthTextField(
                 value = password,
-                onValueChange = onPasswordChange,
+                onValueChange = {viewModel.onPasswordChange(password)},
                 label = "Password",
                 leadingIcon = Icons.Filled.Lock,
                 isPassword = true,
@@ -138,7 +140,19 @@ fun LoginScreen(
 
             CustomButton(
                 text = "Sign in",
-                onClick = onLoginClick
+                onClick = {
+                    viewModel.login(
+                        context = context,
+                        onSuccess = {
+
+                            navController.navigate(Home)
+                        },
+                        onError = { errorMsg ->
+                            // Show error
+                            println(errorMsg) // Or show Snackbar/Toast
+                        }
+                    )
+                }
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -153,26 +167,9 @@ fun LoginScreen(
 
             CustomButton(
                 text = "Sign up",
-                onClick = onSignUpClick
+                onClick = { NavController}
             )
         }
     }
-}
-
-@Preview(showBackground = true, widthDp = 360, heightDp = 800)
-@Composable
-fun LoginScreenPreview() {
-    var email by remember { mutableStateOf("Pachamama") }
-    var password by remember { mutableStateOf("Pachi123") }
-
-    LoginScreen(
-        onBack = {},
-        onLoginClick = {},
-        onSignUpClick = {},
-        email = email,
-        password = password,
-        onEmailChange = { email = it },
-        onPasswordChange = { password = it }
-    )
 }
 

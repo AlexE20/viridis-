@@ -1,4 +1,4 @@
-package com.example.viridis.notification
+package com.example.viridis.ui.screens.notification
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
