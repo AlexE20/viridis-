@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.viridis.meeting.MeetingScreen
+import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.notification.NotificationScreen
 import com.example.viridis.ui.screens.home.creation.GardenShade
 import com.example.viridis.ui.screens.home.HomeScreen
