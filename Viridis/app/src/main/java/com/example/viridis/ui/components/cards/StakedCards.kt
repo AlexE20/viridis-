@@ -55,8 +55,8 @@ fun StakedCards(
                         val halfW = w / 2
                         val halfH = h / 2
                         val paint = Paint().apply { color = Color(0xFFBAC6B1) }
-                        drawLine(paint.color, Offset(halfW, 0f), Offset(halfW, h), strokeWidth = 1.dp.toPx())
-                        drawLine(paint.color, Offset(0f, halfH), Offset(w, halfH), strokeWidth = 1.dp.toPx())
+                        drawLine(paint.color, Offset(halfW, 0f), Offset(halfW, h), strokeWidth = 2.dp.toPx())
+                        drawLine(paint.color, Offset(0f, halfH), Offset(w, halfH), strokeWidth = 2.dp.toPx())
                     }
                 }
             } else {

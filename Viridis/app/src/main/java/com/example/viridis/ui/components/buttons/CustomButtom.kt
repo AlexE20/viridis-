@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
 
 @Composable
@@ -24,7 +26,7 @@ fun CustomButton(
         modifier = Modifier.width(377.dp).height(52.dp),
         colors = ButtonDefaults.buttonColors(MainColor)
     ) {
-        Text(text)
+        Text(text, color = BackgroundColor, fontSize = 20.sp)
     }
 }
 

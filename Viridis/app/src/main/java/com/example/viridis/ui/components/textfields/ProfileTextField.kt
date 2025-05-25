@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.viridis.ui.theme.MainAccent
 import com.example.viridis.ui.theme.SecondaryAccent
-import kotlin.math.sinh
 
 @Composable
 fun ProfileTextfield(
@@ -66,12 +65,13 @@ fun ProfileTextfield(
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
         modifier = modifier
             .height(56.dp)
-            .clip(RoundedCornerShape(28.dp))
-            .background(MainAccent),
+            .clip(RoundedCornerShape(28.dp)),
         colors = TextFieldDefaults.colors(
             focusedContainerColor = MainAccent,
             unfocusedContainerColor = MainAccent,
-            disabledContainerColor = Color.LightGray
+            disabledContainerColor = Color.LightGray,
+            focusedTextColor = SecondaryAccent,
+            unfocusedTextColor = SecondaryAccent
         )
     )
 }

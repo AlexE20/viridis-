@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -131,8 +131,8 @@ fun PlantCardPreview() {
         plantImgUrl = "https://content.elmueble.com/medio/2019/03/25/monstera_f97f4746_800x800.jpg",
         difficulty = "Easy",
         difficultyIcon = {
-            Icon( //will be necessary to import any icon
-                imageVector = Icons.Default.Build,
+            Icon( //will be necessary to import more icons
+                imageVector = Icons.Filled.WbSunny,
                 contentDescription = null,
                 tint = SecondaryAccent,
                 modifier = Modifier
