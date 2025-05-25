@@ -1,6 +1,5 @@
 package com.example.viridis.navigation
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -8,20 +7,17 @@ import androidx.navigation.compose.composable
 import com.example.viridis.meeting.MeetingScreen
 import com.example.viridis.notification.NotificationScreen
 import com.example.viridis.ui.screens.home.HomeScreen
-import com.example.viridis.ui.screens.logIn.LogInScreen
 import com.example.viridis.ui.screens.profile.ProfileScreen
 import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
 object Home
-@Serializable
-object LogIn
-@Serializable
-object SignUp
+
+
+
 @Serializable
 object Profile
-
 
 @Serializable
 object Notifications
@@ -30,15 +26,13 @@ object Notification
 @Serializable
 object Meeting
 
-@ExperimentalMaterial3Api
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Meeting) {
         composable<Home> { HomeScreen(navController) }
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
-        composable<Notifications> { NotificationsScreen(navController) }
+        composable<Notifications> {NotificationsScreen(navController)}
         composable<Meeting> { MeetingScreen(navController) }
-        composable<LogIn> { LogInScreen(navController) }
     }
 }
