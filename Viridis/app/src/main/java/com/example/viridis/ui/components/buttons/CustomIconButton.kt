@@ -1,4 +1,4 @@
-package com.example.viridis.ui.components.buttoms
+package com.example.viridis.ui.components.buttons
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
