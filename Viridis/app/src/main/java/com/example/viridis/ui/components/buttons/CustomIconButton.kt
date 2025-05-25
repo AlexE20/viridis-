@@ -1,35 +1,37 @@
-package com.example.viridis.ui.components.buttoms
+package com.example.viridis.ui.components.buttons
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.example.viridis.ui.theme.BackgroundColor
-import com.example.viridis.ui.theme.MainColor
+import com.example.viridis.ui.theme.MainAccent
 
+//A icon only that will have the style based on the figma
 @Composable
-fun CustomIconTextButton(
-    onClick: () -> Unit,
-    text: String,
+fun CustomIconButton(
     icon: ImageVector,
-    containerColor: Color = MainColor,
-    contentColor: Color = BackgroundColor,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    //These are default colors, but can be change when you call the function
+    containerColor: Color = MainAccent,
+    contentColor: Color = BackgroundColor
 ){
+
     Button(
         onClick = onClick,
-        modifier = Modifier.width(377.dp).height(52.dp),
+        modifier = Modifier.width(80.dp).height(48.dp),
         colors = ButtonDefaults.buttonColors(containerColor = containerColor, contentColor = contentColor)
     ) {
-        Icon(imageVector = icon, contentDescription = "icon")
-        Text(text)
+        Icon(
+            imageVector = icon,
+            contentDescription = "icon"
+        )
     }
-    //A button that will have an icon and then the text, like google auth button or delete.
 }
