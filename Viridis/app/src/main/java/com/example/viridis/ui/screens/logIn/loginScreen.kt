@@ -34,9 +34,9 @@ fun LoginScreen(
     onBack: () -> Unit,
     onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit,
-    email: String,
+    user: String,
     password: String,
-    onEmailChange: (String) -> Unit,
+    onUserChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit
 ) {
     var showPassword by remember { mutableStateOf(false) }
@@ -116,8 +116,8 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AuthTextField(
-                value = email,
-                onValueChange = onEmailChange,
+                value = user,
+                onValueChange = onUserChange,
                 label = "Username",
                 leadingIcon = Icons.Filled.AccountCircle
             )
@@ -162,16 +162,16 @@ fun LoginScreen(
 @Preview(showBackground = true, widthDp = 360, heightDp = 800)
 @Composable
 fun LoginScreenPreview() {
-    var email by remember { mutableStateOf("Pachamama") }
+    var user by remember { mutableStateOf("Pachamama") }
     var password by remember { mutableStateOf("Pachi123") }
 
     LoginScreen(
         onBack = {},
         onLoginClick = {},
         onSignUpClick = {},
-        email = email,
+        user = user,
         password = password,
-        onEmailChange = { email = it },
+        onUserChange = { user = it },
         onPasswordChange = { password = it }
     )
 }

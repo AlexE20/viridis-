@@ -9,22 +9,26 @@ import com.example.viridis.notification.NotificationScreen
 import com.example.viridis.ui.screens.home.HomeScreen
 import com.example.viridis.ui.screens.profile.ProfileScreen
 import com.example.viridis.ui.screens.notifications.NotificationsScreen
+
 import kotlinx.serialization.Serializable
 
 @Serializable
 object Home
-
-
 
 @Serializable
 object Profile
 
 @Serializable
 object Notifications
+
 @Serializable
 object Notification
+
 @Serializable
 object Meeting
+
+@Serializable
+object Login
 
 @Composable
 fun NavGraph(navController: NavHostController) {
