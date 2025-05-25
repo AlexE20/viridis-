@@ -1,4 +1,4 @@
-package com.viridis.ui.login
+package com.example.viridis.ui.screens.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,14 +28,13 @@ import com.example.viridis.navigation.Home
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
-import com.example.viridis.ui.screens.logIn.LoginViewModel
-
+import com.example.viridis.ui.screens.login.LoginViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viridis.navigation.SignUp
 
 @Composable
-fun LoginScreen(
-    navController: NavController,
-    viewModel: LoginViewModel
-) {
+fun LoginScreen(navController: NavController) {
+    val viewModel: LoginViewModel = viewModel()
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     var showPassword by remember { mutableStateOf(false) }
@@ -69,7 +68,7 @@ fun LoginScreen(
             )
 
             IconButton(
-                onClick = {},
+                onClick = { navController.popBackStack() },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -143,12 +142,10 @@ fun LoginScreen(
                     viewModel.login(
                         context = context,
                         onSuccess = {
-
                             navController.navigate(Home)
                         },
                         onError = { errorMsg ->
-                            // Show error
-                            println(errorMsg) // Or show Snackbar/Toast
+                            println(errorMsg)
                         }
                     )
                 }
@@ -166,7 +163,7 @@ fun LoginScreen(
 
             CustomButton(
                 text = "Sign up",
-                onClick = { NavController}
+                onClick = { navController.navigate(SignUp)}
             )
         }
     }

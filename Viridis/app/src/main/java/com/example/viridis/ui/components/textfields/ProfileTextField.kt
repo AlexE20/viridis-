@@ -70,6 +70,8 @@ fun ProfileTextfield(
             focusedContainerColor = MainAccent,
             unfocusedContainerColor = MainAccent,
             disabledContainerColor = Color.LightGray,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
             focusedTextColor = SecondaryAccent,
             unfocusedTextColor = SecondaryAccent
         )

@@ -24,6 +24,10 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import com.example.viridis.navigation.Home
+import com.example.viridis.navigation.LogIn
+import com.example.viridis.navigation.SignIn
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
@@ -31,21 +35,18 @@ import com.example.viridis.ui.components.textfields.AuthTextField
 
 
 @Composable
-fun signupScreen(
-    onBack: () -> Unit,
-    onLoginClick: () -> Unit,
-    onSignUpClick: () -> Unit,
-    user: String,
-    email: String,
-    password: String,
-    passConfirm: String,
-    onUserChange: (String) -> Unit,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onPassConfirmChange: (String) -> Unit
-) {
+fun signupScreen(navController: NavController) {
+    var user by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var passConfirm by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
     var showConfirmPassword by remember { mutableStateOf(false) }
+
+    val onUserChange = { newValue: String -> user = newValue }
+    val onEmailChange = { newValue: String -> email = newValue }
+    val onPasswordChange = { newValue: String -> password = newValue }
+    val onPassConfirmChange = { newValue: String -> passConfirm = newValue }
 
     Column(
         modifier = Modifier
@@ -74,7 +75,7 @@ fun signupScreen(
             )
 
             IconButton(
-                onClick = onBack,
+                onClick = { navController.popBackStack() },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -165,7 +166,7 @@ fun signupScreen(
 
             CustomButton(
                 text = "Sign Up",
-                onClick = onLoginClick
+                onClick = {navController.navigate(Home)}
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -180,33 +181,10 @@ fun signupScreen(
 
             CustomButton(
                 text = "Sign In",
-                onClick = onSignUpClick
+                onClick = { navController.navigate(LogIn) }
             )
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 360, heightDp = 800)
-@Composable
-fun signupScreenPreview() {
-    var user by remember { mutableStateOf("Pachamama") }
-    var email by remember { mutableStateOf("Pachi66@uca.edu.sv") }
-    var password by remember { mutableStateOf("quetzalcoatl123") }
-    var passConfirm by remember { mutableStateOf("quetzalcoatl123") }
-
-
-    signupScreen(
-        onBack = {},
-        onLoginClick = {},
-        onSignUpClick = {},
-        user = user,
-        email = email,
-        password = password,
-        passConfirm = passConfirm,
-        onUserChange = { user = it },
-        onEmailChange = { email = it },
-        onPasswordChange = { password = it },
-        onPassConfirmChange = { passConfirm = it }
-    )
-}
 
