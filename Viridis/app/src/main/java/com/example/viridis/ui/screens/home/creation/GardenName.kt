@@ -30,7 +30,7 @@ import androidx.navigation.NavHostController
 import com.example.viridis.navigation.Creation
 import com.example.viridis.navigation.Creation2
 import com.example.viridis.ui.components.CustomTopBar
-import com.example.viridis.ui.components.buttoms.CustomButton
+import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.textfields.CustomTextfield
 import com.example.viridis.ui.components.textfields.ProfileTextfield
 import com.example.viridis.ui.theme.BackgroundColor

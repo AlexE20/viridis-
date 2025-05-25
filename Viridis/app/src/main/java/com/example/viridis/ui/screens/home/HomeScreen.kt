@@ -20,7 +20,7 @@ import androidx.navigation.NavHostController
 import com.example.viridis.navigation.Creation
 import com.example.viridis.navigation.Home
 import com.example.viridis.ui.components.CustomScaffold
-import com.example.viridis.ui.components.buttoms.CustomButton
+import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
 

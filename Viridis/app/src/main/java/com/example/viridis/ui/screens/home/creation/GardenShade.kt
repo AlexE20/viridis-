@@ -27,10 +27,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.viridis.navigation.Home
 import com.example.viridis.ui.components.CustomTopBar
-import com.example.viridis.ui.components.buttoms.CustomButton
+import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
-import com.example.viridis.ui.components.buttoms.CustomRadioButton
+import com.example.viridis.ui.components.buttons.CustomRadioButton
 
 @ExperimentalMaterial3Api
 @Composable
