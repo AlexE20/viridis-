@@ -7,7 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.viridis.meeting.MeetingScreen
 import com.example.viridis.notification.NotificationScreen
+import com.example.viridis.ui.screens.home.creation.GardenShade
 import com.example.viridis.ui.screens.home.HomeScreen
+import com.example.viridis.ui.screens.home.creation.GardenName
 import com.example.viridis.ui.screens.logIn.LogInScreen
 import com.example.viridis.ui.screens.profile.ProfileScreen
 import com.example.viridis.ui.screens.notifications.NotificationsScreen
@@ -15,6 +17,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 object Home
+@Serializable
+object Creation
+@Serializable
+object Creation2
 @Serializable
 object LogIn
 @Serializable
@@ -40,5 +46,7 @@ fun NavGraph(navController: NavHostController) {
         composable<Notifications> { NotificationsScreen(navController) }
         composable<Meeting> { MeetingScreen(navController) }
         composable<LogIn> { LogInScreen(navController) }
+        composable<Creation> { GardenName(navController)  }
+        composable<Creation2> { GardenShade(navController) }
     }
 }

@@ -38,9 +38,6 @@ import com.example.viridis.navigation.Home
 import com.example.viridis.ui.theme.urbanistFont
 import java.nio.file.WatchEvent
 
-
-
-
 @Composable
 fun NotificationScreen(navController: NavController) {
     Box(
