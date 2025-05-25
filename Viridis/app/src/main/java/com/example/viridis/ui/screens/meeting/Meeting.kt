@@ -1,4 +1,4 @@
-package com.example.viridis.meeting
+package com.example.viridis.ui.screens.meeting
 
 import android.media.Image
 import androidx.compose.foundation.Image
