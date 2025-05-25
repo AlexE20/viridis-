@@ -1,4 +1,4 @@
-package com.example.viridis.ui.layout
+package com.example.viridis.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
