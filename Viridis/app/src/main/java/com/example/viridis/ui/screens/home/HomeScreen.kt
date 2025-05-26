@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,9 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.viridis.data.model.Garden
 import com.example.viridis.data.viewModel.GardenViewModel
-import com.example.viridis.navigation.Creation
+import com.example.viridis.Navigation.Creation
 import com.example.viridis.ui.components.CustomScaffold
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.cards.StakedCards
@@ -30,15 +28,16 @@ import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
-    gardenViewModel: GardenViewModel
+    navController: NavHostController
 ) {
-    val gardens by gardenViewModel.gardens.collectAsState()
+    val viewModel: GardenViewModel = viewModel()
+    val gardens by viewModel.gardens.collectAsState()
     CustomScaffold(navController = navController) {
         Column(
             modifier = Modifier

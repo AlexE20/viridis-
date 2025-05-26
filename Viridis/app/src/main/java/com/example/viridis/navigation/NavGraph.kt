@@ -1,12 +1,10 @@
-package com.example.viridis.navigation
+package com.example.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.viridis.data.viewModel.GardenViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.notification.NotificationScreen
 import com.example.viridis.ui.screens.home.creation.GardenShade
@@ -17,7 +15,7 @@ import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
-import com.viridis.ui.login.LoginScreen
+
 
 import kotlinx.serialization.Serializable
 
@@ -59,10 +57,7 @@ fun NavGraph(navController: NavHostController) {
         composable<LogIn> { LoginScreen(navController) }
         composable<SignUp> { signupScreen(navController) }
         composable<SignIn> { signinScreen(navController) }
-        composable<Home> {
-            val gardenViewModel: GardenViewModel = viewModel()
-            HomeScreen(navController, gardenViewModel = gardenViewModel)
-        }
+        composable<Home> { HomeScreen(navController) }
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
         composable<Notifications> { NotificationsScreen(navController) }
