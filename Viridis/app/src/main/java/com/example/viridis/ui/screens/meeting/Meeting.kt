@@ -1,6 +1,5 @@
 package com.example.viridis.ui.screens.meeting
 
-import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,15 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.viridis.R
-import com.example.viridis.navigation.Home
-import com.example.viridis.navigation.Notification
+import com.example.viridis.Navigation.Notification
 import com.example.viridis.ui.theme.baloo2Font
 
 @Composable
