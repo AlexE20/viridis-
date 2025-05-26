@@ -19,9 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.viridis.R
-import com.example.viridis.navigation.Home
-import com.example.viridis.navigation.Notifications
-import com.example.viridis.navigation.Profile
+import com.example.viridis.Navigation.Home
+import com.example.viridis.Navigation.Notifications
+import com.example.viridis.Navigation.Profile
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainAccent
 import com.example.viridis.ui.theme.MainColor

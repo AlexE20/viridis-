@@ -7,14 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.viridis.ui.theme.BackgroundColor
@@ -34,20 +31,22 @@ import com.example.viridis.ui.theme.SecondaryAccent
 fun StakedCards(
     modifier: Modifier = Modifier,
     gardenName: String,
-    gardenDescription: String,
-    imageUrls: List<String>? = null // list for images
+    gardenShade: String,
+    imageUrls: List<String>? = null,
+    clickable: () -> Unit
 ) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(SecondaryAccent),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        onClick = clickable
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             if (imageUrls.isNullOrEmpty()) {
                 Box(
                     modifier = Modifier
-                        .height(120.dp).fillMaxSize().background(BackgroundColor, RoundedCornerShape(8.dp)).border(1.dp, SecondaryAccent, RoundedCornerShape(8.dp))
+                        .height(180.dp).fillMaxSize().background(BackgroundColor, RoundedCornerShape(8.dp)).border(1.dp, SecondaryAccent, RoundedCornerShape(8.dp))
                 ) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         val w = size.width
@@ -75,7 +74,7 @@ fun StakedCards(
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = gardenDescription,
+                text = gardenShade,
                 color = BackgroundColor,
                 fontSize = 12.sp,
                 maxLines = 1,
@@ -84,18 +83,6 @@ fun StakedCards(
         }
     }
 }
-@ExperimentalMaterial3Api
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun GardenCardPreview() {
-        StakedCards(
-            gardenName = "Daniel's Studio",
-            gardenDescription = "Full shade",
-            imageUrls = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-}
+
 
 
