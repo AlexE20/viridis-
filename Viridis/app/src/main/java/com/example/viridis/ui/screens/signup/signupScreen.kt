@@ -24,11 +24,9 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import com.example.viridis.navigation.Home
-import com.example.viridis.navigation.LogIn
-import com.example.viridis.navigation.SignIn
+import com.example.viridis.Navigation.Home
+import com.example.viridis.Navigation.LogIn
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
