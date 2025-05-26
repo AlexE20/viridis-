@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -34,7 +33,7 @@ import com.example.viridis.ui.theme.SecondaryAccent
 fun StakedCards(
     modifier: Modifier = Modifier,
     gardenName: String,
-    gardenDescription: String,
+    gardenShade: String,
     imageUrls: List<String>? = null // list for images
 ) {
     Card(
@@ -75,7 +74,7 @@ fun StakedCards(
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = gardenDescription,
+                text = gardenShade,
                 color = BackgroundColor,
                 fontSize = 12.sp,
                 maxLines = 1,
@@ -90,7 +89,7 @@ fun StakedCards(
 fun GardenCardPreview() {
         StakedCards(
             gardenName = "Daniel's Studio",
-            gardenDescription = "Full shade",
+            gardenShade = "Full shade",
             imageUrls = null,
             modifier = Modifier
                 .fillMaxWidth()
