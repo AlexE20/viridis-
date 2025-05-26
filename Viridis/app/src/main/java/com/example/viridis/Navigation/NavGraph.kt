@@ -15,8 +15,6 @@ import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
-
-
 import kotlinx.serialization.Serializable
 
 @Serializable
