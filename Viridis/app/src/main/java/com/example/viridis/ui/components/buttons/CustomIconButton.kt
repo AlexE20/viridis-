@@ -2,6 +2,7 @@ package com.example.viridis.ui.components.buttons
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -18,16 +19,21 @@ import com.example.viridis.ui.theme.MainAccent
 fun CustomIconButton(
     icon: ImageVector,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    //These are default colors, but can be change when you call the function
+    modifier: Modifier = Modifier
+        .width(80.dp)
+        .height(42.dp),
     containerColor: Color = MainAccent,
     contentColor: Color = BackgroundColor
-){
-
+) {
     Button(
         onClick = onClick,
-        modifier = Modifier.width(80.dp).height(48.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = containerColor, contentColor = contentColor)
+        modifier = modifier,
+        shape = RoundedCornerShape(50),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor,
+            contentColor = contentColor
+        ),
+        contentPadding = ButtonDefaults.ContentPadding
     ) {
         Icon(
             imageVector = icon,

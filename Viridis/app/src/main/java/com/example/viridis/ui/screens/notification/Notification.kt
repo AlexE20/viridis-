@@ -68,7 +68,7 @@ fun NotificationScreen(navController: NavController) {
                     .background(BackgroundColor),
                 horizontalAlignment = Alignment.Start
             ){
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 Text(
                     textAlign = TextAlign.Start,
