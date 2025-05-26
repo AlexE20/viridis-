@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +25,7 @@ import com.example.viridis.ui.components.CustomScaffold
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
+import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
@@ -43,7 +45,12 @@ fun HomeScreen(navController: NavHostController) {
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             color = MainColor,
-            lineHeight = 40.sp
+            lineHeight = 40.sp,
+            style = TextStyle(
+               fontFamily = urbanistFont,
+               fontSize = 30.sp,
+               color = Color(0xFF014946)
+            )
          )
 
          Spacer(modifier = Modifier.height(20.dp))

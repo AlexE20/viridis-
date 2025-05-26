@@ -23,6 +23,7 @@ import com.example.viridis.ui.components.buttons.CustomButton
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.navigation.NavController
 import com.example.viridis.navigation.Home
 import com.example.viridis.ui.theme.MainColor
@@ -31,6 +32,7 @@ import com.example.viridis.ui.components.textfields.AuthTextField
 import com.example.viridis.ui.screens.login.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.viridis.navigation.SignUp
+import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -95,7 +97,12 @@ fun LoginScreen(navController: NavController) {
                 text = "Welcome to Viridis",
                 fontSize = 33.sp,
                 fontWeight = FontWeight.Bold,
-                color = MainColor
+                color = MainColor,
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                    fontSize = 30.sp,
+                    color = Color(0xFF014946)
+                )
             )
 
             Spacer(modifier = Modifier.height(5.dp))

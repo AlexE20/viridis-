@@ -23,6 +23,7 @@ import com.example.viridis.ui.components.buttons.CustomButton
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.viridis.navigation.Home
@@ -31,7 +32,7 @@ import com.example.viridis.navigation.SignIn
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
-
+import com.example.viridis.ui.theme.urbanistFont
 
 
 @Composable
@@ -59,7 +60,7 @@ fun signupScreen(navController: NavController) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(240.dp)
+                .height(220.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.signup_header_image),
@@ -89,7 +90,7 @@ fun signupScreen(navController: NavController) {
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         Column(
             modifier = Modifier
@@ -102,10 +103,15 @@ fun signupScreen(navController: NavController) {
                 text = "Become a master gardener",
                 fontSize = 33.sp,
                 fontWeight = FontWeight.Bold,
-                color = MainColor
+                color = MainColor,
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                    fontSize = 30.sp,
+                    color = Color(0xFF014946)
+                )
             )
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(3.dp))
 
             Text(
                 text = "Create an account",
@@ -114,7 +120,7 @@ fun signupScreen(navController: NavController) {
                 modifier = Modifier.padding(vertical = 8.dp)
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Column(
             modifier = Modifier
@@ -162,14 +168,14 @@ fun signupScreen(navController: NavController) {
                 onTogglePassword = { showConfirmPassword = !showConfirmPassword }
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             CustomButton(
                 text = "Sign Up",
                 onClick = {navController.navigate(Home)}
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Text(
                 text = "You already have an account?",
@@ -177,7 +183,7 @@ fun signupScreen(navController: NavController) {
                 color = MainColor
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             CustomButton(
                 text = "Sign In",

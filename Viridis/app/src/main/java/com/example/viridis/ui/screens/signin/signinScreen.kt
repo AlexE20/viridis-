@@ -2,7 +2,7 @@ package com.example.viridis.ui.screens.signin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
@@ -21,6 +21,7 @@ import com.example.viridis.navigation.LogIn
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.buttons.CustomIconTextButton
+import com.example.viridis.ui.theme.urbanistFont
 
 
 @Composable
@@ -28,11 +29,10 @@ fun signinScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundColor)
-            .padding(horizontal = 24.dp),
+            .background(BackgroundColor),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         Column(
             modifier = Modifier
@@ -43,6 +43,7 @@ fun signinScreen(navController: NavController) {
             IconButton(
                 onClick = { navController.popBackStack() },
                 modifier = Modifier
+                    .padding(16.dp)
                     .size(40.dp)
             ) {
                 Icon(
@@ -52,21 +53,34 @@ fun signinScreen(navController: NavController) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = "One more thing!",
-                fontSize = 26.sp,
-                fontWeight = FontWeight.Bold,
-                color = MainColor
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+                    .background(BackgroundColor),
+                horizontalAlignment = Alignment.Start
+            ){
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = "One more thing!",
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MainColor,
+                    style = TextStyle(
+                        fontFamily = urbanistFont,
+                        fontSize = 30.sp,
+                        color = Color(0xFF014946)
+                    )
+                )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = "Let’s start this journey and get your plants\nhappy!",
-                fontSize = 16.sp,
-                color = Color.DarkGray
-            )
+                Text(
+                    text = "Let’s start this journey and get your plants\nhappy!",
+                    fontSize = 16.sp,
+                    color = MainColor
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(48.dp))
