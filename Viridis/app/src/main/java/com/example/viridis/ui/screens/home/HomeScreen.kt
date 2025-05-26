@@ -29,6 +29,7 @@ import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viridis.Navigation.GardenContent
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,11 +71,14 @@ fun HomeScreen(
                     .padding(bottom = 16.dp)
             )
 
+            Spacer(modifier = Modifier.height(24.dp))
+
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(gardens) { garden ->
                     StakedCards(
+                        clickable = {navController.navigate(GardenContent)},
                         gardenName = garden.name,
                         gardenShade = garden.shade,
                         imageUrls = null,

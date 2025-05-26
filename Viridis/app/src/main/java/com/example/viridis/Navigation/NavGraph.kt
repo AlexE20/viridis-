@@ -15,6 +15,8 @@ import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
+import com.example.viridis.ui.screens.gardenContent.gardenContentScreen
+import com.example.viridis.ui.screens.searchPlant.searchPlantScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -38,6 +40,11 @@ object Profile
 @Serializable
 object SignIn
 
+@Serializable
+object GardenContent
+
+@Serializable
+object SearchPlant
 
 @Serializable
 object Notifications
@@ -56,11 +63,13 @@ fun NavGraph(navController: NavHostController) {
         composable<SignUp> { signupScreen(navController) }
         composable<SignIn> { signinScreen(navController) }
         composable<Home> { HomeScreen(navController) }
+        composable<GardenContent> { gardenContentScreen(navController) }
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
         composable<Notifications> { NotificationsScreen(navController) }
         composable<Meeting> { MeetingScreen(navController) }
         composable<Creation> { GardenName(navController) }
         composable<Creation2> { GardenShade(navController) }
+        composable<SearchPlant> { searchPlantScreen(navController) }
     }
 }
