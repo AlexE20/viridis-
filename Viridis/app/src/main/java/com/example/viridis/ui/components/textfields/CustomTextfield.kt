@@ -66,7 +66,6 @@ fun CustomTextfield(
         colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            cursorColor = Color.Black,
             focusedContainerColor = BackgroundColor,
             unfocusedContainerColor = BackgroundColor
         ),

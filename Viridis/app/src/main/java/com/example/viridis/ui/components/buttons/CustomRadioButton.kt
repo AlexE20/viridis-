@@ -1,4 +1,4 @@
-package com.example.viridis.ui.components.buttoms
+package com.example.viridis.ui.components.buttons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

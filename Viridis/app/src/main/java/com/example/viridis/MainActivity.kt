@@ -8,7 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.example.viridis.navigation.NavGraph
+import com.example.viridis.Navigation.NavGraph
 import com.example.viridis.ui.theme.ViridisTheme
 
 @ExperimentalMaterial3Api
@@ -34,3 +34,4 @@ fun MainActivityPreview() {
         NavGraph(navController = navController)
     }
 }
+
