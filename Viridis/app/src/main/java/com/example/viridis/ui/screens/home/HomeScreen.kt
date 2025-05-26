@@ -29,7 +29,6 @@ import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.viridis.Navigation.GardenContent
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,7 +77,7 @@ fun HomeScreen(
             ) {
                 items(gardens) { garden ->
                     StakedCards(
-                        clickable = {navController.navigate(GardenContent)},
+                        clickable = { navController.navigate("gardenContent/${garden.id}")},
                         gardenName = garden.name,
                         gardenShade = garden.shade,
                         imageUrls = null,
