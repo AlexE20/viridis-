@@ -29,7 +29,6 @@ import com.example.viridis.navigation.Home
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
-import com.example.viridis.ui.screens.login.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.viridis.navigation.SignUp
 import com.example.viridis.ui.theme.urbanistFont
@@ -124,7 +123,7 @@ fun LoginScreen(navController: NavController) {
         ) {
             AuthTextField(
                 value = email,
-                onValueChange = {viewModel.onEmailChange(email)},
+                onValueChange = { viewModel.onEmailChange(email) },
                 label = "Username",
                 leadingIcon = Icons.Filled.AccountCircle
             )
@@ -133,7 +132,7 @@ fun LoginScreen(navController: NavController) {
 
             AuthTextField(
                 value = password,
-                onValueChange = {viewModel.onPasswordChange(password)},
+                onValueChange = { viewModel.onPasswordChange(password) },
                 label = "Password",
                 leadingIcon = Icons.Filled.Lock,
                 isPassword = true,
@@ -146,15 +145,8 @@ fun LoginScreen(navController: NavController) {
             CustomButton(
                 text = "Sign in",
                 onClick = {
-                    viewModel.login(
-                        context = context,
-                        onSuccess = {
-                            navController.navigate(Home)
-                        },
-                        onError = { errorMsg ->
-                            println(errorMsg)
-                        }
-                    )
+                    navController.navigate(Home)
+
                 }
             )
 
@@ -170,7 +162,7 @@ fun LoginScreen(navController: NavController) {
 
             CustomButton(
                 text = "Sign up",
-                onClick = { navController.navigate(SignUp)}
+                onClick = { navController.navigate(SignUp) }
             )
         }
     }
