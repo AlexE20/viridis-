@@ -3,8 +3,10 @@ package com.example.viridis.Navigation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.notification.NotificationScreen
 import com.example.viridis.ui.screens.home.creation.GardenShade
@@ -40,8 +42,7 @@ object Profile
 @Serializable
 object SignIn
 
-@Serializable
-object GardenContent
+
 
 @Serializable
 object SearchPlant
@@ -63,7 +64,13 @@ fun NavGraph(navController: NavHostController) {
         composable<SignUp> { signupScreen(navController) }
         composable<SignIn> { signinScreen(navController) }
         composable<Home> { HomeScreen(navController) }
-        composable<GardenContent> { gardenContentScreen(navController) }
+        composable(
+            route = "gardenContent/{gardenId}",
+            arguments = listOf(navArgument("gardenId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val gardenId = backStackEntry.arguments?.getInt("gardenId") ?: 0
+            gardenContentScreen(navController, gardenId)
+        }
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
         composable<Notifications> { NotificationsScreen(navController) }

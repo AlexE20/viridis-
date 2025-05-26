@@ -43,7 +43,7 @@ import com.example.viridis.ui.theme.Pink40
 import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
-fun gardenContentScreen(navController : NavController){
+fun gardenContentScreen(navController : NavController,gardenId:Int){
     Column(
         modifier = Modifier
             .fillMaxSize()
