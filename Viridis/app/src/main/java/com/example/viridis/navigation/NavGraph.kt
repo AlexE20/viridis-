@@ -2,9 +2,11 @@ package com.example.viridis.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.viridis.data.viewModel.GardenViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.notification.NotificationScreen
 import com.example.viridis.ui.screens.home.creation.GardenShade
@@ -15,29 +17,38 @@ import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
+import com.viridis.ui.login.LoginScreen
 
 import kotlinx.serialization.Serializable
 
 @Serializable
 object Home
+
 @Serializable
 object Creation
+
 @Serializable
 object Creation2
+
 @Serializable
 object LogIn
+
 @Serializable
 object SignUp
+
 @Serializable
 object Profile
+
 @Serializable
 object SignIn
 
 
 @Serializable
 object Notifications
+
 @Serializable
 object Notification
+
 @Serializable
 object Meeting
 
@@ -48,12 +59,15 @@ fun NavGraph(navController: NavHostController) {
         composable<LogIn> { LoginScreen(navController) }
         composable<SignUp> { signupScreen(navController) }
         composable<SignIn> { signinScreen(navController) }
-        composable<Home> { HomeScreen(navController) }
+        composable<Home> {
+            val gardenViewModel: GardenViewModel = viewModel()
+            HomeScreen(navController, gardenViewModel = gardenViewModel)
+        }
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
         composable<Notifications> { NotificationsScreen(navController) }
         composable<Meeting> { MeetingScreen(navController) }
-        composable<Creation> { GardenName(navController)  }
+        composable<Creation> { GardenName(navController) }
         composable<Creation2> { GardenShade(navController) }
     }
 }
