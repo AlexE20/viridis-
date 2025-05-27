@@ -11,14 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DeleteOutline
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.RestoreFromTrash
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -26,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,10 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.viridis.Navigation.Creation
-import com.example.viridis.Navigation.LogIn
 import com.example.viridis.Navigation.SearchPlant
-import com.example.viridis.data.viewModel.GardenViewModel
 import com.example.viridis.data.viewModel.PlantViewModel
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.buttons.CustomIconButton
@@ -48,13 +40,17 @@ import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.Pink40
 import com.example.viridis.ui.theme.urbanistFont
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import com.example.viridis.ui.components.cards.CustomCard
+import com.example.viridis.ui.theme.SecondaryAccent
 
 
 @Composable
-fun gardenContentScreen(navController : NavController,gardenId:Int){
-    val viewModel: PlantViewModel=viewModel()
+fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName: String) {
+    val viewModel: PlantViewModel = viewModel()
 
     LaunchedEffect(gardenId) {
         viewModel.loadPlantsByGarden(gardenId)
@@ -101,7 +97,7 @@ fun gardenContentScreen(navController : NavController,gardenId:Int){
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Daniel's Studio",
+                    text = gardenName,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     color = MainColor,
@@ -127,7 +123,7 @@ fun gardenContentScreen(navController : NavController,gardenId:Int){
                         containerColor = MainAccent,
                         contentColor = MainColor,
                         modifier = Modifier
-                            .width(190.dp)
+                            .width(216.dp)
                             .height(42.dp)
                     )
 
@@ -153,13 +149,36 @@ fun gardenContentScreen(navController : NavController,gardenId:Int){
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)
                 )
+                Spacer(modifier = Modifier.height(16.dp))
 
                 LazyColumn {
-                    println("plants:${plants.size}")
-                }
+                    items(plants) { plant ->
+                        CustomCard(
+                            plantName = plant.name,
+                            plantDescription = plant.scientificName,
+                            plantImgUrl = plant.imageUrl,
+                            difficulty = plant.difficulty,
+                            difficultyIcon = {
+                                Icon(
+                                    imageVector = Icons.Filled.WbSunny,
+                                    contentDescription = null,
+                                    tint = SecondaryAccent,
+                                    modifier = Modifier
+                                        .background(
+                                            BackgroundColor,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
+                                        .padding(6.dp)
+                                        .size(18.dp)
+                                )
+                            }
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
 
                 }
             }
         }
     }
+}
 

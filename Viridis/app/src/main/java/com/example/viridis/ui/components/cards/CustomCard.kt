@@ -131,7 +131,7 @@ fun PlantCardPreview() {
         plantImgUrl = "https://content.elmueble.com/medio/2019/03/25/monstera_f97f4746_800x800.jpg",
         difficulty = "Easy",
         difficultyIcon = {
-            Icon( //will be necessary to import more icons
+            Icon(
                 imageVector = Icons.Filled.WbSunny,
                 contentDescription = null,
                 tint = SecondaryAccent,
