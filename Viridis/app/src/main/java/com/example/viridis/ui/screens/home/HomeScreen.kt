@@ -77,7 +77,7 @@ fun HomeScreen(
             ) {
                 items(gardens) { garden ->
                     StakedCards(
-                        clickable = { navController.navigate("gardenContent/${garden.id}")},
+                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
                         gardenName = garden.name,
                         gardenShade = garden.shade,
                         imageUrls = null,

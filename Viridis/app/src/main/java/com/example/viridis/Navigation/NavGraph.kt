@@ -17,7 +17,7 @@ import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
-import com.example.viridis.ui.screens.gardenContent.gardenContentScreen
+import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
 import com.example.viridis.ui.screens.searchPlant.searchPlantScreen
 import kotlinx.serialization.Serializable
 
@@ -65,11 +65,13 @@ fun NavGraph(navController: NavHostController) {
         composable<SignIn> { signinScreen(navController) }
         composable<Home> { HomeScreen(navController) }
         composable(
-            route = "gardenContent/{gardenId}",
-            arguments = listOf(navArgument("gardenId") { type = NavType.IntType })
+            route = "gardenContent/{gardenId}/{gardenName}",
+            arguments = listOf(navArgument("gardenId") { type = NavType.IntType },
+                navArgument("gardenName") { type= NavType.StringType })
         ) { backStackEntry ->
             val gardenId = backStackEntry.arguments?.getInt("gardenId") ?: 0
-            gardenContentScreen(navController, gardenId)
+            val gardenName=backStackEntry.arguments?.getString("gardenName")?:""
+            GardenContentScreen(navController, gardenId,gardenName)
         }
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
