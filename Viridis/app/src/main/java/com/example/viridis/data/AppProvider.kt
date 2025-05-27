@@ -1,20 +1,25 @@
-
 package com.example.viridis.data
 
 import android.content.Context
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.viridis.data.local.AppDatabase
+import com.example.viridis.data.local.GardenDao
 import kotlinx.coroutines.flow.first
 
-class AppProvider(private val context: Context) {
+class AppProvider private constructor(context: Context) {
 
+    // --- DataStore ---
     private val Context.dataStore by preferencesDataStore(name = "app_preferences")
     private val dataStore = context.dataStore
-
     private val tokenKey = stringPreferencesKey("auth_token")
 
+    // --- Room ---
+    private val database: AppDatabase = AppDatabase.getDatabase(context)
+    val gardenDao: GardenDao = database.gardenDao()
+
+    // --- Métodos para el token ---
     suspend fun saveToken(token: String) {
         dataStore.edit { prefs ->
             prefs[tokenKey] = token
@@ -26,6 +31,7 @@ class AppProvider(private val context: Context) {
         return prefs[tokenKey]
     }
 
+    // --- Singleton de provider ---
     companion object {
         @Volatile
         private var INSTANCE: AppProvider? = null

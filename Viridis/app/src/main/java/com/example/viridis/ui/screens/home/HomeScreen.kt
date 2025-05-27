@@ -28,7 +28,11 @@ import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viridis.ViridisApplication
+import com.example.viridis.data.repository.GardenRepositoryImpl
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +40,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun HomeScreen(
     navController: NavHostController
 ) {
-    val viewModel: GardenViewModel = viewModel()
+    val context = LocalContext.current
+    val appProvider = (context.applicationContext as ViridisApplication).appProvider
+    val repository = GardenRepositoryImpl(appProvider.gardenDao)
+    val viewModel = remember { GardenViewModel(repository) }
     val gardens by viewModel.gardens.collectAsState()
     CustomScaffold(navController = navController) {
         Column(
