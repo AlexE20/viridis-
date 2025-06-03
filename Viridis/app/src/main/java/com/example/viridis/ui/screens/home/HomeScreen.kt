@@ -38,12 +38,9 @@ import com.example.viridis.data.repository.GardenRepositoryImpl
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: GardenViewModel
 ) {
-    val context = LocalContext.current
-    val appProvider = (context.applicationContext as ViridisApplication).appProvider
-    val repository = GardenRepositoryImpl(appProvider.gardenDao)
-    val viewModel = remember { GardenViewModel(repository) }
     val gardens by viewModel.gardens.collectAsState()
     CustomScaffold(navController = navController) {
         Column(
