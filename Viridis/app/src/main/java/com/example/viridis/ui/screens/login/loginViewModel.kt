@@ -1,15 +1,19 @@
 package com.example.viridis.ui.screens.login
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.viridis.ViridisApplication
+import com.example.viridis.data.repository.UserPreferencesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import android.content.Context
-import androidx.datastore.preferences.core.stringPreferencesKey
-import com.example.viridis.data.AppProvider
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+    private val userPreferencesRepository: UserPreferencesRepository
+) : ViewModel() {
 
     private val _email = MutableStateFlow("")
     val email: StateFlow<String> get() = _email
@@ -26,7 +30,6 @@ class LoginViewModel : ViewModel() {
     }
 
     fun login(
-        context: Context,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
@@ -36,11 +39,10 @@ class LoginViewModel : ViewModel() {
                 return@launch
             }
 
-            // Simulate login success TODO(replace with real auth logic)
             val fakeToken = "fake_token_12345"
 
             try {
-                AppProvider.getInstance(context).getToken();
+                userPreferencesRepository.saveToken(fakeToken)
                 onSuccess()
             } catch (e: Exception) {
                 onError("Failed to save token: ${e.message}")
@@ -49,6 +51,13 @@ class LoginViewModel : ViewModel() {
     }
 
     companion object {
-        val TOKEN_KEY = stringPreferencesKey("auth_token")
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val app =
+                    this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as ViridisApplication
+                val userPrefs = app.appProvider.provideUserPreferencesRepository()
+                LoginViewModel(userPrefs)
+            }
+        }
     }
 }

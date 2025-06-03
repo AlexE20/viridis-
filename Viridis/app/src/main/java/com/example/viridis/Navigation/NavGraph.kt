@@ -2,11 +2,13 @@ package com.example.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.viridis.data.viewModel.GardenViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.notification.NotificationScreen
 import com.example.viridis.ui.screens.home.creation.GardenShade
@@ -18,6 +20,7 @@ import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
 import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
+import com.example.viridis.ui.screens.login.LoginViewModel
 import com.example.viridis.ui.screens.searchPlant.searchPlantScreen
 import kotlinx.serialization.Serializable
 
@@ -59,11 +62,13 @@ object Meeting
 @ExperimentalMaterial3Api
 @Composable
 fun NavGraph(navController: NavHostController) {
+    val viewModel: GardenViewModel= viewModel(factory = GardenViewModel.Factory)
+    val loginViewModel: LoginViewModel=viewModel(factory = LoginViewModel.Factory)
     NavHost(navController = navController, startDestination = Meeting) {
-        composable<LogIn> { LoginScreen(navController) }
+        composable<LogIn> { LoginScreen(navController,viewModel=loginViewModel) }
         composable<SignUp> { signupScreen(navController) }
         composable<SignIn> { signinScreen(navController) }
-        composable<Home> { HomeScreen(navController) }
+        composable<Home> { HomeScreen(navController, viewModel = viewModel) }
         composable(
             route = "gardenContent/{gardenId}/{gardenName}",
             arguments = listOf(navArgument("gardenId") { type = NavType.IntType },

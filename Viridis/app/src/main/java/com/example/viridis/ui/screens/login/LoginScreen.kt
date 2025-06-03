@@ -34,13 +34,13 @@ import com.example.viridis.Navigation.SignUp
 import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
-fun LoginScreen(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
+fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
+
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     var showPassword by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
