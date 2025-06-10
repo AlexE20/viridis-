@@ -18,28 +18,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.viridis.data.viewModel.GardenViewModel
 import com.example.viridis.Navigation.Creation
 import com.example.viridis.ui.components.CustomScaffold
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.cards.StakedCards
+import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.theme.BackgroundColor
 import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.viridis.ViridisApplication
-import com.example.viridis.data.repository.GardenRepositoryImpl
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    viewModel: GardenViewModel
+    viewModel: HomeViewModel
 ) {
     val gardens by viewModel.gardens.collectAsState()
     CustomScaffold(navController = navController) {

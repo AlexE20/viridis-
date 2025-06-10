@@ -1,4 +1,4 @@
-package com.example.viridis.ui.screens.home.creation
+package com.example.viridis.ui.screens.gardenCreation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.viridis.Navigation.Home
 import com.example.viridis.ui.components.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton

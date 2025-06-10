@@ -1,22 +1,20 @@
-package com.example.viridis.data.viewModel
+package com.example.viridis.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.viridis.ViridisApplication
 import com.example.viridis.data.model.Garden
 import com.example.viridis.data.repository.GardenRepository
-import com.example.viridis.data.repository.GardenRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
-class GardenViewModel(
+class HomeViewModel(
     private val repository: GardenRepository
 ) : ViewModel() {
 
@@ -54,7 +52,7 @@ class GardenViewModel(
             initializer {
                 val app = (this[APPLICATION_KEY] as ViridisApplication)
                 val repository = app.appProvider.provideGardenRepository()
-                GardenViewModel(repository)
+                HomeViewModel(repository)
             }
         }
     }
