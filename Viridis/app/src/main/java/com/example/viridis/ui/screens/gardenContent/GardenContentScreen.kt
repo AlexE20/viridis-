@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.viridis.Navigation.SearchPlant
-import com.example.viridis.data.viewModel.PlantViewModel
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.buttons.CustomIconButton
 import com.example.viridis.ui.components.buttons.CustomIconTextButton
@@ -50,7 +49,7 @@ import com.example.viridis.ui.theme.SecondaryAccent
 
 @Composable
 fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName: String) {
-    val viewModel: PlantViewModel = viewModel()
+    val viewModel: gardenContentViewModel = viewModel()
 
     LaunchedEffect(gardenId) {
         viewModel.loadPlantsByGarden(gardenId)
