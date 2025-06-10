@@ -8,12 +8,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.viridis.data.viewModel.GardenViewModel
+import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.notification.NotificationScreen
-import com.example.viridis.ui.screens.home.creation.GardenShade
+import com.example.viridis.ui.screens.gardenCreation.GardenShade
 import com.example.viridis.ui.screens.home.HomeScreen
-import com.example.viridis.ui.screens.home.creation.GardenName
+import com.example.viridis.ui.screens.gardenCreation.GardenName
 import com.example.viridis.ui.screens.profile.ProfileScreen
 import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
@@ -62,7 +62,7 @@ object Meeting
 @ExperimentalMaterial3Api
 @Composable
 fun NavGraph(navController: NavHostController) {
-    val viewModel: GardenViewModel= viewModel(factory = GardenViewModel.Factory)
+    val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
     val loginViewModel: LoginViewModel=viewModel(factory = LoginViewModel.Factory)
     NavHost(navController = navController, startDestination = Meeting) {
         composable<LogIn> { LoginScreen(navController,viewModel=loginViewModel) }
