@@ -14,7 +14,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-08",
         idGarden = 1,
         difficulty = "Medium",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "2",
@@ -27,7 +27,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-24",
         idGarden = 1,
         difficulty = "Hard",
-        shadeLevel = 5
+        shadeLevel = "full_sun"
     ),
     Plant(
         id = "3",
@@ -40,7 +40,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-02",
         idGarden = 1,
         difficulty = "Medium",
-        shadeLevel = 4
+        shadeLevel = "sun-part_shade"
     ),
     Plant(
         id = "4",
@@ -53,7 +53,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-06",
         idGarden = 2,
         difficulty = "Medium",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "5",
@@ -66,7 +66,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-22",
         idGarden = 2,
         difficulty = "Hard",
-        shadeLevel = 5
+        shadeLevel = "full_sun"
     ),
     Plant(
         id = "6",
@@ -79,7 +79,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-11",
         idGarden = 2,
         difficulty = "Hard",
-        shadeLevel = 1
+        shadeLevel = "full_shade"
     ),
     Plant(
         id = "7",
@@ -92,7 +92,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-22",
         idGarden = 3,
         difficulty = "Easy",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "8",
@@ -105,7 +105,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-16",
         idGarden = 3,
         difficulty = "Hard",
-        shadeLevel = 1
+        shadeLevel = "full_shade"
     ),
     Plant(
         id = "9",
@@ -118,7 +118,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-17",
         idGarden = 3,
         difficulty = "Easy",
-        shadeLevel = 4
+        shadeLevel = "sun-part_shade"
     ),
     Plant(
         id = "10",
@@ -131,7 +131,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-13",
         idGarden = 4,
         difficulty = "Easy",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "11",
@@ -144,7 +144,7 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-21",
         idGarden = 4,
         difficulty = "Easy",
-        shadeLevel = 1
+        shadeLevel = "full_shade"
     ),
     Plant(
         id = "12",
@@ -157,6 +157,6 @@ val dummyPlants = listOf(
         lastWatered = "2025-05-10",
         idGarden = 4,
         difficulty = "Medium",
-        shadeLevel = 1
+        shadeLevel = "full_shade"
     )
 )

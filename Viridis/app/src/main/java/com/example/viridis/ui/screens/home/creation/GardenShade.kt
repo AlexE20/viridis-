@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.viridis.Navigation.Home
 import com.example.viridis.ui.components.CustomTopBar
@@ -34,7 +35,7 @@ import com.example.viridis.ui.components.buttons.CustomRadioButton
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenShade(navController: NavHostController){
+fun GardenShade(navController: NavController){
     CustomTopBar(
         navController = navController
     ) {

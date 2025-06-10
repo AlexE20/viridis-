@@ -17,6 +17,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
@@ -24,7 +25,7 @@ import com.example.viridis.ui.theme.MainColor
 @ExperimentalMaterial3Api
 @Composable
 fun CustomTopBar(
-    navController: NavHostController,
+    navController: NavController,
     title: String = "",
     floatingActionButton: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit

@@ -13,5 +13,5 @@ data class Plant(
     val lastWatered: String,
     val idGarden:Int,
     val difficulty:String,
-    val shadeLevel:Int
+    val shadeLevel:String
 )

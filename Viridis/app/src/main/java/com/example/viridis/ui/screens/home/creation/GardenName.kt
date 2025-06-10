@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.viridis.Navigation.Creation2
 import com.example.viridis.ui.components.CustomTopBar
@@ -37,7 +38,7 @@ import com.example.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenName(navController: NavHostController){
+fun GardenName(navController: NavController){
     CustomTopBar(
         navController = navController
     ) {
