@@ -10,15 +10,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,10 +33,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.viridis.ui.components.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomIconButton
+import com.example.viridis.ui.components.cards.CustomCard
 import com.example.viridis.ui.components.textfields.ProfileTextfield
 import com.example.viridis.ui.components.textfields.ProfileTextfieldPreview
 import com.example.viridis.ui.theme.BackgroundColor
@@ -42,9 +49,11 @@ import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun searchPlantScreen(navController : NavController) {
-    var gardenName by remember { mutableStateOf("") }
+fun searchPlantScreen(navController : NavController, /*viewModel: plantSearchViewModel*/) {
 
+    //val searchText by viewModel.searchText.collectAsStateWithLifecycle()
+    //val filteredPlants by viewModel.filteredPlants.collectAsStateWithLifecycle()
+    var gardenName by remember { mutableStateOf("") }
 
     CustomTopBar(navController) {
         Column(
@@ -73,14 +82,13 @@ fun searchPlantScreen(navController : NavController) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp)
                     .background(BackgroundColor)
                 ,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ProfileTextfield(
                     value = gardenName,
-                    onValueChange = {gardenName = it},
+                    onValueChange = {/*viewModel.onSearchTextChange(it)*/},
                     placeholder = "Search Plants",
                     leadingIcon = {
                         Icon(
@@ -93,10 +101,39 @@ fun searchPlantScreen(navController : NavController) {
                     modifier = Modifier.height(56.dp)
                 )
                 Spacer(modifier = Modifier.padding(4.dp))
-                CustomIconButton(Icons.Filled.CameraAlt, {}, modifier = Modifier.height(56.dp), containerColor= SecondaryAccent)
+                CustomIconButton(
+                    Icons.Filled.CameraAlt,
+                    onClick = {},
+                    modifier = Modifier.height(56.dp),
+                    containerColor= SecondaryAccent
+                )
             }
             Spacer(Modifier.padding(16.dp))
-            //LazyColumn {}
+            LazyColumn {
+                /*items(filteredPlants) { plant ->
+                    CustomCard(
+                        plantName = plant.name,
+                        plantDescription = plant.scientificName,
+                        plantImgUrl = plant.imageUrl,
+                        difficulty = plant.difficulty,
+                        difficultyIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.WbSunny,
+                                contentDescription = null,
+                                tint = SecondaryAccent,
+                                modifier = Modifier
+                                    .background(
+                                        BackgroundColor,
+                                        shape = RoundedCornerShape(8.dp)
+                                    )
+                                    .padding(6.dp)
+                                    .size(18.dp)
+                            )
+                        }
+                    )
+                    Spacer(modifier = Modifier.padding())
+                }*/
+            }
         }
     }
 }
