@@ -31,8 +31,10 @@ import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.viridis.Navigation.SignUp
+import com.example.viridis.ui.components.ImageHeaderScaffold
 import com.example.viridis.ui.theme.urbanistFont
 
+@ExperimentalMaterial3Api
 @Composable
 fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
 
@@ -41,50 +43,10 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
     var showPassword by remember { mutableStateOf(false) }
 
 
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally
+    ImageHeaderScaffold(
+        navController = navController,
+        imageRes = R.drawable.login_header_image
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(260.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.login_header_image),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(
-                        RoundedCornerShape(
-                            bottomEnd = 64.dp
-                        )
-                    )
-            )
-
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(40.dp)
-                    .background(Color(0xFFEAF1D8), shape = CircleShape)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MainColor
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(40.dp))
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
