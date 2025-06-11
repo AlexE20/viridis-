@@ -45,7 +45,8 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
 
     ImageHeaderScaffold(
         navController = navController,
-        imageRes = R.drawable.login_header_image
+        imageRes = R.drawable.login_header_image,
+        imageHeight = 320.dp
     ) {
         Column(
             modifier = Modifier
@@ -61,18 +62,19 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
                 color = MainColor,
                 style = TextStyle(
                     fontFamily = urbanistFont,
-                    fontSize = 30.sp,
-                    color = Color(0xFF014946)
                 )
             )
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = "Sign In to your account",
-                fontSize = 18.sp,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = MainColor,
-                modifier = Modifier.padding(vertical = 8.dp)
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                )
             )
         }
         Spacer(modifier = Modifier.height(40.dp))

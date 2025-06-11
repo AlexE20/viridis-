@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.activeNotifications.NotificationScreen
+import com.example.viridis.ui.screens.addedPlantDetail.addedPlantDetail
 import com.example.viridis.ui.screens.gardenCreation.GardenShade
 import com.example.viridis.ui.screens.home.HomeScreen
 import com.example.viridis.ui.screens.gardenCreation.GardenName
@@ -45,8 +46,6 @@ object Profile
 @Serializable
 object SignIn
 
-
-
 @Serializable
 object SearchPlant
 
@@ -58,6 +57,9 @@ object Notification
 
 @Serializable
 object Meeting
+
+@Serializable
+object addedPlantDetail
 
 @ExperimentalMaterial3Api
 @Composable
@@ -85,5 +87,6 @@ fun NavGraph(navController: NavHostController) {
         composable<Creation> { GardenName(navController) }
         composable<Creation2> { GardenShade(navController) }
         composable<SearchPlant> { searchPlantScreen(navController) }
+        composable<addedPlantDetail> { addedPlantDetail(navController) }
     }
 }

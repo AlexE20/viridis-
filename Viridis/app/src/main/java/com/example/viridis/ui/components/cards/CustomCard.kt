@@ -42,30 +42,32 @@ fun CustomCard(
     plantDescription: String,
     difficulty: String,
     plantImgUrl: String?,
-    difficultyIcon: @Composable () -> Unit
+    difficultyIcon: @Composable () -> Unit,
+    clickable: () -> Unit
 ){
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(SecondaryAccent),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        onClick = clickable
     ){
         Row(
             modifier = Modifier.padding(12.dp).fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ){
             Image(
-                    painter = rememberAsyncImagePainter(model= plantImgUrl),
+                painter = rememberAsyncImagePainter(model= plantImgUrl),
                 contentDescription = plantName,
                 modifier = Modifier
-                    .size(56.dp)
+                    .size(60.dp)
                     .clip(CircleShape),
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(14.dp))
 
             Column(
-                modifier = Modifier.weight(1f) //in case the text content doesn't fit change the weight here
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = plantName,
@@ -90,7 +92,7 @@ fun CustomCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Surface(
-                        shape = RoundedCornerShape(12.dp), //change the ratio of the icon box
+                        shape = RoundedCornerShape(12.dp),
                         color = BackgroundColor,
                         modifier = Modifier.height(28.dp)
                     ) {
@@ -102,15 +104,16 @@ fun CustomCard(
                             Text(
                                 text = difficulty,
                                 color = SecondaryAccent,
-                                fontSize = 12.sp
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold
                             )
                         }
                     }
                     Surface(
-                        shape = RoundedCornerShape(12.dp), //change the ratio of the icon box
+                        shape = RoundedCornerShape(12.dp),
                         color = BackgroundColor,
                         modifier = Modifier
-                            .size(height = 28.dp, width = 32.dp ) //to adjust the to boxes at the same size
+                            .size(height = 28.dp, width = 32.dp )
                     ) {
                         difficultyIcon()
                     }
@@ -119,29 +122,3 @@ fun CustomCard(
         }
     }
 }
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun PlantCardPreview() {
-    CustomCard(
-        plantName = "Aloe Vera",
-        plantDescription = "Aloe barbadensis Miller",
-        plantImgUrl = "https://content.elmueble.com/medio/2019/03/25/monstera_f97f4746_800x800.jpg",
-        difficulty = "Easy",
-        difficultyIcon = {
-            Icon(
-                imageVector = Icons.Filled.WbSunny,
-                contentDescription = null,
-                tint = SecondaryAccent,
-                modifier = Modifier
-                    .background(BackgroundColor, shape = RoundedCornerShape(8.dp))
-                    .padding(6.dp)
-                    .size(18.dp)
-            )
-        },
-        modifier = Modifier.padding(16.dp)
-    )
-}
-

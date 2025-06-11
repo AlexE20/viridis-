@@ -40,13 +40,17 @@ import com.example.viridis.ui.theme.Pink40
 import com.example.viridis.ui.theme.urbanistFont
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import com.example.viridis.Navigation.addedPlantDetail
+import com.example.viridis.ui.components.CustomTopBar
 import com.example.viridis.ui.components.cards.CustomCard
 import com.example.viridis.ui.theme.SecondaryAccent
 
-
+@ExperimentalMaterial3Api
 @Composable
 fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName: String) {
     val viewModel: gardenContentViewModel = viewModel()
@@ -57,36 +61,16 @@ fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName:
 
     val plants by viewModel.plants.collectAsState()
 
-
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(30.dp))
-
+    CustomTopBar(navController = navController)
+    {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(BackgroundColor),
             horizontalAlignment = Alignment.Start
         ) {
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MainColor
-                )
-            }
 
-            Spacer(modifier = Modifier.height(1.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             Column(
                 modifier = Modifier
@@ -129,7 +113,7 @@ fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName:
                     Spacer(modifier = Modifier.width(10.dp))
 
                     CustomIconButton(
-                        icon = Icons.Filled.DeleteOutline,
+                        icon = Icons.Filled.Delete,
                         onClick = { /* LOgica de liminar jardín */ },
                         containerColor = Pink40,
                         contentColor = Color.White,
@@ -153,6 +137,7 @@ fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName:
                 LazyColumn {
                     items(plants) { plant ->
                         CustomCard(
+                            clickable = {navController.navigate(addedPlantDetail)},
                             plantName = plant.name,
                             plantDescription = plant.scientificName,
                             plantImgUrl = plant.imageUrl,
