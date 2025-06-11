@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
-import com.example.viridis.ui.screens.notification.NotificationScreen
+import com.example.viridis.ui.screens.activeNotifications.NotificationScreen
 import com.example.viridis.ui.screens.gardenCreation.GardenShade
 import com.example.viridis.ui.screens.home.HomeScreen
 import com.example.viridis.ui.screens.gardenCreation.GardenName
