@@ -26,7 +26,7 @@ import com.example.viridis.ui.theme.MainColor
 fun ImageHeaderScaffold(
     navController: NavController,
     imageRes: Int,
-    imageHeight: Dp = 220.dp,
+    imageHeight: Dp = 240.dp,
     floatingActionButton: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
@@ -45,7 +45,6 @@ fun ImageHeaderScaffold(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(RoundedCornerShape(bottomStart = 64.dp))
                 )
 
                 TopAppBar(
