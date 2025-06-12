@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.viridis.ui.theme.MainColor
+import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
 fun InteractiveText(
@@ -27,6 +28,7 @@ fun InteractiveText(
     ) {
         Text(
             text= text,
+            fontFamily = urbanistFont,
             textDecoration = if (underline) TextDecoration.Underline else TextDecoration.None
         )
     }

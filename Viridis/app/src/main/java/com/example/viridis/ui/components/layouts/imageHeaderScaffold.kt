@@ -1,4 +1,4 @@
-package com.example.viridis.ui.components
+package com.example.viridis.ui.components.layouts
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

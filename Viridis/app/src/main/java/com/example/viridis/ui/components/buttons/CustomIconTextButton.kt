@@ -16,8 +16,10 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
+import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
 fun CustomIconTextButton(
@@ -39,6 +41,6 @@ fun CustomIconTextButton(
             imageVector != null -> Icon(imageVector = imageVector, contentDescription = null)
         }
         Spacer(modifier = Modifier.width(14.dp))
-        Text(text)
+        Text(text, fontFamily = urbanistFont, fontSize = 16.sp)
     }
 }

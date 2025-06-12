@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
+import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
 fun CustomButton(
@@ -26,7 +27,7 @@ fun CustomButton(
         modifier = Modifier.width(377.dp).height(52.dp),
         colors = ButtonDefaults.buttonColors(MainColor)
     ) {
-        Text(text, color = BackgroundColor, fontSize = 20.sp)
+        Text(text, color = BackgroundColor, fontSize = 20.sp, fontFamily = urbanistFont)
     }
 }
 
