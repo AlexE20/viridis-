@@ -137,7 +137,11 @@ fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName:
                 LazyColumn {
                     items(plants) { plant ->
                         CustomCard(
-                            clickable = {navController.navigate(addedPlantDetail)},
+                            clickable = {
+                                if (plant.id.isNotBlank()) {
+                                    navController.navigate("addedPlantDetail/${plant.id}")
+                                }
+                            },
                             plantName = plant.name,
                             plantDescription = plant.scientificName,
                             plantImgUrl = plant.imageUrl,

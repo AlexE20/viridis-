@@ -11,14 +11,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Shower
 import androidx.compose.material.icons.filled.Task
@@ -26,11 +23,9 @@ import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,184 +46,175 @@ import com.example.viridis.ui.theme.SecondaryAccent
 import com.example.viridis.ui.theme.ShadeColor
 import com.example.viridis.ui.theme.WaterColor
 import com.example.viridis.ui.theme.urbanistFont
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 
 @ExperimentalMaterial3Api
 @Composable
-fun addedPlantDetail(navController: NavController) {
-    ImageHeaderScaffold(
-        navController = navController,
-        imageRes = R.drawable.login_header_image,
-        imageHeight = 300.dp,
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 24.dp)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
+fun addedPlantDetailScreen(navController: NavController, plantId: String, viewModel: AddedPlantDetailViewModel) {
+    val plant by viewModel.plant.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.loadPlantById(plantId)
+    }
+
+    plant?.let { plant ->
+        ImageHeaderScaffold(
+            navController = navController,
+            imageUrl = plant.imageUrl,
+            imageHeight = 300.dp,
+        ) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-                horizontalAlignment = Alignment.Start
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                Row (
+
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = plant.name,
+                            fontSize = 33.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MainColor,
+                            style = TextStyle(
+                                fontFamily = urbanistFont,
+                            )
+                        )
+
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        CustomIconButton(
+                            icon = Icons.Filled.Delete,
+                            onClick = {
+                                viewModel.deletePlant()
+                                navController.popBackStack()
+                            },
+                            containerColor = Pink40,
+                            contentColor = Color.White,
+                            modifier = Modifier
+                                .width(80.dp)
+                                .height(38.dp)
+                        )
+                    }
                     Text(
-                        text = "Aloe Vera",
-                        fontSize = 33.sp,
-                        fontWeight = FontWeight.Bold,
+                        text = plant.scientificName,
                         color = MainColor,
+                        fontSize = 16.sp,
                         style = TextStyle(
                             fontFamily = urbanistFont,
                         )
                     )
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    CustomIconButton(
-                        icon = Icons.Filled.Delete,
-                        onClick = { /* LOgica de liminar planta */ },
-                        containerColor = Pink40,
-                        contentColor = Color.White,
-                        modifier = Modifier
-                            .width(80.dp)
-                            .height(38.dp)
-                    )
                 }
-                Text(
-                    text = "Aloe barbadenis Miller",
-                    color = MainColor,
-                    fontSize = 16.sp,
-                    style = TextStyle(
-                        fontFamily = urbanistFont,
-                    )
-                )
-            }
 
-            InfoCard(
-                title = "Last Watered on April 7, 2025.",
-                subtitle = "Watering Scheduled every 3 days",
-                containerColor = SecondaryAccent,
-                textColor = BackgroundColor,
-                imageVector = Icons.Filled.WaterDrop
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
                 InfoCard(
-                    title = "Watering",
-                    subtitle = "Next watering in 3 days.",
-                    modifier = Modifier.weight(1f),
-                    containerColor = WaterColor,
+                    title = "You last watered your plant on " + plant.lastWatered,
+                    subtitle = "Watering scheduled " + plant.watering,
+                    containerColor = SecondaryAccent,
                     textColor = BackgroundColor,
-                    imageVector = Icons.Filled.Shower
+                    imageVector = Icons.Filled.WaterDrop
                 )
-                InfoCard(
-                    title = "Sunlight",
-                    subtitle = "Part-Sun",
-                    modifier = Modifier.weight(1f),
-                    containerColor = ShadeColor,
-                    textColor = BackgroundColor,
-                    imageVector = Icons.Filled.WbSunny,
-                    cardPadding = 24.dp
-                )
-            }
 
-            InfoCard(
-                title = "Watering Streak",
-                subtitle = "You have a 10 months streak.",
-                containerColor = MainAccent,
-                textColor = MainColor,
-                imageVector = Icons.Filled.LocalFireDepartment
-            )
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(SecondaryAccent, shape = RoundedCornerShape(16.dp))
-                    .padding(16.dp)
-            ) {
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    Icon(
-                        imageVector = Icons.Filled.Task,
-                        contentDescription = "Task",
-                        tint = BackgroundColor,
-                        modifier = Modifier.size(32.dp)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    InfoCard(
+                        title = "Watering",
+                        subtitle = "Next watering in " + plant.watering,
+                        modifier = Modifier.weight(1f),
+                        containerColor = WaterColor,
+                        textColor = BackgroundColor,
+                        imageVector = Icons.Filled.Shower
                     )
-
-                    Spacer(modifier = Modifier.width(6.dp))
-
-                    Text("Recommendations",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = BackgroundColor,
-                    style = TextStyle(
-                        fontFamily = urbanistFont
-                        )
+                    InfoCard(
+                        title = "Sunlight",
+                        subtitle = plant.shadeLevel,
+                        modifier = Modifier.weight(1f),
+                        containerColor = ShadeColor,
+                        textColor = BackgroundColor,
+                        imageVector = Icons.Filled.WbSunny,
+                        cardPadding = 24.dp
                     )
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                InfoCard(
+                    title = "Watering Streak",
+                    subtitle = "You have a " + plant.streak + " days streak",
+                    containerColor = MainAccent,
+                    textColor = MainColor,
+                    imageVector = Icons.Filled.LocalFireDepartment
+                )
 
-                Column (
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-
-                ){
-                    Text(
-                        text="Aloe plants require little water and have very low water needs. " +
-                                "Water once every 2 weeks in the spring and summer, and once a month in the wintertime.",
-                        Modifier
-                            .background(BackgroundColor, shape = RoundedCornerShape(16.dp))
-                            .padding(12.dp),
-                        style = TextStyle(
-                            fontFamily = urbanistFont,
-                            fontSize = 12.sp,
-                            color = SecondaryAccent
+                        .background(SecondaryAccent, shape = RoundedCornerShape(16.dp))
+                        .padding(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Task,
+                            contentDescription = "Task",
+                            tint = BackgroundColor,
+                            modifier = Modifier.size(32.dp)
                         )
-                    )
 
-                    Text(
-                        text="Aloe plants require little water and have very low water needs. " +
-                                "Water once every 2 weeks in the spring and summer, and once a month in the wintertime.",
-                        Modifier
-                            .background(BackgroundColor, shape = RoundedCornerShape(16.dp))
-                            .padding(12.dp),
-                        style = TextStyle(
-                            fontFamily = urbanistFont,
-                            fontSize = 12.sp,
-                            color = SecondaryAccent
-                        )
-                    )
+                        Spacer(modifier = Modifier.width(6.dp))
 
-                    Text(
-                        text="Aloe plants require little water and have very low water needs. " +
-                                "Water once every 2 weeks in the spring and summer, and once a month in the wintertime.",
-                        Modifier
-                            .background(BackgroundColor, shape = RoundedCornerShape(16.dp))
-                            .padding(12.dp),
-                        style = TextStyle(
-                            fontFamily = urbanistFont,
-                            fontSize = 12.sp,
-                            color = SecondaryAccent
+                        Text(
+                            "Recommendations",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = BackgroundColor,
+                            style = TextStyle(
+                                fontFamily = urbanistFont
+                            )
                         )
-                    )
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(20.dp)
+
+                    ) {
+                        plant.recommendations.forEach { recommendation ->
+                            Text(
+                                text = recommendation,
+                                modifier = Modifier
+                                    .background(BackgroundColor, shape = RoundedCornerShape(16.dp))
+                                    .padding(16.dp)
+                                    .fillMaxWidth(),
+                                style = TextStyle(
+                                    fontFamily = urbanistFont,
+                                    fontSize = 12.sp,
+                                    color = SecondaryAccent
+                                )
+                            )
+                        }
+
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
-
-            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
