@@ -43,7 +43,8 @@ fun signupScreen(navController: NavController) {
 
     ImageHeaderScaffold(
         navController = navController,
-        imageRes = R.drawable.signup_header_image
+        imageRes = R.drawable.signup_header_image,
+        imageHeight = 240.dp
     ) {
         Column(
             modifier = Modifier
