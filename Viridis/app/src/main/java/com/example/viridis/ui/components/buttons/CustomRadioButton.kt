@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainAccent
 import com.example.viridis.ui.theme.SecondaryAccent
+import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
 fun CustomRadioButton(
@@ -74,7 +75,8 @@ fun CustomRadioButton(
                 text = text,
                 color = SecondaryAccent,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = urbanistFont
             )
         }
         Icon(

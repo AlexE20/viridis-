@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.viridis.Navigation.Creation2
-import com.example.viridis.ui.components.CustomTopBar
+import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.textfields.ProfileTextfield
 import com.example.viridis.ui.theme.BackgroundColor
