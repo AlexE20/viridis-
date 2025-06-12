@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
 
@@ -25,7 +26,8 @@ import com.example.viridis.ui.theme.MainColor
 @Composable
 fun ImageHeaderScaffold(
     navController: NavController,
-    imageRes: Int,
+    imageRes: Int? = null,
+    imageUrl: String? = null,
     imageHeight: Dp = 240.dp,
     floatingActionButton: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
@@ -39,13 +41,24 @@ fun ImageHeaderScaffold(
                     .fillMaxWidth()
                     .height(imageHeight)
             ) {
-                Image(
-                    painter = painterResource(id = imageRes),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxSize()
-                )
+                when {
+                    imageRes != null -> {
+                        Image(
+                            painter = painterResource(id = imageRes),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                    imageUrl != null -> {
+                        Image(
+                            painter = rememberAsyncImagePainter(model = imageUrl),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                }
 
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
