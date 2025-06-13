@@ -3,7 +3,7 @@ package com.example.viridis.ui.screens.gardenContent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.viridis.data.model.Plant
-import com.example.viridis.data.repository.PlantRepositoryImpl
+import com.example.viridis.data.repository.plantRepository.PlantRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

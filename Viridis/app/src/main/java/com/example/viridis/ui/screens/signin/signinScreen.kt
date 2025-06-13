@@ -59,9 +59,12 @@ fun signinScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Let’s start this journey and get your plants\nhappy!",
+                    text = "Let’s start this journey and get your plants happy!",
                     fontSize = 16.sp,
-                    color = MainColor
+                    color = MainColor,
+                    style = TextStyle(
+                        fontFamily = urbanistFont,
+                    )
                 )
             }
         }

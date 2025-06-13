@@ -78,7 +78,10 @@ fun signupScreen(navController: NavController) {
                 text = "Create an account",
                 fontSize = 18.sp,
                 color = MainColor,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp),
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                )
             )
         }
         Spacer(modifier = Modifier.height(10.dp))

@@ -1,18 +1,23 @@
-package com.example.viridis.data.local
+package com.example.viridis.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.viridis.data.database.daos.GardenDao
+import com.example.viridis.data.database.daos.PlantDao
+import com.example.viridis.data.database.entities.GardenEntity
+import com.example.viridis.data.database.entities.PlantEntity
 
 @Database(
-    entities = [GardenEntity::class],
-    version = 1,
+    entities = [GardenEntity::class, PlantEntity::class],
+    version = 2,
     exportSchema = false
 )
 
 abstract class AppDatabase: RoomDatabase() {
     abstract fun gardenDao(): GardenDao
+    abstract fun plantDao(): PlantDao
 
     companion object {
         @Volatile
@@ -23,7 +28,7 @@ abstract class AppDatabase: RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "Garden_db"
+                    "viridis_database"
                 ).build()
                     .also{INSTANCE = it}
                 instance

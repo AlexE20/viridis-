@@ -28,6 +28,8 @@ import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.text.TextStyle
+import com.example.viridis.ui.theme.urbanistFont
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,27 +39,36 @@ fun HomeScreen(
     viewModel: HomeViewModel
 ) {
     val gardens by viewModel.gardens.collectAsState()
+    val plants by viewModel.plants.collectAsState()
+
     CustomScaffold(navController = navController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(26.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = "Hello There!",
                 fontSize = 32.sp,
                 color = MainColor,
-                lineHeight = 40.sp
+                lineHeight = 40.sp,
+                style = TextStyle(
+                    fontFamily = urbanistFont
+                )
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "We are glad you are here. Let’s pay your gardens a visit, collect information and watch your plants thrive!",
                 fontSize = 15.sp,
                 color = MainColor,
-                lineHeight = 20.sp
+                lineHeight = 20.sp,
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                )
             )
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -75,11 +86,14 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(gardens) { garden ->
+                    val gardenPlants = plants.filter { it.idGarden == garden.id }
+                    val imageUrls = gardenPlants.map { it.imageUrl }.take(4)
+
                     StakedCards(
-                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
+                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}") },
                         gardenName = garden.name,
                         gardenShade = garden.shade,
-                        imageUrls = null,
+                        imageUrls = imageUrls,
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 160.dp)

@@ -200,7 +200,7 @@ fun addedPlantDetailScreen(navController: NavController, plantId: String, viewMo
                                 text = recommendation,
                                 modifier = Modifier
                                     .background(BackgroundColor, shape = RoundedCornerShape(16.dp))
-                                    .padding(16.dp)
+                                    .padding(12.dp)
                                     .fillMaxWidth(),
                                 style = TextStyle(
                                     fontFamily = urbanistFont,
@@ -212,8 +212,9 @@ fun addedPlantDetailScreen(navController: NavController, plantId: String, viewMo
 
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
+                Spacer(modifier = Modifier.height(6.dp))
             }
         }
     }
