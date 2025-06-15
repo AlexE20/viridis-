@@ -77,6 +77,7 @@ fun DetailCard(
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = description,
+                    fontWeight = FontWeight.SemiBold,
                     fontSize = 12.sp,
                     fontFamily = urbanistFont,
                     color = SecondaryAccent

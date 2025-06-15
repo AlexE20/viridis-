@@ -2,7 +2,6 @@ package com.example.viridis.ui.screens.searchPlant
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.viridis.data.model.Plant
 import com.example.viridis.data.repository.PlantRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,16 +17,19 @@ class plantSearchViewModel(): ViewModel() {
     private val _filteredPlants = MutableStateFlow<List<Plant>>(emptyList())
     val filteredPlants : StateFlow<List<Plant>> = _filteredPlants
 
-    private var allPLants : List<Plant> = emptyList()
+    private var allPlants : List<Plant> = emptyList()
+
+    private val pageSize = 10
+    private var currentPage = 1
 
     init {
-        loadPlants()
+        loadInitialPage()
     }
 
-    private fun loadPlants(){
+    private fun loadInitialPage(){
         viewModelScope.launch {
-            allPLants = repository.getPlants()
-            _filteredPlants.value = allPLants
+            allPlants = repository.getPlants()
+            _filteredPlants.value = allPlants.take(pageSize)
         }
     }
 
@@ -35,11 +37,19 @@ class plantSearchViewModel(): ViewModel() {
         _searchText.value = newText
 
         _filteredPlants.value = if (newText.isBlank()) {
-            allPLants
+            allPlants.take(pageSize)
         } else {
-            allPLants.filter { plant ->
+            allPlants.filter { plant ->
                 plant.name.contains(newText, ignoreCase = true)
             }
+        }
+    }
+
+    fun loadNextPage() {
+        val nextPlants = allPlants.drop(currentPage * pageSize).take(pageSize)
+        if (nextPlants.isNotEmpty()) {
+            _filteredPlants.value = _filteredPlants.value + nextPlants
+            currentPage++
         }
     }
 }

@@ -23,6 +23,8 @@ import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
 import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
 import com.example.viridis.ui.screens.login.LoginViewModel
+import com.example.viridis.ui.screens.plantContent.PlantContentScreen
+import com.example.viridis.ui.screens.searchPlant.plantSearchViewModel
 import com.example.viridis.ui.screens.searchPlant.searchPlantScreen
 import kotlinx.serialization.Serializable
 
@@ -87,7 +89,16 @@ fun NavGraph(navController: NavHostController) {
         composable<Meeting> { MeetingScreen(navController) }
         composable<Creation> { GardenName(navController) }
         composable<Creation2> { GardenShade(navController) }
-        composable<SearchPlant> { searchPlantScreen(navController) }
+        composable<SearchPlant> {
+            val searchViewModel: plantSearchViewModel = viewModel()
+            searchPlantScreen(navController, searchViewModel)
+        }
+
+
+        composable("plant_detail/{plantId}") { backStackEntry ->
+            val plantId = backStackEntry.arguments?.getString("plantId")?: ""
+            PlantContentScreen(navController = navController, plantId = plantId)
+        }
         composable(
             route = "addedPlantDetail/{plantId}",
             arguments = listOf(navArgument("plantId") { type = NavType.StringType })

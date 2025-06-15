@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -26,9 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomIconButton
+import com.example.viridis.ui.components.cards.CustomCard
 import com.example.viridis.ui.components.textfields.ProfileTextfield
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
@@ -37,11 +42,10 @@ import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun searchPlantScreen(navController : NavController, /*viewModel: plantSearchViewModel*/) {
+fun searchPlantScreen(navController : NavController, viewModel: plantSearchViewModel) {
 
-    //val searchText by viewModel.searchText.collectAsStateWithLifecycle()
-    //val filteredPlants by viewModel.filteredPlants.collectAsStateWithLifecycle()
-    var gardenName by remember { mutableStateOf("") }
+    val searchText by viewModel.searchText.collectAsStateWithLifecycle()
+    val filteredPlants by viewModel.filteredPlants.collectAsStateWithLifecycle()
 
     CustomTopBar(navController) {
         Column(
@@ -75,8 +79,8 @@ fun searchPlantScreen(navController : NavController, /*viewModel: plantSearchVie
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ProfileTextfield(
-                    value = gardenName,
-                    onValueChange = {/*viewModel.onSearchTextChange(it)*/},
+                    value = searchText,
+                    onValueChange = {viewModel.onSearchTextChange(it)},
                     placeholder = "Search Plants",
                     leadingIcon = {
                         Icon(
@@ -98,7 +102,8 @@ fun searchPlantScreen(navController : NavController, /*viewModel: plantSearchVie
             }
             Spacer(Modifier.padding(16.dp))
             LazyColumn {
-                /*items(filteredPlants) { plant ->
+                items(filteredPlants.size) { index ->
+                    val plant = filteredPlants[index]
                     CustomCard(
                         plantName = plant.name,
                         plantDescription = plant.scientificName,
@@ -117,10 +122,16 @@ fun searchPlantScreen(navController : NavController, /*viewModel: plantSearchVie
                                     .padding(6.dp)
                                     .size(18.dp)
                             )
+                        },
+                        clickable = {
+                            navController.navigate("plant_detail/${plant.id}")
                         }
                     )
-                    Spacer(modifier = Modifier.padding())
-                }*/
+                    Spacer(modifier = Modifier.padding(8.dp))
+                }
+                item {
+                    CustomButton("Load More", {viewModel.loadNextPage()})
+                }
             }
         }
     }

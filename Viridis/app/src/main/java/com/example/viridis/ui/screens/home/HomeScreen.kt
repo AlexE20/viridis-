@@ -27,6 +27,8 @@ import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.text.font.FontWeight
+import com.example.viridis.ui.theme.urbanistFont
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,14 +51,18 @@ fun HomeScreen(
                 text = "Hello There!",
                 fontSize = 32.sp,
                 color = MainColor,
-                lineHeight = 40.sp
+                lineHeight = 40.sp,
+                fontFamily = urbanistFont,
+                fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "We are glad you are here. Let’s pay your gardens a visit, collect information and watch your plants thrive!",
                 fontSize = 15.sp,
                 color = MainColor,
-                lineHeight = 20.sp
+                lineHeight = 20.sp,
+                fontFamily = urbanistFont,
+                fontWeight = FontWeight.SemiBold
             )
             Spacer(modifier = Modifier.height(24.dp))
 
