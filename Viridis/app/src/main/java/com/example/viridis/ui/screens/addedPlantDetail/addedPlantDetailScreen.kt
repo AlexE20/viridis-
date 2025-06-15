@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.viridis.R
-import com.example.viridis.ui.components.ImageHeaderScaffold
+import com.example.viridis.ui.components.layouts.ImageHeaderScaffold
 import com.example.viridis.ui.components.buttons.CustomIconButton
 import com.example.viridis.ui.components.cards.InfoCard
 import com.example.viridis.ui.theme.BackgroundColor

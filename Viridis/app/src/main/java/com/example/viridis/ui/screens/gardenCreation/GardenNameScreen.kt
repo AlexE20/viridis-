@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -34,6 +35,7 @@ import com.example.viridis.ui.components.textfields.ProfileTextfield
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.SecondaryAccent
+import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
@@ -53,7 +55,9 @@ fun GardenName(navController: NavController){
                 text = "Let´s name your new Garden!",
                 fontSize = 32.sp,
                 color = MainColor,
-                lineHeight = 40.sp
+                lineHeight = 40.sp,
+                fontFamily = urbanistFont,
+                fontWeight = FontWeight.Bold
 
             )
             Text(

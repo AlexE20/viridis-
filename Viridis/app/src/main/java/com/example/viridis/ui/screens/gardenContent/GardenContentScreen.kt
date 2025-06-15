@@ -46,7 +46,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.example.viridis.Navigation.addedPlantDetail
-import com.example.viridis.ui.components.CustomTopBar
+import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.cards.CustomCard
 import com.example.viridis.ui.theme.SecondaryAccent
 

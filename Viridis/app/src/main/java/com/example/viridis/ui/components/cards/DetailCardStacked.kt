@@ -1,9 +1,11 @@
 package com.example.viridis.ui.components.cards
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,51 +28,52 @@ import androidx.compose.ui.unit.sp
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.SecondaryAccent
 import com.example.viridis.ui.theme.urbanistFont
+import androidx.compose.foundation.rememberScrollState
+
 
 @Composable
 fun DetailCardStacked(
-    lightOption : String,
-    wateringOption : String,
-    recommendations : List<String>
+    lightOption: String,
+    wateringOption: String,
+    recommendations: List<String>
 ) {
-    LazyColumn(
+    Column(
         modifier = Modifier
-            .padding(16.dp)
-            .background(Color(0xFF6F946F), shape = RoundedCornerShape(16.dp))
-            .padding(16.dp)
+            .fillMaxWidth()
+            .background(SecondaryAccent, shape = RoundedCornerShape(16.dp))
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        item {
-            Text(
-                text = "Info",
-                color = BackgroundColor,
-                fontSize = 32.sp,
-                fontFamily = urbanistFont
-            )
+        Text(
+            text = "Info",
+            color = BackgroundColor,
+            fontSize = 32.sp,
+            fontFamily = urbanistFont
+        )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            val lightIcon = when (lightOption) {
-                "full_shade" -> Icons.Outlined.DarkMode
-                "part_shade" -> Icons.Outlined.WbCloudy
-                "sun-part_shade" -> Icons.Filled.WbCloudy
-                "full_sun" -> Icons.Filled.WbSunny
-                else -> Icons.Filled.WbSunny
-            }
-
-            DetailCard(
-                icon = lightIcon,
-                title = "Sunlight",
-                description = lightOption
-            )
-
-            DetailCard(
-                icon = Icons.Filled.Shower,
-                title = "Watering",
-                description = wateringOption
-            )
+        val lightIcon = when (lightOption) {
+            "full_shade" -> Icons.Outlined.DarkMode
+            "part_shade" -> Icons.Outlined.WbCloudy
+            "sun-part_shade" -> Icons.Filled.WbCloudy
+            "full_sun" -> Icons.Filled.WbSunny
+            else -> Icons.Filled.WbSunny
         }
-        items(recommendations.size) { index ->
-            val recommendation = recommendations[index]
+
+        DetailCard(
+            icon = lightIcon,
+            title = "Sunlight",
+            description = lightOption
+        )
+
+        DetailCard(
+            icon = Icons.Filled.Shower,
+            title = "Watering",
+            description = wateringOption
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        recommendations.forEach { recommendation ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = BackgroundColor)
@@ -84,6 +87,9 @@ fun DetailCardStacked(
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.height(4.dp))
         }
     }
 }
+
