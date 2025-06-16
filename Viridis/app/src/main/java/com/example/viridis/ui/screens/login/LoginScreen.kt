@@ -101,7 +101,6 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
                 text = "Sign in",
                 onClick = {
                     navController.navigate(Home)
-
                 }
             )
 

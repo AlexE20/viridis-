@@ -16,4 +16,10 @@ class ViridisApplication : Application() {
     val appProvider: AppProvider by lazy{
         AppProvider(this,this.dataStore)
     }
+
+    override fun onCreate() {
+        super.onCreate()
+        val gardenRepo = appProvider.provideGardenRepository()
+        val plantRepo = appProvider.providePlantRepository()
+    }
 }

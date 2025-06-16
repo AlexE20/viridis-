@@ -1,35 +1,32 @@
 package com.example.viridis.data.repository.plantRepository
 
 import com.example.viridis.data.database.daos.PlantDao
+import com.example.viridis.data.database.entities.PlantEntity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import com.example.viridis.data.mappers.toModel
 import com.example.viridis.data.model.Plant
-import com.example.viridis.dummyData.dummyPlants
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.map
 
-class PlantRepositoryImpl(private val plantDao: PlantDao): PlantRepository {
-    private var plants=mutableListOf<Plant>().apply {
-        addAll(dummyPlants)
+class PlantRepositoryImpl(
+    private val plantDao: PlantDao
+) : PlantRepository {
+
+    override fun getPlantsByGarden(gardenId: Int): Flow<List<PlantEntity>> {
+        return plantDao.getPlantsByGarden(gardenId)
     }
 
-    override suspend fun getPlants(): List<Plant> {
-        return plants
+    override suspend fun addPlant(plant: PlantEntity) {
+        plantDao.addPlant(plant)
     }
 
-    override suspend fun getPlantsByGarden(gardenId: Int): List<Plant> {
+    override suspend fun deletePlant(plant: PlantEntity) {
+        plantDao.deletePlant(plant)
+    }
 
-        return dummyPlants.filter {
-            it.idGarden == gardenId
+    override fun getPlantsFlow(): Flow<List<Plant>> {
+        return plantDao.getAllPlants().map { list ->
+            list.map { it.toModel() }
         }
-    }
-
-    override suspend fun addPlant(plant: Plant): List<Plant> {
-        delay(1000)
-        plants.add(plant)
-        return plants
-    }
-
-    override suspend fun deletePlant(plant: Plant): List<Plant> {
-        delay(1000)
-        plants.remove(plant)
-        return plants
     }
 }

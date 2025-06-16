@@ -16,9 +16,17 @@ interface GardenDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addGarden(garden: GardenEntity)
 
+    @Query("SELECT * FROM Garden WHERE idUser = :userId")
+    suspend fun getGardensByUser(userId: String): List<GardenEntity>
+
     @Delete
     suspend fun deleteGarden(garden: GardenEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addGardens(gardens: List<GardenEntity>)
+//////////
+
+//    @Query("SELECT * FROM Garden")
+//    fun getAllGardens(): Flow<List<GardenEntity>>
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun addGardens(gardens: List<GardenEntity>)
 }

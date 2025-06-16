@@ -46,7 +46,7 @@ fun GardenName(navController: NavController){
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(26.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         )
@@ -60,10 +60,17 @@ fun GardenName(navController: NavController){
                 fontWeight = FontWeight.Bold
 
             )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
             Text(
                 text = "Assign gardens for different parts of your house! For example, Kitchen, Porsh, Terrace etc.",
-                fontSize = 15.sp, color = MainColor,
-                lineHeight = 20.sp
+                fontSize = 16.sp,
+                color = MainColor,
+                lineHeight = 20.sp,
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                )
             )
         }
         Column(
