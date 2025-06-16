@@ -17,16 +17,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        val appProvider = AppProvider(applicationContext)
-
         setContent {
             ViridisTheme {
                 val navController = rememberNavController()
-                NavGraph(
-                    navController = navController,
-                    appProvider = appProvider
-                )
+                NavGraph(navController = navController)
             }
         }
     }

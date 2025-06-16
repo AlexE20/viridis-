@@ -1,7 +1,9 @@
 package com.example.viridis.ui.screens.gardenContent
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
@@ -10,10 +12,12 @@ import com.example.viridis.ViridisApplication
 import com.example.viridis.data.AppProvider
 import com.example.viridis.data.model.Plant
 import com.example.viridis.data.repository.plantRepository.PlantRepository
+import com.example.viridis.ui.screens.home.HomeViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import com.example.viridis.data.mappers.toModel
 
 class GardenContentViewModel(
     private val plantRepository: PlantRepository,
@@ -28,8 +32,8 @@ class GardenContentViewModel(
 
     init {
         viewModelScope.launch {
-            plantRepository.getPlantsByGardenFlow(gardenId).collectLatest {
-                _plants.value = it
+            plantRepository.getPlantsByGarden(gardenId).collectLatest { plantEntities ->
+                _plants.value = plantEntities.map { it.toModel() }
             }
         }
     }
@@ -37,13 +41,12 @@ class GardenContentViewModel(
     fun getGardenName(): String = gardenName
 
     companion object {
-        fun provideFactory(
-            appProvider: AppProvider
-        ): ViewModelProvider.Factory = viewModelFactory {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val savedStateHandle = this.createSavedStateHandle()
+                val aplication = this[APPLICATION_KEY] as ViridisApplication
+                val savedStateHandle = createSavedStateHandle()
                 GardenContentViewModel(
-                    appProvider.providePlantRepository(),
+                    aplication.appProvider.providePlantRepository(),
                     savedStateHandle
                 )
             }

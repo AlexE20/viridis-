@@ -11,11 +11,9 @@ import androidx.navigation.navArgument
 import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.activeNotifications.NotificationScreen
-import com.example.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
-import com.example.viridis.ui.screens.gardenCreation.GardenShade
-import com.example.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
+import com.example.viridis.ui.screens.gardenCreation.gardenShade.GardenShade
 import com.example.viridis.ui.screens.home.HomeScreen
-import com.example.viridis.ui.screens.gardenCreation.GardenName
+import com.example.viridis.ui.screens.gardenCreation.gardenName.GardenName
 import com.example.viridis.ui.screens.profile.ProfileScreen
 import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
@@ -25,7 +23,6 @@ import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
 import com.example.viridis.ui.screens.login.LoginViewModel
 import com.example.viridis.ui.screens.searchPlant.searchPlantScreen
 import kotlinx.serialization.Serializable
-import com.example.viridis.data.AppProvider
 
 @Serializable
 object Home
@@ -65,7 +62,7 @@ object addedPlantDetail
 
 @ExperimentalMaterial3Api
 @Composable
-fun NavGraph(navController: NavHostController, appProvider: AppProvider) {
+fun NavGraph(navController: NavHostController) {
     val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
     val loginViewModel: LoginViewModel=viewModel(factory = LoginViewModel.Factory)
     NavHost(navController = navController, startDestination = Meeting) {

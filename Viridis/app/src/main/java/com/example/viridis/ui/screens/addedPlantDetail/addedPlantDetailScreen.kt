@@ -25,7 +25,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,7 +33,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.viridis.R
 import com.example.viridis.ui.components.ImageHeaderScaffold
 import com.example.viridis.ui.components.buttons.CustomIconButton
 import com.example.viridis.ui.components.cards.InfoCard
@@ -49,18 +47,13 @@ import com.example.viridis.ui.theme.urbanistFont
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.viridis.data.AppProvider
-
 
 @ExperimentalMaterial3Api
 @Composable
 fun addedPlantDetailScreen(
     navController: NavController,
-    appProvider: AppProvider
+    viewModel: AddedPlantDetailViewModel = viewModel(factory = AddedPlantDetailViewModel.Factory)
 ) {
-    val viewModel: AddedPlantDetailViewModel = viewModel(
-        factory = AddedPlantDetailViewModel.provideFactory(appProvider)
-    )
 
     val plant by viewModel.plant.collectAsState()
 

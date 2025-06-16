@@ -2,6 +2,7 @@ package com.example.viridis.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -50,10 +51,11 @@ class HomeViewModel(
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as ViridisApplication
-                val gardenRepo = app.appProvider.provideGardenRepository()
-                val plantRepo = app.appProvider.providePlantRepository()
-                HomeViewModel(gardenRepo, plantRepo)
+                val aplication = this[APPLICATION_KEY] as ViridisApplication
+                HomeViewModel(
+                    aplication.appProvider.provideGardenRepository(),
+                    aplication.appProvider.providePlantRepository()
+                )
             }
         }
     }
