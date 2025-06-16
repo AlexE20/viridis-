@@ -8,36 +8,46 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.viridis.ViridisApplication
 import com.example.viridis.data.model.Garden
-import com.example.viridis.data.repository.GardenRepository
+import com.example.viridis.data.model.Plant
+import com.example.viridis.data.repository.gardenRepository.GardenRepository
+import com.example.viridis.data.repository.plantRepository.PlantRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
 class HomeViewModel(
-    private val repository: GardenRepository
+    private val gardenRepository: GardenRepository,
+    private val plantRepository: PlantRepository
 ) : ViewModel() {
 
-
+    private val _plants = MutableStateFlow<List<Plant>>(emptyList())
+    val plants: StateFlow<List<Plant>> get() = _plants
     private val _gardens = MutableStateFlow<List<Garden>>(emptyList())
-    val gardens: StateFlow<List<Garden>>
-        get() = _gardens
+    val gardens: StateFlow<List<Garden>> get() = _gardens
 
     init {
         loadGardens()
+        loadPlants()
+    }
+
+    private fun loadPlants() {
+        viewModelScope.launch {
+            _plants.value = plantRepository.getPlants()
+        }
     }
 
     private fun loadGardens() {
         viewModelScope.launch {
             if (isConnected()) {
 
-                repository.saveLocalGardens()
-                repository.getLocalGardens().collect { list ->
+                gardenRepository.saveLocalGardens()
+                gardenRepository.getLocalGardens().collect { list ->
                     _gardens.value = list
                 }
             } else {
 
-                val dummy = repository.getGardens()
+                val dummy = gardenRepository.getGardens()
                 _gardens.value = dummy
             }
         }
@@ -51,8 +61,9 @@ class HomeViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val app = (this[APPLICATION_KEY] as ViridisApplication)
-                val repository = app.appProvider.provideGardenRepository()
-                HomeViewModel(repository)
+                val gardenRepo = app.appProvider.provideGardenRepository()
+                val plantRepo = app.appProvider.providePlantRepository()
+                HomeViewModel(gardenRepo, plantRepo)
             }
         }
     }

@@ -1,24 +1,17 @@
-package com.example.viridis.data.repository
+package com.example.viridis.data.repository.plantRepository
 
+import com.example.viridis.data.database.daos.PlantDao
 import com.example.viridis.data.model.Plant
 import com.example.viridis.dummyData.dummyPlants
 import kotlinx.coroutines.delay
 
-interface PlantRepository{
-    suspend fun getPlants():List<Plant>
-    suspend fun getPlantsByGarden(gardenId:Int):List<Plant>
-    suspend fun addPlant(plant:Plant):List<Plant>
-    suspend fun deletePlant(plant:Plant): List<Plant>
-}
-
-class PlantRepositoryImpl: PlantRepository{
+class PlantRepositoryImpl(private val plantDao: PlantDao): PlantRepository {
     private var plants=mutableListOf<Plant>().apply {
         addAll(dummyPlants)
     }
 
     override suspend fun getPlants(): List<Plant> {
-     delay(1000)
-       return plants
+        return plants
     }
 
     override suspend fun getPlantsByGarden(gardenId: Int): List<Plant> {
@@ -39,6 +32,4 @@ class PlantRepositoryImpl: PlantRepository{
         plants.remove(plant)
         return plants
     }
-
-
 }

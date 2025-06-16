@@ -19,12 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.SecondaryAccent
+import androidx.compose.foundation.Image
 import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
@@ -60,7 +63,24 @@ fun StakedCards(
                     }
                 }
             } else {
-                //to show the images
+                Box(
+                    modifier = Modifier
+                        .height(180.dp)
+                        .fillMaxSize()
+                ) {
+                    imageUrls.forEachIndexed { index, url ->
+                        val offset = (index * 16).dp
+                        Image(
+                            painter = rememberAsyncImagePainter(url),
+                            contentDescription = "Imagen de planta",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .matchParentSize()
+                                .padding(start = offset, top = offset)
+                                .border(1.dp, Color.White, RoundedCornerShape(8.dp))
+                        )
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))

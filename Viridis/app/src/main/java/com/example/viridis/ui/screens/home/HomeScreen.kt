@@ -19,15 +19,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.viridis.Navigation.Creation
-import com.example.viridis.ui.components.layouts.CustomScaffold
+import com.example.viridis.ui.components.CustomScaffold
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.cards.StakedCards
+import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.theme.BackgroundColor
 import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.TextStyle
 import com.example.viridis.ui.theme.urbanistFont
 
 
@@ -38,22 +39,26 @@ fun HomeScreen(
     viewModel: HomeViewModel
 ) {
     val gardens by viewModel.gardens.collectAsState()
+    val plants by viewModel.plants.collectAsState()
+
     CustomScaffold(navController = navController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(26.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = "Hello There!",
                 fontSize = 32.sp,
                 color = MainColor,
                 lineHeight = 40.sp,
-                fontFamily = urbanistFont,
-                fontWeight = FontWeight.Bold
+                style = TextStyle(
+                    fontFamily = urbanistFont
+                )
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -61,8 +66,9 @@ fun HomeScreen(
                 fontSize = 15.sp,
                 color = MainColor,
                 lineHeight = 20.sp,
-                fontFamily = urbanistFont,
-                fontWeight = FontWeight.SemiBold
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                )
             )
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -80,11 +86,14 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(gardens) { garden ->
+                    val gardenPlants = plants.filter { it.idGarden == garden.id }
+                    val imageUrls = gardenPlants.map { it.imageUrl }.take(4)
+
                     StakedCards(
-                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
+                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}") },
                         gardenName = garden.name,
                         gardenShade = garden.shade,
-                        imageUrls = null,
+                        imageUrls = imageUrls,
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 160.dp)
