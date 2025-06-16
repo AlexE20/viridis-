@@ -7,26 +7,53 @@ import com.example.viridis.data.repository.plantRepository.PlantRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.viridis.data.AppProvider
+import com.example.viridis.data.repository.plantRepository.PlantRepository
 
-class AddedPlantDetailViewModel : ViewModel() {
-    private val repository = PlantRepositoryImpl()
+class AddedPlantDetailViewModel(
+    private val plantRepository: PlantRepository,
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
+
+    private val plantId = savedStateHandle.get<String>("plantId") ?: ""
 
     private val _plant = MutableStateFlow<Plant?>(null)
     val plant: StateFlow<Plant?> get() = _plant
 
-    fun loadPlantById(plantId: String) {
+    init {
         viewModelScope.launch {
-            val allPlants = repository.getPlants()
-            _plant.value = allPlants.find { it.id == plantId }
-        }
-    }
-
-    fun deletePlant() {
-        viewModelScope.launch {
-            _plant.value?.let {
-                val updatedList = repository.deletePlant(it)
-                _plant.value = null
+            plantRepository.getPlantsFlow().collect { plantList ->
+                _plant.value = plantList.find { it.id == plantId }
             }
         }
     }
+
+//    fun deletePlant() {
+//        viewModelScope.launch {
+//            _plant.value?.let {
+//                plantRepository.deletePlant(it)
+//                _plant.value = null
+//            }
+//        }
+//    }
+
+    companion object {
+        fun provideFactory(appProvider: AppProvider): ViewModelProvider.Factory =
+            viewModelFactory {
+                initializer {
+                    val savedStateHandle = createSavedStateHandle()
+                    AddedPlantDetailViewModel(
+                        appProvider.providePlantRepository(),
+                        savedStateHandle
+                    )
+                }
+            }
+    }
 }
+
+

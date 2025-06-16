@@ -25,6 +25,7 @@ import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
 import com.example.viridis.ui.screens.login.LoginViewModel
 import com.example.viridis.ui.screens.searchPlant.searchPlantScreen
 import kotlinx.serialization.Serializable
+import com.example.viridis.data.AppProvider
 
 @Serializable
 object Home
@@ -64,7 +65,7 @@ object addedPlantDetail
 
 @ExperimentalMaterial3Api
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController, appProvider: AppProvider) {
     val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
     val loginViewModel: LoginViewModel=viewModel(factory = LoginViewModel.Factory)
     NavHost(navController = navController, startDestination = Meeting) {
@@ -74,13 +75,14 @@ fun NavGraph(navController: NavHostController) {
         composable<Home> { HomeScreen(navController, viewModel = viewModel) }
         composable(
             route = "gardenContent/{gardenId}/{gardenName}",
-            arguments = listOf(navArgument("gardenId") { type = NavType.IntType },
-                navArgument("gardenName") { type= NavType.StringType })
-        ) { backStackEntry ->
-            val gardenId = backStackEntry.arguments?.getInt("gardenId") ?: 0
-            val gardenName=backStackEntry.arguments?.getString("gardenName")?:""
-            GardenContentScreen(navController, gardenId,gardenName)
+            arguments = listOf(
+                navArgument("gardenId") { type = NavType.IntType },
+                navArgument("gardenName") { type = NavType.StringType }
+            )
+        ) {
+            GardenContentScreen(navController = navController)
         }
+
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
         composable<Notifications> { NotificationsScreen(navController) }
@@ -88,18 +90,19 @@ fun NavGraph(navController: NavHostController) {
         composable<Creation> { GardenName(navController) }
         composable<Creation2> { GardenShade(navController) }
         composable<SearchPlant> { searchPlantScreen(navController) }
-        composable(
+        /*composable(
             route = "addedPlantDetail/{plantId}",
             arguments = listOf(navArgument("plantId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val plantId = backStackEntry.arguments?.getString("plantId") ?: ""
-            val viewModel: AddedPlantDetailViewModel = viewModel()
+        ) {
+            val viewModel: AddedPlantDetailViewModel = viewModel(
+                factory = AddedPlantDetailViewModel.provideFactory(appProvider)
+            )
+
             addedPlantDetailScreen(
                 navController = navController,
-                plantId = plantId,
-                viewModel = viewModel
+                viewModel = viewModel,
+                appProvider = appProvider
             )
-        }
-
+        }*/
     }
 }

@@ -14,6 +14,12 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 class ViridisApplication : Application() {
     val appProvider: AppProvider by lazy{
-        AppProvider(this,this.dataStore)
+        AppProvider(this)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        val gardenRepo = appProvider.provideGardenRepository()
+        val plantRepo = appProvider.providePlantRepository()
     }
 }

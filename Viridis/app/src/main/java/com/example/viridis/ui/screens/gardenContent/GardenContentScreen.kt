@@ -52,14 +52,12 @@ import com.example.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName: String) {
-    val viewModel: gardenContentViewModel = viewModel()
-
-    LaunchedEffect(gardenId) {
-        viewModel.loadPlantsByGarden(gardenId)
-    }
-
+fun GardenContentScreen(
+    navController: NavController,
+    viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
+) {
     val plants by viewModel.plants.collectAsState()
+    val gardenName = viewModel.getGardenName()
 
     CustomTopBar(navController = navController)
     {

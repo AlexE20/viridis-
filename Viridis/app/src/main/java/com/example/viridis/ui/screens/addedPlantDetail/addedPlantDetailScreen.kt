@@ -48,15 +48,21 @@ import com.example.viridis.ui.theme.WaterColor
 import com.example.viridis.ui.theme.urbanistFont
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viridis.data.AppProvider
+
 
 @ExperimentalMaterial3Api
 @Composable
-fun addedPlantDetailScreen(navController: NavController, plantId: String, viewModel: AddedPlantDetailViewModel) {
-    val plant by viewModel.plant.collectAsState()
+fun addedPlantDetailScreen(
+    navController: NavController,
+    appProvider: AppProvider
+) {
+    val viewModel: AddedPlantDetailViewModel = viewModel(
+        factory = AddedPlantDetailViewModel.provideFactory(appProvider)
+    )
 
-    LaunchedEffect(Unit) {
-        viewModel.loadPlantById(plantId)
-    }
+    val plant by viewModel.plant.collectAsState()
 
     plant?.let { plant ->
         ImageHeaderScaffold(
@@ -96,8 +102,7 @@ fun addedPlantDetailScreen(navController: NavController, plantId: String, viewMo
                         CustomIconButton(
                             icon = Icons.Filled.Delete,
                             onClick = {
-                                viewModel.deletePlant()
-                                navController.popBackStack()
+
                             },
                             containerColor = Pink40,
                             contentColor = Color.White,

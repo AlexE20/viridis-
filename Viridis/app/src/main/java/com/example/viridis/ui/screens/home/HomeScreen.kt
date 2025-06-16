@@ -36,7 +36,7 @@ import com.example.viridis.ui.theme.urbanistFont
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
 ) {
     val gardens by viewModel.gardens.collectAsState()
     val plants by viewModel.plants.collectAsState()
