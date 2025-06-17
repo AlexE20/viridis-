@@ -1,4 +1,4 @@
-package com.example.viridis.ui.screens.login
+package com.example.viridis.ui.screens.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,17 +7,15 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.viridis.ViridisApplication
 import com.example.viridis.data.repository.Auth.AuthRepository
-import com.google.firebase.auth.FirebaseAuth
+import com.example.viridis.ui.screens.login.LoginViewModel
+
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
-class LoginViewModel(
+class SignUpViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
-
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val _email = MutableStateFlow("")
     val email: StateFlow<String> = _email
@@ -25,11 +23,16 @@ class LoginViewModel(
     private val _password = MutableStateFlow("")
     val password: StateFlow<String> = _password
 
+    private val _confirmPassword = MutableStateFlow("")
+    val confirmPassword: StateFlow<String> = _confirmPassword
+    private val _username = MutableStateFlow("")
+    val username: StateFlow<String> = _username
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    private val _loginSuccess = MutableStateFlow(false)
-    val loginSuccess: StateFlow<Boolean> = _loginSuccess
+    private val _signUpSuccess = MutableStateFlow(false)
+    val signUpSuccess: StateFlow<Boolean> = _signUpSuccess
 
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
@@ -42,42 +45,35 @@ class LoginViewModel(
         _password.value = newPassword
     }
 
-    fun login() {
-        val email = _email.value.trim()
-        val password = _password.value.trim()
 
-        if (email.isEmpty() || password.isEmpty()) {
-            _errorMessage.value = "Email and password cannot be empty"
-            return
-        }
+    fun onUsernameChange(newUsername: String) {
+        _username.value = newUsername
+    }
 
-        _isLoading.value = true
-        _errorMessage.value = null
+    fun onConfirmPasswordChange(newPassword: String){
+        _confirmPassword.value = newPassword
+    }
 
+    fun register() {
         viewModelScope.launch {
-            try {
-                auth.signInWithEmailAndPassword(email, password).await()
-
-
-
-
-                val firebaseToken = auth.currentUser?.getIdToken(false)?.await()?.token
-                    ?: throw Exception("Failed to retrieve Firebase token")
-
-                authRepository.saveToken(firebaseToken)
-                _loginSuccess.value = true
-
-
-            } catch (e: Exception) {
-                _errorMessage.value = e.message ?: "Login failed"
-            } finally {
-                _isLoading.value = false
-            }
+            _isLoading.value = true
+            _errorMessage.value = null
+            val result = authRepository.register(email.value.trim(), username.value.trim(), password.value.trim())
+            _isLoading.value = false
+            result.fold(
+                onSuccess = {
+                    authRepository.saveUsername(username.value.trim())
+                    _signUpSuccess.value = true
+                },
+                onFailure = { e ->
+                    _errorMessage.value = e.message ?: "Registration failed"
+                }
+            )
         }
     }
 
-    fun resetLoginState() {
-        _loginSuccess.value = false
+    fun resetState() {
+        _signUpSuccess.value = false
         _errorMessage.value = null
     }
 
@@ -88,11 +84,10 @@ class LoginViewModel(
                 val application = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as ViridisApplication
 
 
-                LoginViewModel(
+                SignUpViewModel(
                     authRepository = application.appProvider.provideAuthRepository()
                 )
             }
         }
     }
 }
-

@@ -39,6 +39,7 @@ fun HomeScreen(
 ) {
     val viewModel: GardenViewModel = viewModel()
     val gardens by viewModel.gardens.collectAsState()
+
     CustomScaffold(navController = navController) {
         Column(
             modifier = Modifier

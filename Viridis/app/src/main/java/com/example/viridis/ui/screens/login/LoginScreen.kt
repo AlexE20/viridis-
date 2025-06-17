@@ -1,5 +1,6 @@
 package com.example.viridis.ui.screens.login
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -34,14 +35,29 @@ import com.example.viridis.Navigation.SignUp
 import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
-fun LoginScreen(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
+fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewModel(factory = LoginViewModel.Factory)) {
+
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     var showPassword by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
 
+    val loginSuccess by viewModel.loginSuccess.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
+
+    LaunchedEffect(loginSuccess) {
+        if (loginSuccess) {
+            navController.navigate(Home) {
+                popUpTo("Login") { inclusive = true }
+            }
+            viewModel.resetLoginState()
+        }
+    }
+
+    errorMessage?.let { error ->
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -123,8 +139,8 @@ fun LoginScreen(navController: NavController) {
         ) {
             AuthTextField(
                 value = email,
-                onValueChange = { viewModel.onEmailChange(email) },
-                label = "Username",
+                onValueChange = { viewModel.onEmailChange(it) },
+                label = "Email",
                 leadingIcon = Icons.Filled.AccountCircle
             )
 
@@ -132,7 +148,7 @@ fun LoginScreen(navController: NavController) {
 
             AuthTextField(
                 value = password,
-                onValueChange = { viewModel.onPasswordChange(password) },
+                onValueChange = { viewModel.onPasswordChange(it) },
                 label = "Password",
                 leadingIcon = Icons.Filled.Lock,
                 isPassword = true,
@@ -145,7 +161,7 @@ fun LoginScreen(navController: NavController) {
             CustomButton(
                 text = "Sign in",
                 onClick = {
-                    navController.navigate(Home)
+                    viewModel.login()
 
                 }
             )

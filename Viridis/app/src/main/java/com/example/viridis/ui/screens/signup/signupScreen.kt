@@ -1,5 +1,6 @@
 package com.example.viridis.ui.screens.signup
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,30 +24,47 @@ import com.example.viridis.ui.components.buttons.CustomButton
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.viridis.Navigation.Home
 import com.example.viridis.Navigation.LogIn
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
+import com.example.viridis.ui.screens.login.LoginViewModel
 import com.example.viridis.ui.theme.urbanistFont
 
 
 @Composable
-fun signupScreen(navController: NavController) {
-    var user by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passConfirm by remember { mutableStateOf("") }
+fun signupScreen(navController: NavController, viewModel: SignUpViewModel = viewModel(factory = SignUpViewModel .Factory)) {
+    val username by viewModel.username.collectAsState()
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val confirmPassword by viewModel.confirmPassword.collectAsState()
+    val signUpSuccess by viewModel.signUpSuccess.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
+
     var showPassword by remember { mutableStateOf(false) }
     var showConfirmPassword by remember { mutableStateOf(false) }
 
-    val onUserChange = { newValue: String -> user = newValue }
-    val onEmailChange = { newValue: String -> email = newValue }
-    val onPasswordChange = { newValue: String -> password = newValue }
-    val onPassConfirmChange = { newValue: String -> passConfirm = newValue }
+    val context = LocalContext.current
 
+    LaunchedEffect(signUpSuccess) {
+        if (signUpSuccess) {
+            navController.navigate(Home) {
+                popUpTo("signup") { inclusive = true }
+            }
+            viewModel.resetState()
+        }
+    }
+
+    errorMessage?.let {
+        LaunchedEffect(it) {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -127,8 +145,8 @@ fun signupScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AuthTextField(
-                value = user,
-                onValueChange = onUserChange,
+                value = username,
+                onValueChange = viewModel::onUsernameChange,
                 label = "Username",
                 leadingIcon = Icons.Filled.AccountCircle
             )
@@ -137,7 +155,7 @@ fun signupScreen(navController: NavController) {
 
             AuthTextField(
                 value = email,
-                onValueChange = onEmailChange,
+                onValueChange = viewModel::onEmailChange,
                 label = "Email",
                 leadingIcon = Icons.Filled.Mail
             )
@@ -146,7 +164,7 @@ fun signupScreen(navController: NavController) {
 
             AuthTextField(
                 value = password,
-                onValueChange = onPasswordChange,
+                onValueChange = viewModel::onPasswordChange,
                 label = "Password",
                 leadingIcon = Icons.Filled.Lock,
                 isPassword = true,
@@ -157,8 +175,8 @@ fun signupScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(15.dp))
 
             AuthTextField(
-                value = passConfirm,
-                onValueChange = onPassConfirmChange,
+                value = confirmPassword,
+                onValueChange = viewModel::onConfirmPasswordChange,
                 label = "Confirm Password",
                 leadingIcon = Icons.Filled.Lock,
                 isPassword = true,
@@ -170,22 +188,7 @@ fun signupScreen(navController: NavController) {
 
             CustomButton(
                 text = "Sign Up",
-                onClick = {navController.navigate(Home)}
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = "You already have an account?",
-                fontSize = 14.sp,
-                color = MainColor
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            CustomButton(
-                text = "Sign In",
-                onClick = { navController.navigate(LogIn) }
+                onClick = { viewModel.register() }
             )
         }
     }
