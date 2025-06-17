@@ -25,17 +25,18 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.navigation.NavController
-import com.example.viridis.Navigation.Home
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.viridis.Navigation.SignUp
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.HomeScreen
+import com.example.viridis.SignupScreen
 import com.example.viridis.ui.theme.urbanistFont
 
 @Composable
-fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
-
+fun LoginScreen(viewModel: LoginViewModel) {
+    val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     var showPassword by remember { mutableStateOf(false) }
@@ -69,7 +70,7 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
             )
 
             IconButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navigator.pop() },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -145,7 +146,7 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
             CustomButton(
                 text = "Sign in",
                 onClick = {
-                    navController.navigate(Home)
+                    navigator.push(HomeScreen)
 
                 }
             )
@@ -162,7 +163,7 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
 
             CustomButton(
                 text = "Sign up",
-                onClick = { navController.navigate(SignUp) }
+                onClick = { navigator.push(SignupScreen) }
             )
         }
     }

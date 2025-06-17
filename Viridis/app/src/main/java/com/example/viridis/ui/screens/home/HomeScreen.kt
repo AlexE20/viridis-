@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.viridis.data.viewModel.GardenViewModel
-import com.example.viridis.Navigation.Creation
 import com.example.viridis.ui.components.CustomScaffold
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.cards.StakedCards
@@ -31,6 +30,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.GardenContentScreen
+import com.example.viridis.GardenNameScreen
 import com.example.viridis.ViridisApplication
 import com.example.viridis.data.repository.GardenRepositoryImpl
 
@@ -38,11 +40,11 @@ import com.example.viridis.data.repository.GardenRepositoryImpl
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
     viewModel: GardenViewModel
 ) {
+    val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
     val gardens by viewModel.gardens.collectAsState()
-    CustomScaffold(navController = navController) {
+    CustomScaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -68,7 +70,7 @@ fun HomeScreen(
 
             CustomButton(
                 text = "Add Garden",
-                onClick = { navController.navigate(Creation) },
+                onClick = { navigator.push(GardenNameScreen) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
@@ -81,7 +83,7 @@ fun HomeScreen(
             ) {
                 items(gardens) { garden ->
                     StakedCards(
-                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
+                        clickable = {navigator.push(GardenContentScreen(garden.id, garden.name))},
                         gardenName = garden.name,
                         gardenShade = garden.shade,
                         imageUrls = null,

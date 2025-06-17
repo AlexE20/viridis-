@@ -27,7 +27,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.viridis.Navigation.Creation2
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.GardenShadeScreen
 import com.example.viridis.ui.components.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.textfields.ProfileTextfield
@@ -37,10 +39,10 @@ import com.example.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenName(navController: NavHostController){
-    CustomTopBar(
-        navController = navController
-    ) {
+fun GardenName(){
+    val navigator = LocalNavigator.currentOrThrow
+
+    CustomTopBar{
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
@@ -92,7 +94,7 @@ fun GardenName(navController: NavHostController){
             )
             Spacer(modifier = Modifier.height(410.dp))
             CustomButton("Next",
-                onClick = {navController.navigate(Creation2)},
+                onClick = {navigator.push(GardenShadeScreen)},
                 modifier = Modifier.width(351.dp).height(51.dp)
             )
         }

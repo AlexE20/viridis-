@@ -16,8 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.LoginScreen
 import com.example.viridis.R
-import com.example.viridis.Navigation.LogIn
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.buttons.CustomIconTextButton
@@ -25,7 +26,9 @@ import com.example.viridis.ui.theme.urbanistFont
 
 
 @Composable
-fun signinScreen(navController: NavController) {
+fun signinScreen() {
+    val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,7 +44,7 @@ fun signinScreen(navController: NavController) {
             horizontalAlignment = Alignment.Start
         ){
             IconButton(
-                onClick = { navController.popBackStack() },
+                onClick = {  },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -86,7 +89,7 @@ fun signinScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(48.dp))
 
         CustomIconTextButton(
-            onClick = { navController.navigate(LogIn)},
+            onClick = { navigator.push(LoginScreen)},
             text = "Sign in with Email",
             imageVector = Icons.Default.Email
         )
@@ -94,7 +97,7 @@ fun signinScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         CustomIconTextButton(
-            onClick = { navController.navigate(LogIn)},
+            onClick = {navigator.push(LoginScreen)},
             text = "Sign in with Google",
             painter = painterResource(id = R.drawable.signin_google)
         )

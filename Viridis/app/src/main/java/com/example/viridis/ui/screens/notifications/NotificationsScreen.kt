@@ -16,7 +16,7 @@ import com.example.viridis.ui.theme.BackgroundColor
 
 @Composable
 fun NotificationsScreen(navController: NavHostController) {
-    CustomScaffold(navController = navController) {
+    CustomScaffold() {
         Column(
             modifier = Modifier.background(BackgroundColor).fillMaxSize().padding(16.dp),
             verticalArrangement = Arrangement.Center,

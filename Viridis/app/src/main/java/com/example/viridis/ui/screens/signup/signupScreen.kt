@@ -25,16 +25,20 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.ui.text.TextStyle
 import androidx.navigation.NavController
-import com.example.viridis.Navigation.Home
-import com.example.viridis.Navigation.LogIn
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.HomeScreen
+
+import com.example.viridis.SigninScreen
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
+import com.example.viridis.ui.screens.home.HomeScreen
 import com.example.viridis.ui.theme.urbanistFont
 
 
 @Composable
-fun signupScreen(navController: NavController) {
+fun signupScreen() {
+    val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
     var user by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -74,7 +78,7 @@ fun signupScreen(navController: NavController) {
             )
 
             IconButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navigator.pop()},
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -170,7 +174,7 @@ fun signupScreen(navController: NavController) {
 
             CustomButton(
                 text = "Sign Up",
-                onClick = {navController.navigate(Home)}
+                onClick = {navigator.push(HomeScreen)}
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -185,7 +189,7 @@ fun signupScreen(navController: NavController) {
 
             CustomButton(
                 text = "Sign In",
-                onClick = { navController.navigate(LogIn) }
+                onClick = { navigator.push(SigninScreen) }
             )
         }
     }

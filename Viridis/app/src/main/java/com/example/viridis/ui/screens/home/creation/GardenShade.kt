@@ -25,7 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.viridis.Navigation.Home
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.HomeScreen
 import com.example.viridis.ui.components.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.theme.BackgroundColor
@@ -34,10 +36,10 @@ import com.example.viridis.ui.components.buttons.CustomRadioButton
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenShade(navController: NavHostController){
-    CustomTopBar(
-        navController = navController
-    ) {
+fun GardenShade(){
+    val navigator = LocalNavigator.currentOrThrow
+
+    CustomTopBar{
         var selectedOption by remember { mutableStateOf("Full shade") }
         var selected by remember { mutableStateOf(true) }
         Column(
@@ -103,7 +105,7 @@ fun GardenShade(navController: NavHostController){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CustomButton("Next",
-                onClick = {navController.navigate(Home)},
+                onClick = {navigator.push(HomeScreen)},
                 modifier = Modifier.width(351.dp).height(51.dp)
             )
         }

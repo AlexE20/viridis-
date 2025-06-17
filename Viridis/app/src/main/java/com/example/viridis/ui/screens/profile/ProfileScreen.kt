@@ -14,8 +14,8 @@ import com.example.viridis.ui.components.CustomScaffold
 import com.example.viridis.ui.theme.BackgroundColor
 
 @Composable
-fun ProfileScreen(navController: NavHostController) {
-    CustomScaffold(navController = navController) {
+fun ProfileScreen() {
+    CustomScaffold() {
         Column(
             modifier = Modifier.background(BackgroundColor).fillMaxSize().padding(16.dp),
             verticalArrangement = Arrangement.Center,

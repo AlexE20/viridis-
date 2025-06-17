@@ -15,7 +15,6 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun CustomScaffold(
-    navController: NavHostController,
     content: @Composable () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -23,7 +22,7 @@ fun CustomScaffold(
 
     Scaffold(
         bottomBar = {
-            CustomBottomBar(navController = navController) // ✅ Pass navController
+            CustomBottomBar() // ✅ Pass navController
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->

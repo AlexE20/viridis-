@@ -15,6 +15,7 @@ materialIcons = "1.6.0"
 datastore = "1.1.7"
 room = "2.7.1"
 ksp = "2.1.20-2.0.1"
+voyager = "1.0.0-beta01"
 
 
 [libraries]
@@ -40,6 +41,8 @@ datastore-preferences = {module ="androidx.datastore:datastore-preferences", ver
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

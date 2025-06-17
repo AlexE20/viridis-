@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.viridis.Navigation.SearchPlant
 import com.example.viridis.data.viewModel.PlantViewModel
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.buttons.CustomIconButton
@@ -44,12 +43,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.SearchPlantScreen
 import com.example.viridis.ui.components.cards.CustomCard
 import com.example.viridis.ui.theme.SecondaryAccent
 
 
 @Composable
-fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName: String) {
+fun GardenContentScreen( gardenId: Int, gardenName: String) {
+    val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
+
     val viewModel: PlantViewModel = viewModel()
 
     LaunchedEffect(gardenId) {
@@ -75,7 +78,7 @@ fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName:
             horizontalAlignment = Alignment.Start
         ) {
             IconButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navigator.pop() },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -144,7 +147,7 @@ fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName:
 
                 CustomButton(
                     text = "Add Plant",
-                    onClick = { navController.navigate(SearchPlant) },
+                    onClick = { navigator.push(SearchPlantScreen) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)

@@ -2,44 +2,39 @@ package com.example.viridis.ui.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
-
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
+import cafe.adriel.voyager.navigator.LocalNavigator
+import com.example.viridis.HomeScreen
+import com.example.viridis.ProfileScreen
 import com.example.viridis.R
-import com.example.viridis.Navigation.Home
-import com.example.viridis.Navigation.Notifications
-import com.example.viridis.Navigation.Profile
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainAccent
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.SecondaryAccent
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.viridis.NotificationScreen
+import com.example.viridis.ui.screens.notifications.NotificationsScreen
 
-data class NavItem(val label: String, val icon: ImageVector, val route: String)
+data class NavItem(val label: String, val icon: ImageVector, val screen: Screen)
 
 @Composable
-fun CustomBottomBar(navController: NavHostController) {
+fun CustomBottomBar() {
+    val navigator = LocalNavigator.currentOrThrow
+
     val navItems = listOf(
-        NavItem("Home", Icons.Outlined.Home, Home::class.qualifiedName!!),
-        NavItem("Profile", Icons.Outlined.Person, Profile::class.qualifiedName!!),
-        NavItem("Notifications", ImageVector.vectorResource(id = R.drawable.water_drop), Notifications::class.qualifiedName!!)
+        NavItem("Home", Icons.Outlined.Home, HomeScreen),
+        NavItem("Profile", Icons.Outlined.Person, ProfileScreen),
+        NavItem("Notifications", ImageVector.vectorResource(id = R.drawable.water_drop), NotificationScreen)
     )
-
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination?.route
-
 
     NavigationBar(
         modifier = Modifier.height(90.dp),
@@ -48,17 +43,10 @@ fun CustomBottomBar(navController: NavHostController) {
         navItems.forEach { item ->
             NavigationBarItem(
                 icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
-                selected = currentDestination == item.route,
+                selected = false, // Voyager no tiene backstack entry observable directo
                 onClick = {
-                    if (currentDestination != item.route) {
-                        navController.navigate(item.route) {
-                            popUpTo(navController.graph.startDestinationId) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    }
+                    navigator.push(item.screen)
                 },
-
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MainColor,
                     unselectedIconColor = SecondaryAccent,

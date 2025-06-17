@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.voyager.navigator)
+
     ksp(libs.room.ksp)
     implementation(libs.material.icons.extended)
     testImplementation(libs.junit)
