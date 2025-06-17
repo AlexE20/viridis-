@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.navigation.runtime)
     implementation("com.google.code.gson:gson:2.8.8")
     ksp(libs.room.ksp)
     implementation(libs.material.icons.extended)

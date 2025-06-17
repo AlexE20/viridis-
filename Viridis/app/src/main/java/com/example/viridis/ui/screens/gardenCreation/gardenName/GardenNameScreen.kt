@@ -28,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.viridis.Navigation.Creation2
+import com.example.viridis.Navigation.CreationShade
 import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.textfields.ProfileTextfield
@@ -65,12 +65,9 @@ fun GardenName(navController: NavController){
 
             Text(
                 text = "Assign gardens for different parts of your house! For example, Kitchen, Porsh, Terrace etc.",
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 color = MainColor,
-                lineHeight = 20.sp,
-                style = TextStyle(
-                    fontFamily = urbanistFont,
-                )
+                lineHeight = 20.sp
             )
         }
         Column(
@@ -103,7 +100,7 @@ fun GardenName(navController: NavController){
             )
             Spacer(modifier = Modifier.height(410.dp))
             CustomButton("Next",
-                onClick = {navController.navigate(Creation2)},
+                onClick = {navController.navigate(CreationShade)},
                 modifier = Modifier.width(351.dp).height(51.dp)
             )
         }

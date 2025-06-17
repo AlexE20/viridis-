@@ -33,7 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.viridis.ui.components.ImageHeaderScaffold
+import com.example.viridis.ui.components.layouts.ImageHeaderScaffold
 import com.example.viridis.R
 import com.example.viridis.ui.components.layouts.ImageHeaderScaffold
 import com.example.viridis.ui.components.buttons.CustomIconButton

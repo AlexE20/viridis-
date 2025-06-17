@@ -20,15 +20,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.layouts.CustomTopBar
@@ -42,7 +40,10 @@ import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun searchPlantScreen(navController : NavController, viewModel: plantSearchViewModel) {
+fun SearchPlantScreen(
+    navController : NavController,
+    viewModel: PlantSearchViewModel = viewModel( factory = PlantSearchViewModel.Factory)
+) {
 
     val searchText by viewModel.searchText.collectAsStateWithLifecycle()
     val filteredPlants by viewModel.filteredPlants.collectAsStateWithLifecycle()

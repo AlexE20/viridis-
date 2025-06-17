@@ -11,8 +11,7 @@ interface PlantRepository{
     suspend fun addPlant(plant: PlantEntity)
     suspend fun deletePlant(plant: PlantEntity)
     fun getPlantsFlow(): Flow<List<Plant>>
-
-//    suspend fun getPlants():List<Plant>
+    suspend fun getPlants() : List<Plant>
 //    suspend fun getPlantsByGarden(gardenId:Int):List<Plant>
 //    suspend fun addPlant(plant:Plant):List<Plant>
 //    suspend fun deletePlant(plant:Plant): List<Plant>

@@ -29,4 +29,8 @@ class PlantRepositoryImpl(
             list.map { it.toModel() }
         }
     }
+
+    override suspend fun getPlants() : List<Plant> {
+        return plantDao.getAllPlantsOnce().map { it.toModel() }
+    }
 }
