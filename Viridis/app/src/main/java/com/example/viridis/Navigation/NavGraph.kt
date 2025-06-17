@@ -2,20 +2,29 @@ package com.example.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
-import com.example.viridis.ui.screens.notification.NotificationScreen
-import com.example.viridis.ui.screens.home.creation.GardenShade
+import com.example.viridis.ui.screens.activeNotifications.NotificationScreen
+import com.example.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
+import com.example.viridis.ui.screens.gardenCreation.GardenShade
+import com.example.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
 import com.example.viridis.ui.screens.home.HomeScreen
-import com.example.viridis.ui.screens.home.creation.GardenName
+import com.example.viridis.ui.screens.gardenCreation.GardenName
 import com.example.viridis.ui.screens.profile.ProfileScreen
 import com.example.viridis.ui.screens.notifications.NotificationsScreen
 import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
-import com.example.viridis.ui.screens.gardenContent.gardenContentScreen
+import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
+import com.example.viridis.ui.screens.login.LoginViewModel
+import com.example.viridis.ui.screens.plantContent.PlantContentScreen
+import com.example.viridis.ui.screens.searchPlant.plantSearchViewModel
 import com.example.viridis.ui.screens.searchPlant.searchPlantScreen
 import kotlinx.serialization.Serializable
 
@@ -41,9 +50,6 @@ object Profile
 object SignIn
 
 @Serializable
-object GardenContent
-
-@Serializable
 object SearchPlant
 
 @Serializable
@@ -55,21 +61,56 @@ object Notification
 @Serializable
 object Meeting
 
+@Serializable
+object addedPlantDetail
+
 @ExperimentalMaterial3Api
 @Composable
 fun NavGraph(navController: NavHostController) {
+    val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
+    val loginViewModel: LoginViewModel=viewModel(factory = LoginViewModel.Factory)
     NavHost(navController = navController, startDestination = Meeting) {
-        composable<LogIn> { LoginScreen(navController) }
+        composable<LogIn> { LoginScreen(navController,viewModel=loginViewModel) }
         composable<SignUp> { signupScreen(navController) }
         composable<SignIn> { signinScreen(navController) }
-        composable<Home> { HomeScreen(navController) }
-        composable<GardenContent> { gardenContentScreen(navController) }
+        composable<Home> { HomeScreen(navController, viewModel = viewModel) }
+        composable(
+            route = "gardenContent/{gardenId}/{gardenName}",
+            arguments = listOf(navArgument("gardenId") { type = NavType.IntType },
+                navArgument("gardenName") { type= NavType.StringType })
+        ) { backStackEntry ->
+            val gardenId = backStackEntry.arguments?.getInt("gardenId") ?: 0
+            val gardenName=backStackEntry.arguments?.getString("gardenName")?:""
+            GardenContentScreen(navController, gardenId,gardenName)
+        }
         composable<Profile> { ProfileScreen(navController) }
         composable<Notification> { NotificationScreen(navController) }
         composable<Notifications> { NotificationsScreen(navController) }
         composable<Meeting> { MeetingScreen(navController) }
         composable<Creation> { GardenName(navController) }
         composable<Creation2> { GardenShade(navController) }
-        composable<SearchPlant> { searchPlantScreen(navController) }
+        composable<SearchPlant> {
+            val searchViewModel: plantSearchViewModel = viewModel()
+            searchPlantScreen(navController, searchViewModel)
+        }
+
+
+        composable("plant_detail/{plantId}") { backStackEntry ->
+            val plantId = backStackEntry.arguments?.getString("plantId")?: ""
+            PlantContentScreen(navController = navController, plantId = plantId)
+        }
+        composable(
+            route = "addedPlantDetail/{plantId}",
+            arguments = listOf(navArgument("plantId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val plantId = backStackEntry.arguments?.getString("plantId") ?: ""
+            val viewModel: AddedPlantDetailViewModel = viewModel()
+            addedPlantDetailScreen(
+                navController = navController,
+                plantId = plantId,
+                viewModel = viewModel
+            )
+        }
+
     }
 }

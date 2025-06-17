@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.SecondaryAccent
+import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
@@ -68,6 +69,7 @@ fun StakedCards(
                 text = gardenName,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
+                fontFamily = urbanistFont,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = BackgroundColor
@@ -78,7 +80,9 @@ fun StakedCards(
                 color = BackgroundColor,
                 fontSize = 12.sp,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                fontFamily = urbanistFont ,
+                fontWeight = FontWeight.SemiBold
             )
         }
     }

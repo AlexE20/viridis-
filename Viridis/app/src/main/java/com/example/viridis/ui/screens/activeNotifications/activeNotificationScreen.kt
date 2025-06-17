@@ -1,19 +1,15 @@
-package com.example.viridis.ui.screens.notification
+package com.example.viridis.ui.screens.activeNotifications
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,40 +23,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.viridis.R
 import com.example.viridis.Navigation.SignIn
+import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.theme.BackgroundColor
-import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.urbanistFont
 
+@ExperimentalMaterial3Api
 @Composable
 fun NotificationScreen(navController: NavController) {
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    CustomTopBar(navController = navController){
         Spacer(modifier = Modifier.height(30.dp))
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(BackgroundColor),
-            horizontalAlignment = Alignment.Start
-        ){
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MainColor
-                )
-            }
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -81,7 +53,6 @@ fun NotificationScreen(navController: NavController) {
                     )
                 )
             }
-        }
 
         Spacer(modifier = Modifier.height(100.dp))
 

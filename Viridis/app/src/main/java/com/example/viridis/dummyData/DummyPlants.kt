@@ -9,12 +9,12 @@ val dummyPlants = listOf(
         scientificName = "Aloe barbadensis",
         watering = "Bi-weekly",
         recommendations = listOf("Keep in indirect sunlight.", "Water regularly but avoid overwatering.", "Use well-draining soil."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,0",
+        imageUrl = "https://media.post.rvohealth.io/wp-content/uploads/sites/3/2025/04/aloe-vera-GettyImages-1473547826-Thumb.jpg",
         streak = 3,
         lastWatered = "2025-05-08",
         idGarden = 1,
         difficulty = "Medium",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "2",
@@ -22,12 +22,12 @@ val dummyPlants = listOf(
         scientificName = "Sansevieria trifasciata",
         watering = "Bi-weekly",
         recommendations = listOf("Keep in indirect sunlight.", "Water regularly but avoid overwatering.", "Fertilize monthly during growing season."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,1",
+        imageUrl = "https://gardeningsg.nparks.gov.sg/images/Plants/snake_plant(4)_zara_chin.jpg",
         streak = 16,
         lastWatered = "2025-05-24",
         idGarden = 1,
         difficulty = "Hard",
-        shadeLevel = 5
+        shadeLevel = "full_sun"
     ),
     Plant(
         id = "3",
@@ -35,12 +35,12 @@ val dummyPlants = listOf(
         scientificName = "Spathiphyllum wallisii",
         watering = "Daily",
         recommendations = listOf("Mist leaves occasionally.", "Keep in indirect sunlight.", "Use well-draining soil."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,2",
+        imageUrl = "https://cdn.mos.cms.futurecdn.net/qYNPupRnspGWPF4886Z7hB-1200-80.jpg",
         streak = 15,
         lastWatered = "2025-05-02",
         idGarden = 1,
         difficulty = "Medium",
-        shadeLevel = 4
+        shadeLevel = "sun-part_shade"
     ),
     Plant(
         id = "4",
@@ -48,12 +48,12 @@ val dummyPlants = listOf(
         scientificName = "Chlorophytum comosum",
         watering = "Weekly",
         recommendations = listOf("Keep away from pets.", "Mist leaves occasionally.", "Use well-draining soil."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,3",
+        imageUrl = "https://cityfloralgreenhouse.com/wp-content/uploads/2020/09/spider-plant.jpg",
         streak = 15,
         lastWatered = "2025-05-06",
-        idGarden = 1,
+        idGarden = 2,
         difficulty = "Medium",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "5",
@@ -61,12 +61,12 @@ val dummyPlants = listOf(
         scientificName = "Epipremnum aureum",
         watering = "Daily",
         recommendations = listOf("Mist leaves occasionally.", "Fertilize monthly during growing season.", "Keep in indirect sunlight."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,4",
+        imageUrl = "https://www.marthastewart.com/thmb/9etIquryA7k90xAxOOOwAVZMA60=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-2170686151-675aeaba15364e1c876dc485f7e6d8d8.jpg",
         streak = 11,
         lastWatered = "2025-05-22",
         idGarden = 2,
         difficulty = "Hard",
-        shadeLevel = 5
+        shadeLevel = "full_sun"
     ),
     Plant(
         id = "6",
@@ -74,12 +74,12 @@ val dummyPlants = listOf(
         scientificName = "Zamioculcas zamiifolia",
         watering = "Every 3 days",
         recommendations = listOf("Keep away from pets.", "Use well-draining soil.", "Mist leaves occasionally."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,5",
+        imageUrl = "https://www.realsimple.com/thmb/9yMs2mrJjeQ_UsNZajI85Z5VI9w=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/zz-plant-GettyImages-1387302222-e9e228907c3e4e4ea3481898c90d1a53.jpg",
         streak = 16,
         lastWatered = "2025-05-11",
         idGarden = 2,
         difficulty = "Hard",
-        shadeLevel = 1
+        shadeLevel = "full_shade"
     ),
     Plant(
         id = "7",
@@ -87,12 +87,12 @@ val dummyPlants = listOf(
         scientificName = "Ficus lyrata",
         watering = "Every 3 days",
         recommendations = listOf("Keep in indirect sunlight.", "Mist leaves occasionally.", "Keep away from pets."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,6",
+        imageUrl = "https://plantandpot.nz/wp-content/uploads/2022/03/Tall-Fiddle-Leaf-Figs-30cm-scaled.jpg",
         streak = 8,
         lastWatered = "2025-05-22",
-        idGarden = 2,
+        idGarden = 3,
         difficulty = "Easy",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "8",
@@ -100,12 +100,12 @@ val dummyPlants = listOf(
         scientificName = "Ficus elastica",
         watering = "Bi-weekly",
         recommendations = listOf("Keep away from pets.", "Keep away from pets.", "Use well-draining soil."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,7",
+        imageUrl = "https://shop-static.arborday.org/media/0004362_tineke-variegated-rubber-tree.jpeg",
         streak = 2,
         lastWatered = "2025-05-16",
-        idGarden = 2,
+        idGarden = 3,
         difficulty = "Hard",
-        shadeLevel = 1
+        shadeLevel = "full_shade"
     ),
     Plant(
         id = "9",
@@ -113,12 +113,12 @@ val dummyPlants = listOf(
         scientificName = "Dypsis lutescens",
         watering = "Weekly",
         recommendations = listOf("Fertilize monthly during growing season.", "Water regularly but avoid overwatering.", "Mist leaves occasionally."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,8",
+        imageUrl = "https://www.gardenia.net/wp-content/uploads/2024/01/shutterstock_2334747645-800x533.jpg",
         streak = 5,
         lastWatered = "2025-05-17",
-        idGarden = 2,
+        idGarden = 3,
         difficulty = "Easy",
-        shadeLevel = 4
+        shadeLevel = "sun-part_shade"
     ),
     Plant(
         id = "10",
@@ -126,12 +126,12 @@ val dummyPlants = listOf(
         scientificName = "Crassula ovata",
         watering = "Bi-weekly",
         recommendations = listOf("Fertilize monthly during growing season.", "Fertilize monthly during growing season.", "Mist leaves occasionally."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,9",
+        imageUrl = "https://www.marthastewart.com/thmb/wfMSnhZFCSX45OgGrC37o8YWFcI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/grow-care-for-jade-plant-outside-getty-1123-6f0b4051fcd14580886a5431bc05b176.jpg",
         streak = 14,
         lastWatered = "2025-05-13",
         idGarden = 4,
         difficulty = "Easy",
-        shadeLevel = 3
+        shadeLevel = "part_shade"
     ),
     Plant(
         id = "11",
@@ -139,12 +139,12 @@ val dummyPlants = listOf(
         scientificName = "Nephrolepis exaltata",
         watering = "Every 3 days",
         recommendations = listOf("Mist leaves occasionally.", "Water regularly but avoid overwatering.", "Keep in indirect sunlight."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,10",
+        imageUrl = "https://www.southernliving.com/thmb/9xe_bUwg_gJ1leAk8UZxtpAO2IM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/gettyimages-1026378744-1-8e6bdd98366d4686b765313800f32f52.jpg",
         streak = 13,
         lastWatered = "2025-05-21",
         idGarden = 4,
         difficulty = "Easy",
-        shadeLevel = 1
+        shadeLevel = "full_shade"
     ),
     Plant(
         id = "12",
@@ -152,245 +152,11 @@ val dummyPlants = listOf(
         scientificName = "Codiaeum variegatum",
         watering = "Weekly",
         recommendations = listOf("Keep in indirect sunlight.", "Mist leaves occasionally.", "Keep away from pets."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,11",
+        imageUrl = "https://www.hola.com/horizon/original_aspect_ratio/8156815d719a-cuidados-croton-03a-a.jpg",
         streak = 3,
         lastWatered = "2025-05-10",
-        idGarden = 1,
-        difficulty = "Medium",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "13",
-        name = "Calathea",
-        scientificName = "Calathea orbifolia",
-        watering = "Every 3 days",
-        recommendations = listOf("Keep in indirect sunlight.", "Keep in indirect sunlight.", "Mist leaves occasionally."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,12",
-        streak = 29,
-        lastWatered = "2025-05-03",
         idGarden = 4,
-        difficulty = "Easy",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "14",
-        name = "Dieffenbachia",
-        scientificName = "Dieffenbachia seguine",
-        watering = "Weekly",
-        recommendations = listOf("Fertilize monthly during growing season.", "Keep in indirect sunlight.", "Keep away from pets."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,13",
-        streak = 1,
-        lastWatered = "2025-05-14",
-        idGarden = 2,
         difficulty = "Medium",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "15",
-        name = "Bird of Paradise",
-        scientificName = "Strelitzia reginae",
-        watering = "Weekly",
-        recommendations = listOf("Mist leaves occasionally.", "Keep in indirect sunlight.", "Fertilize monthly during growing season."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,14",
-        streak = 29,
-        lastWatered = "2025-05-14",
-        idGarden = 4,
-        difficulty = "Hard",
-        shadeLevel = 3
-    ),
-    Plant(
-        id = "16",
-        name = "Dracaena",
-        scientificName = "Dracaena marginata",
-        watering = "Daily",
-        recommendations = listOf("Keep away from pets.", "Use well-draining soil.", "Water regularly but avoid overwatering."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,15",
-        streak = 16,
-        lastWatered = "2025-05-25",
-        idGarden = 4,
-        difficulty = "Hard",
-        shadeLevel = 4
-    ),
-    Plant(
-        id = "17",
-        name = "Bamboo Palm",
-        scientificName = "Chamaedorea seifrizii",
-        watering = "Daily",
-        recommendations = listOf("Fertilize monthly during growing season.", "Keep in indirect sunlight.", "Water regularly but avoid overwatering."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,16",
-        streak = 1,
-        lastWatered = "2025-05-01",
-        idGarden = 2,
-        difficulty = "Medium",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "18",
-        name = "Philodendron",
-        scientificName = "Philodendron hederaceum",
-        watering = "Daily",
-        recommendations = listOf("Use well-draining soil.", "Mist leaves occasionally.", "Fertilize monthly during growing season."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,17",
-        streak = 13,
-        lastWatered = "2025-05-04",
-        idGarden = 5,
-        difficulty = "Medium",
-        shadeLevel = 2
-    ),
-    Plant(
-        id = "19",
-        name = "Chinese Evergreen",
-        scientificName = "Aglaonema commutatum",
-        watering = "Every 3 days",
-        recommendations = listOf("Use well-draining soil.", "Keep away from pets.", "Fertilize monthly during growing season."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,18",
-        streak = 7,
-        lastWatered = "2025-05-14",
-        idGarden = 1,
-        difficulty = "Hard",
-        shadeLevel = 5
-    ),
-    Plant(
-        id = "20",
-        name = "Boston Fern",
-        scientificName = "Nephrolepis exaltata bostoniensis",
-        watering = "Bi-weekly",
-        recommendations = listOf("Fertilize monthly during growing season.", "Fertilize monthly during growing season.", "Keep away from pets."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,19",
-        streak = 7,
-        lastWatered = "2025-05-12",
-        idGarden = 4,
-        difficulty = "Easy",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "21",
-        name = "English Ivy",
-        scientificName = "Hedera helix",
-        watering = "Daily",
-        recommendations = listOf("Water regularly but avoid overwatering.", "Mist leaves occasionally.", "Water regularly but avoid overwatering."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,20",
-        streak = 27,
-        lastWatered = "2025-05-20",
-        idGarden = 1,
-        difficulty = "Easy",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "22",
-        name = "Swiss Cheese Plant",
-        scientificName = "Monstera adansonii",
-        watering = "Bi-weekly",
-        recommendations = listOf("Use well-draining soil.", "Water regularly but avoid overwatering.", "Use well-draining soil."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,21",
-        streak = 15,
-        lastWatered = "2025-05-11",
-        idGarden = 5,
-        difficulty = "Medium",
-        shadeLevel = 2
-    ),
-    Plant(
-        id = "23",
-        name = "Cast Iron Plant",
-        scientificName = "Aspidistra elatior",
-        watering = "Weekly",
-        recommendations = listOf("Fertilize monthly during growing season.", "Fertilize monthly during growing season.", "Mist leaves occasionally."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,22",
-        streak = 22,
-        lastWatered = "2025-05-08",
-        idGarden = 5,
-        difficulty = "Hard",
-        shadeLevel = 3
-    ),
-    Plant(
-        id = "24",
-        name = "Prayer Plant",
-        scientificName = "Maranta leuconeura",
-        watering = "Weekly",
-        recommendations = listOf("Fertilize monthly during growing season.", "Mist leaves occasionally.", "Water regularly but avoid overwatering."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,23",
-        streak = 25,
-        lastWatered = "2025-05-07",
-        idGarden = 1,
-        difficulty = "Medium",
-        shadeLevel = 4
-    ),
-    Plant(
-        id = "25",
-        name = "Oxalis",
-        scientificName = "Oxalis triangularis",
-        watering = "Daily",
-        recommendations = listOf("Keep away from pets.", "Keep in indirect sunlight.", "Keep away from pets."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,24",
-        streak = 6,
-        lastWatered = "2025-05-09",
-        idGarden = 4,
-        difficulty = "Easy",
-        shadeLevel = 4
-    ),
-    Plant(
-        id = "26",
-        name = "Purple Heart",
-        scientificName = "Tradescantia pallida",
-        watering = "Weekly",
-        recommendations = listOf("Keep in indirect sunlight.", "Fertilize monthly during growing season.", "Fertilize monthly during growing season."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,25",
-        streak = 26,
-        lastWatered = "2025-05-03",
-        idGarden = 4,
-        difficulty = "Easy",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "27",
-        name = "String of Pearls",
-        scientificName = "Senecio rowleyanus",
-        watering = "Every 3 days",
-        recommendations = listOf("Mist leaves occasionally.", "Fertilize monthly during growing season.", "Use well-draining soil."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,26",
-        streak = 4,
-        lastWatered = "2025-05-09",
-        idGarden = 1,
-        difficulty = "Hard",
-        shadeLevel = 1
-    ),
-    Plant(
-        id = "28",
-        name = "Kalanchoe",
-        scientificName = "Kalanchoe blossfeldiana",
-        watering = "Weekly",
-        recommendations = listOf("Keep away from pets.", "Water regularly but avoid overwatering.", "Fertilize monthly during growing season."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,27",
-        streak = 11,
-        lastWatered = "2025-05-11",
-        idGarden = 4,
-        difficulty = "Hard",
-        shadeLevel = 5
-    ),
-    Plant(
-        id = "29",
-        name = "Begonia",
-        scientificName = "Begonia rex",
-        watering = "Daily",
-        recommendations = listOf("Keep in indirect sunlight.", "Keep away from pets.", "Fertilize monthly during growing season."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,28",
-        streak = 2,
-        lastWatered = "2025-05-20",
-        idGarden = 5,
-        difficulty = "Medium",
-        shadeLevel = 3
-    ),
-    Plant(
-        id = "30",
-        name = "Coleus",
-        scientificName = "Solenostemon scutellarioides",
-        watering = "Weekly",
-        recommendations = listOf("Fertilize monthly during growing season.", "Fertilize monthly during growing season.", "Use well-draining soil."),
-        imageUrl = "https://source.unsplash.com/featured/?plant,29",
-        streak = 12,
-        lastWatered = "2025-05-12",
-        idGarden = 5,
-        difficulty = "Easy",
-        shadeLevel = 2
+        shadeLevel = "full_shade"
     )
 )

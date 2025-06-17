@@ -1,20 +1,19 @@
-package com.example.viridis.ui.screens.home.creation
+package com.example.viridis.ui.screens.gardenCreation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.WbCloudy
+import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material.icons.outlined.Cloud
+import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,24 +22,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.example.viridis.Navigation.Creation2
-import com.example.viridis.ui.components.CustomTopBar
+import androidx.navigation.NavController
+import com.example.viridis.Navigation.Home
+import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
-import com.example.viridis.ui.components.textfields.ProfileTextfield
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
-import com.example.viridis.ui.theme.SecondaryAccent
+import com.example.viridis.ui.components.buttons.CustomRadioButton
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenName(navController: NavHostController){
+fun GardenShade(navController: NavController){
     CustomTopBar(
         navController = navController
     ) {
+        var selectedOption by remember { mutableStateOf("Full shade") }
+        var selected by remember { mutableStateOf(true) }
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
@@ -50,14 +49,13 @@ fun GardenName(navController: NavHostController){
         )
         {
             Text(
-                text = "Let´s name your new Garden!",
+                text = "Select the shade level of your Garden!",
                 fontSize = 32.sp,
                 color = MainColor,
                 lineHeight = 40.sp
-
             )
             Text(
-                text = "Assign gardens for different parts of your house! For example, Kitchen, Porsh, Terrace etc.",
+                text = "Which type of light best suits your garden’s location?",
                 fontSize = 15.sp, color = MainColor,
                 lineHeight = 20.sp
             )
@@ -68,43 +66,46 @@ fun GardenName(navController: NavHostController){
                 .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            var gardenName by remember { mutableStateOf("") }
-
-            ProfileTextfield(
-                value = gardenName,
-                onValueChange = { gardenName = it },
-                placeholder = "Name your garden",
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Filled.Edit,
-                        contentDescription = "Edit icon",
-                        tint = SecondaryAccent,
-                        modifier = Modifier.size(20.dp)
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .height(56.dp)
-                    .clip(RoundedCornerShape(28.dp))
-                    .background(SecondaryAccent)
+        ) {
+            CustomRadioButton(
+                    selected = selected,
+                    text = "Full shade",
+                    icon = Icons.Outlined.DarkMode,
+                    onClick = { selected = !selected }
             )
-            Spacer(modifier = Modifier.height(410.dp))
-            CustomButton("Next",
-                onClick = {navController.navigate(Creation2)},
-                modifier = Modifier.width(351.dp).height(51.dp)
+            Spacer(modifier = Modifier.height(23.dp))
+            CustomRadioButton(
+                selected = !selected,
+                text = "Part shade",
+                icon = Icons.Outlined.Cloud,
+                onClick = { selected = !selected }
+            )
+            Spacer(modifier = Modifier.height(23.dp))
+            CustomRadioButton(
+                selected = !selected,
+                text = "Sun part shade",
+                icon = Icons.Filled.WbCloudy,
+                onClick = { selected = !selected }
+            )
+            Spacer(modifier = Modifier.height(23.dp))
+            CustomRadioButton(
+                selected = !selected,
+                text = "Full sun",
+                icon = Icons.Filled.WbSunny,
+                onClick = { selected = !selected }
             )
         }
-
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
                 .padding(16.dp).fillMaxSize(),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
-
+        ) {
+            CustomButton("Next",
+                onClick = {navController.navigate(Home)},
+                modifier = Modifier.width(351.dp).height(51.dp)
+            )
         }
     }
 }

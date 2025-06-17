@@ -1,4 +1,4 @@
-package com.example.viridis.ui.screens
+package com.example.viridis.ui.screens.plantSearchTest
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

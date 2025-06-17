@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -18,20 +17,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.viridis.R
 import com.example.viridis.Navigation.LogIn
+import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.buttons.CustomIconTextButton
 import com.example.viridis.ui.theme.urbanistFont
 
-
+@ExperimentalMaterial3Api
 @Composable
 fun signinScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    CustomTopBar(navController = navController){
         Spacer(modifier = Modifier.height(30.dp))
 
         Column(
@@ -40,19 +35,6 @@ fun signinScreen(navController: NavController) {
                 .background(BackgroundColor),
             horizontalAlignment = Alignment.Start
         ){
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MainColor
-                )
-            }
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
