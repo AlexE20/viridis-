@@ -59,7 +59,9 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.voyager.navigator)
-
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
     ksp(libs.room.ksp)
     implementation(libs.material.icons.extended)
     testImplementation(libs.junit)

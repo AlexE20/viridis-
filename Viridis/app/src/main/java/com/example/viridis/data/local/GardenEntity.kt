@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Garden")
 data class GardenEntity(
-    @PrimaryKey val id:Int,
+    @PrimaryKey val id:String,
     val name:String,
-    val user:Int,
+    val user:String,
     val shade:String,
 
 )

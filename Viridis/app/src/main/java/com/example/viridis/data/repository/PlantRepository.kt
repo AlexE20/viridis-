@@ -6,7 +6,6 @@ import kotlinx.coroutines.delay
 
 interface PlantRepository{
     suspend fun getPlants():List<Plant>
-    suspend fun getPlantsByGarden(gardenId:Int):List<Plant>
     suspend fun addPlant(plant:Plant):List<Plant>
     suspend fun deletePlant(plant:Plant): List<Plant>
 }
@@ -21,12 +20,7 @@ class PlantRepositoryImpl: PlantRepository{
        return plants
     }
 
-    override suspend fun getPlantsByGarden(gardenId: Int): List<Plant> {
 
-        return dummyPlants.filter {
-            it.idGarden == gardenId
-        }
-    }
 
     override suspend fun addPlant(plant: Plant): List<Plant> {
         delay(1000)

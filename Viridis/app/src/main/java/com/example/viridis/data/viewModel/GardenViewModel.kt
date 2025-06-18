@@ -25,28 +25,26 @@ class GardenViewModel(
     val gardens: StateFlow<List<Garden>>
         get() = _gardens
 
-    init {
-        loadGardens()
-    }
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> get() = _isLoading
 
-    private fun loadGardens() {
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> get() = _errorMessage
+
+    fun fetchGardens() {
         viewModelScope.launch {
-            if (isConnected()) {
-
-                repository.saveLocalGardens()
-                repository.getLocalGardens().collect { list ->
-                    _gardens.value = list
-                }
-            } else {
-
-                val dummy = repository.getGardens()
-                _gardens.value = dummy
+            val data=repository.getGardens()
+            println(data)
+            _isLoading.value = true
+            _errorMessage.value = null
+            try {
+                _gardens.value = repository.getGardens()
+            } catch (e: Exception) {
+                _errorMessage.value = "Error al cargar jardines: ${e.message}"
+            } finally {
+                _isLoading.value = false
             }
         }
-    }
-
-    private fun isConnected(): Boolean {
-        return true // o false para probar offline
     }
 
     companion object {

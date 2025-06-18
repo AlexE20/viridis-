@@ -64,7 +64,7 @@ object HomeScreen : Screen {
 }
 
 @Serializable
-data class GardenContentScreen(val gardenId: Int, val gardenName: String) : Screen {
+data class GardenContentScreen(val gardenId: String, val gardenName: String) : Screen {
     @Composable
     override fun Content() {
         GardenContentScreenContent(gardenId = gardenId, gardenName = gardenName)

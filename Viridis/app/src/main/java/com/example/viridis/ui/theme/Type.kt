@@ -19,7 +19,6 @@ val Typography = Typography(
     )
 )
 
-
 val urbanistFont = FontFamily(
     Font(R.font.urbanist)
 )

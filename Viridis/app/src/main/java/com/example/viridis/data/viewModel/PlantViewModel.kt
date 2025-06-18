@@ -16,10 +16,5 @@ class PlantViewModel(): ViewModel() {
         get()=_plants
 
 
-    fun loadPlantsByGarden(gardenId:Int){
-        viewModelScope.launch{
-        val filteredPlants=repository.getPlantsByGarden(gardenId)
-        _plants.value=filteredPlants
-        }
-    }
+  
 }

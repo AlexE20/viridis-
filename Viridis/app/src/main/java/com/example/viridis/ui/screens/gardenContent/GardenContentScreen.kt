@@ -50,13 +50,13 @@ import com.example.viridis.ui.theme.SecondaryAccent
 
 
 @Composable
-fun GardenContentScreen( gardenId: Int, gardenName: String) {
+fun GardenContentScreen( gardenId: String, gardenName: String) {
     val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
 
     val viewModel: PlantViewModel = viewModel()
 
     LaunchedEffect(gardenId) {
-        viewModel.loadPlantsByGarden(gardenId)
+        //viewModel.loadPlantsByGarden(gardenId)
     }
 
     val plants by viewModel.plants.collectAsState()
