@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.room.Dao
 import com.example.viridis.ViridisApplication
+import com.example.viridis.data.local.GardenDao
 import com.example.viridis.data.model.Garden
 import com.example.viridis.data.repository.GardenRepository
 import com.example.viridis.data.repository.GardenRepositoryImpl
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
 
 
 class GardenViewModel(
-    private val repository: GardenRepository
+    private val repository: GardenRepository,
+    
 ) : ViewModel() {
 
 
