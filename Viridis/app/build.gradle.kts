@@ -1,13 +1,23 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization")version("1.9.10")
+    id("com.google.gms.google-services")
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.example.viridis"
     compileSdk = 35
+
+
+    val file = rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(file))
 
     defaultConfig {
         applicationId = "com.example.viridis"
@@ -15,8 +25,9 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String", "API_URL", properties.getProperty("API_URL"))
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -37,7 +48,10 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+
+
 }
 
 dependencies {
@@ -54,7 +68,14 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil.compose)
     implementation(libs.datastore.preferences)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.ksp)
     implementation(libs.material.icons.extended)
+    implementation(libs.google.firebase)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
