@@ -1,8 +1,8 @@
 package com.example.viridis.data.model
 
 data class Garden(
-    val id: Int,
+    val id: String,
     val name: String,
-    val user: Int,
-    val shade: String
+    val idUser: String,
+    val shadeLevel: String
 )

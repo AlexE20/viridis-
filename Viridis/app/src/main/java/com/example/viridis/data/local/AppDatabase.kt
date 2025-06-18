@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [GardenEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 
@@ -21,10 +21,11 @@ abstract class AppDatabase: RoomDatabase() {
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "Garden_db"
-                ).build()
+                                context.applicationContext,
+                                AppDatabase::class.java,
+                                "Garden_db"
+                            ).fallbackToDestructiveMigration(true)
+                    .build()
                     .also{INSTANCE = it}
                 instance
             }

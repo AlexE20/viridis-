@@ -8,20 +8,21 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.viridis.ViridisApplication
 import com.example.viridis.data.model.Garden
-import com.example.viridis.data.repository.GardenRepository
+import com.example.viridis.data.repository.Auth.AuthRepository
+import com.example.viridis.data.repository.Garden.GardenRepository
+import com.example.viridis.utils.extractUidFromToken
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-
 class HomeViewModel(
-    private val repository: GardenRepository
+    private val gardenRepository: GardenRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
-
     private val _gardens = MutableStateFlow<List<Garden>>(emptyList())
-    val gardens: StateFlow<List<Garden>>
-        get() = _gardens
+    val gardens: StateFlow<List<Garden>> get() = _gardens
 
     init {
         loadGardens()
@@ -29,33 +30,34 @@ class HomeViewModel(
 
     private fun loadGardens() {
         viewModelScope.launch {
-            if (isConnected()) {
+            val token = authRepository.token.first() ?: return@launch
+            val userId = extractUidFromToken(token) ?: return@launch
 
-                repository.saveLocalGardens()
-                repository.getLocalGardens().collect { list ->
+            if (isConnected()) {
+                gardenRepository.saveLocalGardens(userId)
+                gardenRepository.getLocalGardens().collect { list ->
                     _gardens.value = list
                 }
             } else {
-
-                val dummy = repository.getGardens()
-                _gardens.value = dummy
+                val offlineList = gardenRepository.getGardens(userId)
+                _gardens.value = offlineList
             }
         }
     }
 
     private fun isConnected(): Boolean {
-        return true // o false para probar offline
+        // Replace with real connectivity check
+        return true
     }
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val app = (this[APPLICATION_KEY] as ViridisApplication)
-                val repository = app.appProvider.provideGardenRepository()
-                HomeViewModel(repository)
+                val gardenRepository = app.appProvider.provideGardenRepository()
+                val authRepository = app.appProvider.provideAuthRepository()
+                HomeViewModel(gardenRepository, authRepository)
             }
         }
     }
 }
-
-
