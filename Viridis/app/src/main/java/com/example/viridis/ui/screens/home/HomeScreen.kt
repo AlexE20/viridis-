@@ -84,7 +84,7 @@ fun HomeScreen(
                     StakedCards(
                         clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
                         gardenName = garden.name,
-                        gardenShade = garden.shade,
+                        gardenShade = garden.shadeLevel,
                         imageUrls = null,
                         modifier = Modifier
                             .fillMaxWidth()

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "323853182120",
+    "firebase_url": "https://viridis-9d048-default-rtdb.firebaseio.com",
+    "project_id": "viridis-9d048",
+    "storage_bucket": "viridis-9d048.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323853182120:android:526609ee5211da9fd48e9d",
+        "android_client_info": {
+          "package_name": "com.example.viridis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEpJNFG0aUSmE-z3qHr99M5guLYpsQm_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

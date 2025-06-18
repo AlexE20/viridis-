@@ -4,16 +4,13 @@ package com.example.viridis.data
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.viridis.data.local.AppDatabase
 import com.example.viridis.data.remote.RetrofitInstance
 import com.example.viridis.data.repository.Auth.AuthRepository
 import com.example.viridis.data.repository.Auth.AuthRepositoryImpl
-import com.example.viridis.data.repository.GardenRepository
-import com.example.viridis.data.repository.GardenRepositoryImpl
-import kotlinx.coroutines.flow.first
+import com.example.viridis.data.repository.Garden.GardenRepository
+import com.example.viridis.data.repository.Garden.GardenRepositoryImpl
 
 private const val USER_PREFERENCE_NAME = "user_preferences"
 
@@ -26,12 +23,10 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
     private val appDatabase = AppDatabase.getDatabase(context)
 
 
-    fun provideGardenRepository(): GardenRepository {
-        return GardenRepositoryImpl(appDatabase.gardenDao())
-    }
+
     private val authService = RetrofitInstance.authService
 
-
+    private val gardenService = RetrofitInstance.gardenService
 
 
 
@@ -42,7 +37,9 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 
 
-
+    fun provideGardenRepository(): GardenRepository {
+        return GardenRepositoryImpl(appDatabase.gardenDao(), gardenService)
+    }
     fun provideAuthRepository(): AuthRepository = authRepository
 }
 

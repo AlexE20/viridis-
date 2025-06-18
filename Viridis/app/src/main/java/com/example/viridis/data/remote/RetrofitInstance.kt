@@ -2,6 +2,7 @@ package com.example.viridis.data.remote
 
 
 import com.example.viridis.BuildConfig
+import com.example.viridis.data.remote.gardens.GardenService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,6 +26,10 @@ object RetrofitInstance {
 
     val authService: AuthService by lazy {
         retrofit.create(AuthService::class.java)
+    }
+
+    val gardenService: GardenService by lazy{
+        retrofit.create(GardenService::class.java)
     }
 
 
