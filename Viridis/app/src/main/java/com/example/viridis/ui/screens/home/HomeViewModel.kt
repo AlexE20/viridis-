@@ -34,6 +34,7 @@ class HomeViewModel(
             val userId = extractUidFromToken(token) ?: return@launch
 
             if (isConnected()) {
+                gardenRepository.getGardens(userId)
                 gardenRepository.saveLocalGardens(userId)
                 gardenRepository.getLocalGardens().collect { list ->
                     _gardens.value = list
