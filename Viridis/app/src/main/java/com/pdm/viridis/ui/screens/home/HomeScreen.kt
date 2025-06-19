@@ -44,7 +44,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(24.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
