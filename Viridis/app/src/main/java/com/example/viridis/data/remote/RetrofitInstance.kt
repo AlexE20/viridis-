@@ -3,6 +3,7 @@ package com.example.viridis.data.remote
 
 import com.example.viridis.BuildConfig
 import com.example.viridis.data.remote.gardens.GardenService
+import com.example.viridis.data.remote.plants.UserPlantService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -30,6 +31,10 @@ object RetrofitInstance {
 
     val gardenService: GardenService by lazy{
         retrofit.create(GardenService::class.java)
+    }
+
+    val userPlantService: UserPlantService by lazy {
+        retrofit.create(UserPlantService::class.java)
     }
 
 

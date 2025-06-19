@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -43,19 +45,22 @@ import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-//import com.example.viridis.Navigation.addedPlantDetail
+import com.example.viridis.Navigation.addedPlantDetail
 import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.cards.CustomCard
 import com.example.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenContentScreen(
-    navController: NavController,
-    viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
-) {
+fun GardenContentScreen(navController: NavController, gardenId: String, gardenName: String) {
+    val viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
+
+
+    LaunchedEffect(gardenId) {
+        viewModel.loadPlants(gardenId)
+    }
+
     val plants by viewModel.plants.collectAsState()
-    val gardenName = viewModel.getGardenName()
 
     CustomTopBar(navController = navController)
     {
@@ -134,14 +139,15 @@ fun GardenContentScreen(
                     items(plants) { plant ->
                         CustomCard(
                             clickable = {
-                                if (plant.id.isNotBlank()) {
+                                if (!plant.id.isNullOrBlank()) {
                                     navController.navigate("addedPlantDetail/${plant.id}")
                                 }
                             },
-                            plantName = plant.name,
-                            plantDescription = plant.scientificName,
-                            plantImgUrl = plant.imageUrl,
-                            difficulty = plant.difficulty,
+                            plantName = plant.common_name ?: "Unknown Plant" ,
+                            plantDescription = plant.recommendations?.firstOrNull()?.description
+                                ?: "No description",
+                            plantImgUrl = plant.default_image ?: "No image available",
+                            difficulty = plant.care_level ?: "No care level",
                             difficultyIcon = {
                                 Icon(
                                     imageVector = Icons.Filled.WbSunny,

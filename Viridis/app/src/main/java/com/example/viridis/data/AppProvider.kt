@@ -10,23 +10,25 @@ import com.example.viridis.data.repository.Auth.AuthRepository
 import com.example.viridis.data.repository.Auth.AuthRepositoryImpl
 import com.example.viridis.data.repository.Garden.GardenRepository
 import com.example.viridis.data.repository.Garden.GardenRepositoryImpl
-import com.example.viridis.data.repository.plantRepository.PlantRepository
-import com.example.viridis.data.repository.plantRepository.PlantRepositoryImpl
+import com.example.viridis.data.repository.Plant.UserPlantRepository
+import com.example.viridis.data.repository.Plant.UserPlantRepositoryImpl
 
 private const val USER_PREFERENCE_NAME = "user_preferences"
 
-class AppProvider (
+class AppProvider(
     context: Context,
     private val dataStore: DataStore<Preferences>
 ) {
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCE_NAME)
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCE_NAME)
 
     private val appDatabase = AppDatabase.getDatabase(context)
+
 
     private val authService = RetrofitInstance.authService
 
     private val gardenService = RetrofitInstance.gardenService
 
+    private val userPlantService = RetrofitInstance.userPlantService
 
 
     private val authRepository: AuthRepository = AuthRepositoryImpl(
@@ -34,8 +36,17 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
         dataStore = context.dataStore
     )
 
+    private val userPlantRepository: UserPlantRepository = UserPlantRepositoryImpl(
+        userPlantService
+    )
+
+
     fun provideGardenRepository(): GardenRepository {
         return GardenRepositoryImpl(appDatabase.gardenDao(), gardenService)
     }
+
     fun provideAuthRepository(): AuthRepository = authRepository
+
+    fun provideUserPlantRepository(): UserPlantRepository = userPlantRepository
 }
+
