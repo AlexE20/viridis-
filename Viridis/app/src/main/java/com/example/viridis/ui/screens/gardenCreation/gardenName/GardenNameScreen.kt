@@ -1,4 +1,4 @@
-package com.example.viridis.ui.screens.home.creation
+package com.example.viridis.ui.screens.gardenCreation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,27 +24,29 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.example.viridis.Navigation.Creation2
-import com.example.viridis.ui.components.CustomTopBar
+import androidx.navigation.NavController
+import com.example.viridis.Navigation.CreationShade
+import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.textfields.ProfileTextfield
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.SecondaryAccent
+import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenName(navController: NavHostController){
+fun GardenName(navController: NavController){
     CustomTopBar(
         navController = navController
     ) {
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(26.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         )
@@ -53,12 +55,18 @@ fun GardenName(navController: NavHostController){
                 text = "Let´s name your new Garden!",
                 fontSize = 32.sp,
                 color = MainColor,
-                lineHeight = 40.sp
+                lineHeight = 40.sp,
+                fontFamily = urbanistFont,
+                fontWeight = FontWeight.Bold
 
             )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
             Text(
                 text = "Assign gardens for different parts of your house! For example, Kitchen, Porsh, Terrace etc.",
-                fontSize = 15.sp, color = MainColor,
+                fontSize = 15.sp,
+                color = MainColor,
                 lineHeight = 20.sp
             )
         }
@@ -92,7 +100,7 @@ fun GardenName(navController: NavHostController){
             )
             Spacer(modifier = Modifier.height(410.dp))
             CustomButton("Next",
-                onClick = {navController.navigate(Creation2)},
+                onClick = {navController.navigate(CreationShade)},
                 modifier = Modifier.width(351.dp).height(51.dp)
             )
         }

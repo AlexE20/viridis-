@@ -1,4 +1,3 @@
-
 package com.example.viridis.data
 
 import android.content.Context
@@ -42,4 +41,3 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
     }
     fun provideAuthRepository(): AuthRepository = authRepository
 }
-

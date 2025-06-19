@@ -4,18 +4,12 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,77 +24,26 @@ import com.example.viridis.Navigation.Home
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.viridis.Navigation.SignUp
+import com.example.viridis.ui.components.layouts.ImageHeaderScaffold
 import com.example.viridis.ui.theme.urbanistFont
 
+@ExperimentalMaterial3Api
 @Composable
+fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
+
 fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewModel(factory = LoginViewModel.Factory)) {
 
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     var showPassword by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
 
-    val loginSuccess by viewModel.loginSuccess.collectAsState()
-    val errorMessage by viewModel.errorMessage.collectAsState()
-
-    LaunchedEffect(loginSuccess) {
-        if (loginSuccess) {
-            navController.navigate(Home) {
-                popUpTo("Login") { inclusive = true }
-            }
-            viewModel.resetLoginState()
-        }
-    }
-
-    errorMessage?.let { error ->
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally
+    ImageHeaderScaffold(
+        navController = navController,
+        imageRes = R.drawable.login_header_image,
+        imageHeight = 320.dp
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(260.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.login_header_image),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(
-                        RoundedCornerShape(
-                            bottomEnd = 64.dp
-                        )
-                    )
-            )
-
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(40.dp)
-                    .background(Color(0xFFEAF1D8), shape = CircleShape)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MainColor
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(40.dp))
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -115,18 +58,19 @@ fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewM
                 color = MainColor,
                 style = TextStyle(
                     fontFamily = urbanistFont,
-                    fontSize = 30.sp,
-                    color = Color(0xFF014946)
                 )
             )
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = "Sign In to your account",
-                fontSize = 18.sp,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
                 color = MainColor,
-                modifier = Modifier.padding(vertical = 8.dp)
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                )
             )
         }
         Spacer(modifier = Modifier.height(40.dp))
@@ -163,6 +107,7 @@ fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewM
                 onClick = {
                     viewModel.login()
 
+                    navController.navigate(Home)
                 }
             )
 

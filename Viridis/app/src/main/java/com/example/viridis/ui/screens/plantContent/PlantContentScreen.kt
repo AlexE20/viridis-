@@ -46,16 +46,12 @@ import com.example.viridis.ui.theme.urbanistFont
 @Composable
 fun PlantContentScreen(
     navController: NavController,
-    plantId: String,
-    viewModel: PlantContentViewModel = viewModel()
+    viewModel: PlantContentViewModel = viewModel(factory = PlantContentViewModel.Factory)
 ) {
+
     val plantState = viewModel.plant.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.loadPlantById(plantId)
-    }
-
     val plant = plantState.value
+
     if (plant != null) {
         ImageHeaderScaffold(
             navController = navController,

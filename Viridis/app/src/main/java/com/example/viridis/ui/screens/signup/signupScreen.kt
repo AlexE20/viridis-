@@ -4,18 +4,12 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,8 +29,9 @@ import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.components.textfields.AuthTextField
 import com.example.viridis.ui.screens.login.LoginViewModel
 import com.example.viridis.ui.theme.urbanistFont
+import com.example.viridis.ui.components.layouts.ImageHeaderScaffold
 
-
+@ExperimentalMaterial3Api
 @Composable
 fun signupScreen(navController: NavController, viewModel: SignUpViewModel = viewModel(factory = SignUpViewModel .Factory)) {
     val username by viewModel.username.collectAsState()
@@ -51,63 +46,11 @@ fun signupScreen(navController: NavController, viewModel: SignUpViewModel = view
 
     val context = LocalContext.current
 
-    LaunchedEffect(signUpSuccess) {
-        if (signUpSuccess) {
-            navController.navigate(Home) {
-                popUpTo("signup") { inclusive = true }
-            }
-            viewModel.resetState()
-        }
-    }
-
-    errorMessage?.let {
-        LaunchedEffect(it) {
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-        }
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally
+    ImageHeaderScaffold(
+        navController = navController,
+        imageRes = R.drawable.signup_header_image,
+        imageHeight = 240.dp
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.signup_header_image),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(
-                        RoundedCornerShape(
-                            bottomStart = 64.dp
-                        )
-                    )
-            )
-
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(40.dp)
-                    .background(Color(0xFFEAF1D8), shape = CircleShape)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MainColor
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(15.dp))
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -133,7 +76,10 @@ fun signupScreen(navController: NavController, viewModel: SignUpViewModel = view
                 text = "Create an account",
                 fontSize = 18.sp,
                 color = MainColor,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp),
+                style = TextStyle(
+                    fontFamily = urbanistFont,
+                )
             )
         }
         Spacer(modifier = Modifier.height(10.dp))

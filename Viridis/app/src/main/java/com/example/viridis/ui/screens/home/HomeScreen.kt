@@ -18,15 +18,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.viridis.Navigation.Creation
 import com.example.viridis.ui.components.layouts.CustomScaffold
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.components.cards.StakedCards
+import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.theme.BackgroundColor
 import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.text.TextStyle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viridis.Navigation.CreationName
+import com.example.viridis.ui.theme.urbanistFont
 import androidx.compose.ui.text.font.FontWeight
 import com.example.viridis.ui.theme.urbanistFont
 
@@ -35,19 +39,21 @@ import com.example.viridis.ui.theme.urbanistFont
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
 ) {
     val gardens by viewModel.gardens.collectAsState()
+    val plants by viewModel.plants.collectAsState()
 
     CustomScaffold(navController = navController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(26.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = "Hello There!",
                 fontSize = 32.sp,
@@ -69,7 +75,7 @@ fun HomeScreen(
 
             CustomButton(
                 text = "Add Garden",
-                onClick = { navController.navigate(Creation) },
+                onClick = { navController.navigate(CreationName) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
@@ -81,11 +87,14 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(gardens) { garden ->
+                    val gardenPlants = plants.filter { it.idGarden == garden.id }
+                    val imageUrls = gardenPlants.map { it.imageUrl }.take(4)
+
                     StakedCards(
-                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
+                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}") },
                         gardenName = garden.name,
-                        gardenShade = garden.shadeLevel,
-                        imageUrls = null,
+                        gardenShade = garden.shade,
+                        imageUrls = imageUrls,
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 160.dp)

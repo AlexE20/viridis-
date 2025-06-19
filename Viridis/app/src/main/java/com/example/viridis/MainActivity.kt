@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.viridis.Navigation.NavGraph
 
 import com.example.viridis.ui.theme.ViridisTheme
+import com.example.viridis.data.AppProvider
 import com.google.firebase.BuildConfig
 import com.google.firebase.FirebaseApp
 
@@ -30,13 +31,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalMaterial3Api
-@Preview(showBackground = true)
-@Composable
-fun MainActivityPreview() {
-    ViridisTheme {
-        val navController = rememberNavController()
-        NavGraph(navController = navController)
-    }
-}
 

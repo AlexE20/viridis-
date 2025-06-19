@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,7 +15,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -52,14 +50,12 @@ import com.example.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName: String) {
-    val viewModel: gardenContentViewModel = viewModel()
-
-    LaunchedEffect(gardenId) {
-        viewModel.loadPlantsByGarden(gardenId)
-    }
-
+fun GardenContentScreen(
+    navController: NavController,
+    viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
+) {
     val plants by viewModel.plants.collectAsState()
+    val gardenName = viewModel.getGardenName()
 
     CustomTopBar(navController = navController)
     {

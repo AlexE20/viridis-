@@ -8,6 +8,9 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.viridis.ViridisApplication
 import com.example.viridis.data.repository.Auth.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.viridis.data.repository.UserPreferencesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.viridis.ui.screens.home.creation
+package com.example.viridis.ui.screens.gardenCreation.gardenShade
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,19 +22,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.viridis.Navigation.Home
-import com.example.viridis.ui.components.CustomTopBar
+import com.example.viridis.ui.components.layouts.CustomTopBar
 import com.example.viridis.ui.components.buttons.CustomButton
 import com.example.viridis.ui.theme.BackgroundColor
 import com.example.viridis.ui.theme.MainColor
 import com.example.viridis.ui.components.buttons.CustomRadioButton
+import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenShade(navController: NavHostController){
+fun GardenShade(navController: NavController){
     CustomTopBar(
         navController = navController
     ) {
@@ -43,7 +45,7 @@ fun GardenShade(navController: NavHostController){
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(26.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         )
@@ -52,18 +54,29 @@ fun GardenShade(navController: NavHostController){
                 text = "Select the shade level of your Garden!",
                 fontSize = 32.sp,
                 color = MainColor,
-                lineHeight = 40.sp
+                lineHeight = 40.sp,
+                style = TextStyle(
+                    fontFamily = urbanistFont
+                )
             )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+
             Text(
                 text = "Which type of light best suits your garden’s location?",
-                fontSize = 15.sp, color = MainColor,
-                lineHeight = 20.sp
+                fontSize = 16.sp,
+                color = MainColor,
+                lineHeight = 20.sp,
+                style = TextStyle(
+                    fontFamily = urbanistFont
+                )
             )
         }
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
-                .padding(16.dp),
+                .padding(26.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -102,7 +115,7 @@ fun GardenShade(navController: NavHostController){
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CustomButton("Next",
+            CustomButton("Save",
                 onClick = {navController.navigate(Home)},
                 modifier = Modifier.width(351.dp).height(51.dp)
             )

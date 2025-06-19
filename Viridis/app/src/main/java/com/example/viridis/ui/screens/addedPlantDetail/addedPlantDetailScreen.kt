@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.viridis.ui.components.layouts.ImageHeaderScaffold
 import com.example.viridis.R
 import com.example.viridis.ui.components.layouts.ImageHeaderScaffold
 import com.example.viridis.ui.components.buttons.CustomIconButton
@@ -48,15 +49,16 @@ import com.example.viridis.ui.theme.WaterColor
 import com.example.viridis.ui.theme.urbanistFont
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @ExperimentalMaterial3Api
 @Composable
-fun addedPlantDetailScreen(navController: NavController, plantId: String, viewModel: AddedPlantDetailViewModel) {
-    val plant by viewModel.plant.collectAsState()
+fun addedPlantDetailScreen(
+    navController: NavController,
+    viewModel: AddedPlantDetailViewModel = viewModel(factory = AddedPlantDetailViewModel.Factory)
+) {
 
-    LaunchedEffect(Unit) {
-        viewModel.loadPlantById(plantId)
-    }
+    val plant by viewModel.plant.collectAsState()
 
     plant?.let { plant ->
         ImageHeaderScaffold(
@@ -96,6 +98,7 @@ fun addedPlantDetailScreen(navController: NavController, plantId: String, viewMo
                         CustomIconButton(
                             icon = Icons.Filled.Delete,
                             onClick = {
+
                                 viewModel.deletePlant()
                                 navController.popBackStack()
                             },
@@ -200,7 +203,7 @@ fun addedPlantDetailScreen(navController: NavController, plantId: String, viewMo
                                 text = recommendation,
                                 modifier = Modifier
                                     .background(BackgroundColor, shape = RoundedCornerShape(16.dp))
-                                    .padding(16.dp)
+                                    .padding(12.dp)
                                     .fillMaxWidth(),
                                 style = TextStyle(
                                     fontFamily = urbanistFont,
@@ -212,8 +215,9 @@ fun addedPlantDetailScreen(navController: NavController, plantId: String, viewMo
 
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
+                Spacer(modifier = Modifier.height(6.dp))
             }
         }
     }

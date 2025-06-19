@@ -1,15 +1,21 @@
 package com.example.viridis.ui.screens.searchPlant
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.viridis.ViridisApplication
 import com.example.viridis.data.model.Plant
+import com.example.viridis.data.repository.plantRepository.PlantRepository
 import com.example.viridis.data.repository.PlantRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class plantSearchViewModel(): ViewModel() {
-    private val repository= PlantRepositoryImpl()
+class PlantSearchViewModel(
+    private val repository: PlantRepository
+): ViewModel() {
 
     private val _searchText = MutableStateFlow("")
     val searchText : StateFlow<String> = _searchText
@@ -50,6 +56,17 @@ class plantSearchViewModel(): ViewModel() {
         if (nextPlants.isNotEmpty()) {
             _filteredPlants.value = _filteredPlants.value + nextPlants
             currentPage++
+        }
+    }
+
+    companion object {
+        val Factory : ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as ViridisApplication
+                PlantSearchViewModel(
+                    app.appProvider.providePlantRepository()
+                )
+            }
         }
     }
 }

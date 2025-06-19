@@ -11,18 +11,26 @@ import com.example.viridis.data.model.Garden
 import com.example.viridis.data.repository.Auth.AuthRepository
 import com.example.viridis.data.repository.Garden.GardenRepository
 import com.example.viridis.utils.extractUidFromToken
+import com.example.viridis.data.model.Plant
+import com.example.viridis.data.repository.gardenRepository.GardenRepository
+import com.example.viridis.data.repository.plantRepository.PlantRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val gardenRepository: GardenRepository,
     private val authRepository: AuthRepository
+    private val plantRepository: PlantRepository
 ) : ViewModel() {
 
     private val _gardens = MutableStateFlow<List<Garden>>(emptyList())
     val gardens: StateFlow<List<Garden>> get() = _gardens
+
+    private val _plants = MutableStateFlow<List<Plant>>(emptyList())
+    val plants: StateFlow<List<Plant>> get() = _plants
 
     init {
         loadGardens()
