@@ -22,6 +22,7 @@ import com.example.viridis.ui.screens.login.LoginScreen
 import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
 import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
+import com.example.viridis.ui.screens.gardenContent.GardenContentViewModel
 import com.example.viridis.ui.screens.login.LoginViewModel
 import com.example.viridis.ui.screens.plantContent.PlantContentScreen
 import com.example.viridis.ui.screens.searchPlant.plantSearchViewModel
@@ -76,10 +77,10 @@ fun NavGraph(navController: NavHostController) {
         composable<Home> { HomeScreen(navController, viewModel = viewModel) }
         composable(
             route = "gardenContent/{gardenId}/{gardenName}",
-            arguments = listOf(navArgument("gardenId") { type = NavType.IntType },
+            arguments = listOf(navArgument("gardenId") { type = NavType.StringType },
                 navArgument("gardenName") { type= NavType.StringType })
         ) { backStackEntry ->
-            val gardenId = backStackEntry.arguments?.getInt("gardenId") ?: 0
+            val gardenId = backStackEntry.arguments?.getString("gardenId") ?: ""
             val gardenName=backStackEntry.arguments?.getString("gardenName")?:""
             GardenContentScreen(navController, gardenId,gardenName)
         }

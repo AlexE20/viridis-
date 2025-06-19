@@ -52,11 +52,12 @@ import com.example.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName: String) {
-    val viewModel: gardenContentViewModel = viewModel()
+fun GardenContentScreen(navController: NavController, gardenId: String, gardenName: String) {
+    val viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
+
 
     LaunchedEffect(gardenId) {
-        viewModel.loadPlantsByGarden(gardenId)
+        viewModel.loadPlants(gardenId)
     }
 
     val plants by viewModel.plants.collectAsState()
@@ -138,14 +139,15 @@ fun GardenContentScreen(navController: NavController, gardenId: Int, gardenName:
                     items(plants) { plant ->
                         CustomCard(
                             clickable = {
-                                if (plant.id.isNotBlank()) {
+                                if (!plant.id.isNullOrBlank()) {
                                     navController.navigate("addedPlantDetail/${plant.id}")
                                 }
                             },
-                            plantName = plant.name,
-                            plantDescription = plant.scientificName,
-                            plantImgUrl = plant.imageUrl,
-                            difficulty = plant.difficulty,
+                            plantName = plant.common_name ?: "Unknown Plant" ,
+                            plantDescription = plant.recommendations?.firstOrNull()?.description
+                                ?: "No description",
+                            plantImgUrl = plant.default_image ?: "No image available",
+                            difficulty = plant.care_level ?: "No care level",
                             difficultyIcon = {
                                 Icon(
                                     imageVector = Icons.Filled.WbSunny,
