@@ -18,6 +18,8 @@ import com.example.viridis.data.AppProvider
 import com.example.viridis.data.repository.plantRepository.PlantRepository
 import com.example.viridis.ui.screens.gardenContent.GardenContentViewModel
 
+
+/*
 class AddedPlantDetailViewModel(
     private val plantRepository: PlantRepository,
     savedStateHandle: SavedStateHandle
@@ -58,5 +60,5 @@ class AddedPlantDetailViewModel(
         }
     }
 }
-
+*/
 

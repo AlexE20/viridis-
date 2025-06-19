@@ -8,18 +8,18 @@ import com.example.viridis.data.database.entities.PlantEntity
 fun Garden.toEntity(): GardenEntity {
     return GardenEntity(
         id = id,
-        idUser = user,
+        idUser = idUser,
         name = name,
-        shadeLevel = shade
+        shadeLevel = shadeLevel
     )
 }
 
 fun GardenEntity.toModel(): Garden {
     return Garden(
         id = id,
-        user = idUser,
+        idUser = idUser,
         name = name,
-        shade = shadeLevel
+        shadeLevel = shadeLevel
     )
 }
 

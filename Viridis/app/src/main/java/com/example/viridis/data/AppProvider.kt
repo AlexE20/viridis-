@@ -10,6 +10,8 @@ import com.example.viridis.data.repository.Auth.AuthRepository
 import com.example.viridis.data.repository.Auth.AuthRepositoryImpl
 import com.example.viridis.data.repository.Garden.GardenRepository
 import com.example.viridis.data.repository.Garden.GardenRepositoryImpl
+import com.example.viridis.data.repository.plantRepository.PlantRepository
+import com.example.viridis.data.repository.plantRepository.PlantRepositoryImpl
 
 private const val USER_PREFERENCE_NAME = "user_preferences"
 
@@ -21,8 +23,6 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
     private val appDatabase = AppDatabase.getDatabase(context)
 
-
-
     private val authService = RetrofitInstance.authService
 
     private val gardenService = RetrofitInstance.gardenService
@@ -33,8 +33,6 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
         authService = authService,
         dataStore = context.dataStore
     )
-
-
 
     fun provideGardenRepository(): GardenRepository {
         return GardenRepositoryImpl(appDatabase.gardenDao(), gardenService)

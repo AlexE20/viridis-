@@ -39,7 +39,7 @@ import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenName(navController: NavController){
+fun GardenNameScreen(navController: NavController){
     CustomTopBar(
         navController = navController
     ) {

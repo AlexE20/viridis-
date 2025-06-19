@@ -11,7 +11,7 @@ import androidx.navigation.navArgument
 import com.example.viridis.ui.screens.home.HomeViewModel
 import com.example.viridis.ui.screens.meeting.MeetingScreen
 import com.example.viridis.ui.screens.activeNotifications.NotificationScreen
-import com.example.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
+//import com.example.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
 import com.example.viridis.ui.screens.gardenCreation.gardenShade.GardenShade
 import com.example.viridis.ui.screens.home.HomeScreen
 import com.example.viridis.ui.screens.profile.ProfileScreen
@@ -21,6 +21,7 @@ import com.example.viridis.ui.screens.signin.signinScreen
 import com.example.viridis.ui.screens.signup.signupScreen
 import com.example.viridis.ui.screens.gardenContent.GardenContentScreen
 import com.example.viridis.ui.screens.gardenCreation.GardenName
+import com.example.viridis.ui.screens.gardenCreation.GardenNameScreen
 import com.example.viridis.ui.screens.login.LoginViewModel
 import com.example.viridis.ui.screens.plantContent.PlantContentScreen
 import com.example.viridis.ui.screens.searchPlant.PlantSearchViewModel
@@ -73,7 +74,7 @@ fun NavGraph(navController: NavHostController) {
         }
         composable<CreationName> {
             //Declaration of the view model
-            GardenName(navController /* THE VIEWMODEL*/)
+            GardenNameScreen(navController /* THE VIEWMODEL*/)
         }
         composable<CreationShade> {
             //Declaration of the view model
@@ -87,8 +88,9 @@ fun NavGraph(navController: NavHostController) {
         composable<PlantContentNavigation> {
             PlantContentScreen(navController)
         }
+        //NO FUNCIONA, DESCOMENTAR CUANDO SE TENGA PlantRepository
         composable<PlantDetailNavigation> {
-            addedPlantDetailScreen(navController)
+            //addedPlantDetailScreen(navController)
         }
         composable<GardenContentNavigation> {
             GardenContentScreen(navController)

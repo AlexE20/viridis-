@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.viridis.Navigation.Home
 import com.example.viridis.ui.theme.MainColor
@@ -30,8 +31,6 @@ import com.example.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun LoginScreen(navController: NavController,viewModel: LoginViewModel) {
-
 fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewModel(factory = LoginViewModel.Factory)) {
 
     val email by viewModel.email.collectAsState()

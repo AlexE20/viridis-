@@ -2,7 +2,7 @@ package com.example.viridis.dummyData
 
 import com.example.viridis.data.model.Garden
 
-val dummyGardens = listOf(
+/* val dummyGardens = listOf(
     Garden(
         id = 1,
         name = "Tirame datos",
@@ -27,4 +27,4 @@ val dummyGardens = listOf(
         user = "103",
         shade = "No shade"
     )
-)
+) */

@@ -12,7 +12,6 @@ import com.example.viridis.data.repository.Auth.AuthRepository
 import com.example.viridis.data.repository.Garden.GardenRepository
 import com.example.viridis.utils.extractUidFromToken
 import com.example.viridis.data.model.Plant
-import com.example.viridis.data.repository.gardenRepository.GardenRepository
 import com.example.viridis.data.repository.plantRepository.PlantRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,8 +21,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val gardenRepository: GardenRepository,
-    private val authRepository: AuthRepository
-    private val plantRepository: PlantRepository
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
 
     private val _gardens = MutableStateFlow<List<Garden>>(emptyList())

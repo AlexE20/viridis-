@@ -51,6 +51,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 
+/*
 @ExperimentalMaterial3Api
 @Composable
 fun addedPlantDetailScreen(
@@ -99,8 +100,8 @@ fun addedPlantDetailScreen(
                             icon = Icons.Filled.Delete,
                             onClick = {
 
-                                viewModel.deletePlant()
-                                navController.popBackStack()
+                                /* viewModel.deletePlant()
+                                navController.popBackStack() */
                             },
                             containerColor = Pink40,
                             contentColor = Color.White,
@@ -222,3 +223,4 @@ fun addedPlantDetailScreen(
         }
     }
 }
+*/
