@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.viridis"
+    namespace = "com.pdm.viridis"
     compileSdk = 35
 
 
@@ -20,7 +20,7 @@ android {
     properties.load(FileInputStream(file))
 
     defaultConfig {
-        applicationId = "com.example.viridis"
+        applicationId = "com.pdm.viridis"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
