@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class GardenEntity(
     @PrimaryKey val id:String,
     val name:String,
-    val user: String,
-    val shade:String,
+    val idUser: String,
+    val shadeLevel:String,
 )

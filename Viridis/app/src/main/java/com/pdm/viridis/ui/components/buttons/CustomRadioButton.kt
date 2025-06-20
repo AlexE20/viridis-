@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,8 @@ import androidx.compose.material.icons.filled.RadioButtonChecked
 import androidx.compose.material.icons.outlined.Brightness2
 import androidx.compose.material.icons.outlined.RadioButtonChecked
 import androidx.compose.material3.Icon
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,7 +52,11 @@ fun CustomRadioButton(
             .fillMaxWidth()
             .clip(RoundedCornerShape(28.dp))
             .background(MainAccent)
-            .clickable { onClick() }
+            .selectable(
+                selected= selected,
+                onClick= onClick,
+                role = Role.RadioButton
+            )
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -79,10 +87,13 @@ fun CustomRadioButton(
                 fontFamily = urbanistFont
             )
         }
-        Icon(
-            imageVector = if (selected) Icons.Filled.RadioButtonChecked else Icons.Outlined.RadioButtonChecked,
-            contentDescription = null,
-            tint = SecondaryAccent
+        RadioButton(
+            selected = selected,
+            onClick = null,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = SecondaryAccent,
+                unselectedColor = SecondaryAccent
+            )
         )
     }
 }
@@ -96,6 +107,6 @@ fun SelectableOptionPreview() {
         selected = selected,
         text = "Full shade",
         icon = Icons.Outlined.Brightness2,
-        onClick = { selected = !selected }
+        onClick = {}
     )
 }

@@ -2,17 +2,18 @@ package com.pdm.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.pdm.viridis.ViridisApplication
 import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.meeting.MeetingScreen
 import com.pdm.viridis.ui.screens.activeNotifications.NotificationScreen
 //import com.example.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
-import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShade
 import com.pdm.viridis.ui.screens.home.HomeScreen
 import com.pdm.viridis.ui.screens.profile.ProfileScreen
 import com.pdm.viridis.ui.screens.notifications.NotificationsScreen
@@ -21,7 +22,10 @@ import com.pdm.viridis.ui.screens.signin.signinScreen
 import com.pdm.viridis.ui.screens.signup.signupScreen
 import com.pdm.viridis.ui.screens.gardenContent.GardenContentScreen
 //import com.example.viridis.ui.screens.gardenCreation.
-import com.pdm.viridis.ui.screens.gardenCreation.GardenNameScreen
+import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameScreen
+import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
+import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeScreen
+import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
 //import com.example.viridis.ui.screens.plantContent.PlantContentScreen
 //import com.example.viridis.ui.screens.searchPlant.PlantSearchViewModel
@@ -72,12 +76,25 @@ fun NavGraph(navController: NavHostController) {
             NotificationsScreen(navController /* THE VIEWMODEL*/)
         }
         composable<CreationName> {
-            //Declaration of the view model
-            GardenNameScreen(navController /* THE VIEWMODEL*/)
+            val viewModel : GardenNameViewModel = viewModel(factory = GardenNameViewModel.Factory)
+            GardenNameScreen(navController, viewModel, {
+                val name= viewModel.getGardenName()
+                navController.navigate(CreationShade(name))
+            } )
         }
-        composable<CreationShade> {
-            //Declaration of the view model
-            GardenShade(navController /* THE VIEWMODEL*/)
+        composable<CreationShade> { backStackEntry ->
+            val gardenName = backStackEntry.arguments.garde nName
+
+            val app = LocalContext.current.applicationContext as ViridisApplication
+            val userId = /* get the user id */
+            val viewModel : GardenNameViewModel = viewModel(
+                factory = GardenShadeViewModel.factory(
+                    app= app,
+                    gardenName = gardenName,
+                    userId =
+                )
+            )
+            GardenShadeScreen(navController, viewModel)
         }
 
         composable<SearchPlant> {

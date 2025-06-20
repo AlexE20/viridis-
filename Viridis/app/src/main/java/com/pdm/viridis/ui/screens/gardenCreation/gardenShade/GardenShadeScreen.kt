@@ -36,12 +36,15 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenShade(navController: NavController){
+fun GardenShadeScreen(navController: NavController){
+
+    val options = listOf("Full shade", "Part shade", "Sun part shade", "Full sun")
+    val icons = listOf(Icons.Outlined.DarkMode, Icons.Outlined.Cloud, Icons.Filled.WbCloudy, Icons.Filled.WbSunny)
+    var selected by remember { mutableStateOf(options[0]) }
+
     CustomTopBar(
         navController = navController
     ) {
-        var selectedOption by remember { mutableStateOf("Full shade") }
-        var selected by remember { mutableStateOf(true) }
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
@@ -80,33 +83,15 @@ fun GardenShade(navController: NavController){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CustomRadioButton(
-                    selected = selected,
-                    text = "Full shade",
-                    icon = Icons.Outlined.DarkMode,
-                    onClick = { selected = !selected }
-            )
-            Spacer(modifier = Modifier.height(23.dp))
-            CustomRadioButton(
-                selected = !selected,
-                text = "Part shade",
-                icon = Icons.Outlined.Cloud,
-                onClick = { selected = !selected }
-            )
-            Spacer(modifier = Modifier.height(23.dp))
-            CustomRadioButton(
-                selected = !selected,
-                text = "Sun part shade",
-                icon = Icons.Filled.WbCloudy,
-                onClick = { selected = !selected }
-            )
-            Spacer(modifier = Modifier.height(23.dp))
-            CustomRadioButton(
-                selected = !selected,
-                text = "Full sun",
-                icon = Icons.Filled.WbSunny,
-                onClick = { selected = !selected }
-            )
+            options.forEachIndexed { index, option ->
+                CustomRadioButton(
+                    selected = selected == option,
+                    text = option,
+                    icon = icons[index],
+                    onClick = { selected = option }
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
         Column(
             modifier = Modifier

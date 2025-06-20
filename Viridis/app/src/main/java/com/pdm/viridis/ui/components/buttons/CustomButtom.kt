@@ -20,7 +20,7 @@ fun CustomButton(
     text:String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-
+    enabled: Boolean = true
 ){
     Button(
         onClick = onClick,
