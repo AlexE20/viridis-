@@ -59,11 +59,8 @@ class LoginViewModel(
                 auth.signInWithEmailAndPassword(email, password).await()
 
 
-
-
                 val firebaseToken = auth.currentUser?.getIdToken(false)?.await()?.token
                     ?: throw Exception("Failed to retrieve Firebase token")
-
                 authRepository.saveToken(firebaseToken)
                 _loginSuccess.value = true
 
@@ -85,7 +82,8 @@ class LoginViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
 
-                val application = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as ViridisApplication
+                val application =
+                    this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as ViridisApplication
 
 
                 LoginViewModel(

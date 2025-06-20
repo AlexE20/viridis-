@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +26,8 @@ import androidx.compose.runtime.getValue
 import com.example.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import com.example.viridis.ui.theme.urbanistFont
 
@@ -37,6 +38,10 @@ fun HomeScreen(
     navController: NavHostController,
     viewModel: HomeViewModel
 ) {
+
+    LaunchedEffect(Unit) {
+        viewModel.loadGardens()
+    }
     val gardens by viewModel.gardens.collectAsState()
 
     CustomScaffold(navController = navController) {
@@ -78,11 +83,26 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                if (gardens.isEmpty()) {
+                    item {
+                        Text(
+                            text = "No gardens yet.",
+                            fontSize = 16.sp,
+                            color = MainColor,
+                            lineHeight = 20.sp,
+                            fontFamily = urbanistFont,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(16.dp)
+
+                        )
+                    }
+                }
                 items(gardens) { garden ->
                     StakedCards(
-                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
+                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}") },
                         gardenName = garden.name,
                         gardenShade = garden.shadeLevel,
                         imageUrls = null,

@@ -24,11 +24,8 @@ class HomeViewModel(
     private val _gardens = MutableStateFlow<List<Garden>>(emptyList())
     val gardens: StateFlow<List<Garden>> get() = _gardens
 
-    init {
-        loadGardens()
-    }
 
-    private fun loadGardens() {
+     fun loadGardens() {
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch
             val userId = extractUidFromToken(token) ?: return@launch
