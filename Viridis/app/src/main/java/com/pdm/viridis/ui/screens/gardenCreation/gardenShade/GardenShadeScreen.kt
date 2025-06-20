@@ -16,6 +16,7 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,11 +37,22 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenShadeScreen(navController: NavController){
+fun GardenShadeScreen(
+    navController: NavController,
+    viewModel: GardenShadeViewModel
+){
 
-    val options = listOf("Full shade", "Part shade", "Sun part shade", "Full sun")
-    val icons = listOf(Icons.Outlined.DarkMode, Icons.Outlined.Cloud, Icons.Filled.WbCloudy, Icons.Filled.WbSunny)
-    var selected by remember { mutableStateOf(options[0]) }
+    val options = viewModel.shadeOptions.entries.toList()
+    val selected by viewModel.selectedShade.collectAsState()
+    val isSaving by viewModel.isSaving.collectAsState()
+    val error by viewModel.error.collectAsState()
+
+    val icons = listOf(
+        Icons.Outlined.DarkMode,
+        Icons.Outlined.Cloud,
+        Icons.Filled.WbCloudy,
+        Icons.Filled.WbSunny
+    )
 
     CustomTopBar(
         navController = navController
@@ -83,12 +95,12 @@ fun GardenShadeScreen(navController: NavController){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            options.forEachIndexed { index, option ->
+            options.forEachIndexed { index, (label, value) ->
                 CustomRadioButton(
-                    selected = selected == option,
-                    text = option,
+                    selected = selected == value,
+                    text = label,
                     icon = icons[index],
-                    onClick = { selected = option }
+                    onClick = { viewModel.onShadeSelected(value) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -102,8 +114,13 @@ fun GardenShadeScreen(navController: NavController){
         ) {
             CustomButton("Save",
                 onClick = {navController.navigate(Home)},
+                enabled = viewModel.isValid() && !isSaving,
                 modifier = Modifier.width(351.dp).height(51.dp)
             )
+
+            error?.let {
+
+            }
         }
     }
 }

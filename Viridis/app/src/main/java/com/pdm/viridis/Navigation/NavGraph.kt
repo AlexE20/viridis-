@@ -82,8 +82,8 @@ fun NavGraph(navController: NavHostController) {
                 navController.navigate(CreationShade(name))
             } )
         }
-        composable<CreationShade> { backStackEntry ->
-            val gardenName = backStackEntry.arguments.garde nName
+        composable<CreationShade> { creationShade ->
+            val gardenName = creationShade.gardenName
 
             val app = LocalContext.current.applicationContext as ViridisApplication
             val userId = /* get the user id */
@@ -91,7 +91,7 @@ fun NavGraph(navController: NavHostController) {
                 factory = GardenShadeViewModel.factory(
                     app= app,
                     gardenName = gardenName,
-                    userId =
+                    userId = userId
                 )
             )
             GardenShadeScreen(navController, viewModel)

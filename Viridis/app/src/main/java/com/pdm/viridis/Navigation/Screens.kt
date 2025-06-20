@@ -7,6 +7,7 @@ object Home
 
 @Serializable
 data class CreationName(val gardenName: String)
+
 @Serializable
 data class CreationShade(val gardenName: String)
 

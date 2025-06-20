@@ -31,7 +31,7 @@ class GardenShadeViewModel(
     )
 
     private val _selectedShade = MutableStateFlow("")
-    val selectShade : StateFlow<String> = _selectedShade.asStateFlow()
+    val selectedShade : StateFlow<String> = _selectedShade.asStateFlow()
 
     private val _isSaving = MutableStateFlow(false)
     val isSaving : StateFlow<Boolean> = _isSaving
@@ -76,10 +76,10 @@ class GardenShadeViewModel(
                     GardenShadeViewModel(
                         repository = app.appProvider.provideGardenRepository(),
                         savedStateHandle = createSavedStateHandle(),
-                        userId = userId,
-                        gardenName = gardenName
+                        userId = userId, gardenName = gardenName
                     )
                 }
             }
+
     }
 }
