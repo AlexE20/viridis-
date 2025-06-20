@@ -23,6 +23,8 @@ import com.pdm.viridis.ui.screens.gardenContent.GardenContentScreen
 //import com.example.viridis.ui.screens.gardenCreation.
 import com.pdm.viridis.ui.screens.gardenCreation.GardenNameScreen
 import com.pdm.viridis.ui.screens.login.LoginViewModel
+import com.pdm.viridis.ui.screens.profileSettings.ProfileSettingsScreens
+
 //import com.example.viridis.ui.screens.plantContent.PlantContentScreen
 //import com.example.viridis.ui.screens.searchPlant.PlantSearchViewModel
 //import com.example.viridis.ui.screens.searchPlant.SearchPlantScreen
@@ -66,6 +68,9 @@ fun NavGraph(navController: NavHostController) {
         composable<Profile> {
             //Declaration of the view model
             ProfileScreen(navController /* THE VIEWMODEL*/)
+        }
+        composable<ProfileSettings>{
+            ProfileSettingsScreens(navController)
         }
         composable<Notifications> {
             //Declaration of the view model

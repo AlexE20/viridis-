@@ -44,3 +44,6 @@ data class PlantDetailNavigation(val plantId : String)
 @Serializable
 data class GardenContentNavigation(val gardenId : Int, val gardenName : String)
 
+@Serializable
+object ProfileSettings
+

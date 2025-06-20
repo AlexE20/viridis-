@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import com.pdm.viridis.Navigation.Notification
+import com.pdm.viridis.Navigation.ProfileSettings
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.ProfileStatCard
 import com.pdm.viridis.ui.theme.Pink40
@@ -42,7 +43,10 @@ fun ProfileScreen(navController: NavHostController) {
         ) {
             CustomIconButton(
                 icon = Icons.Filled.Settings,
-                onClick = { /* para configurar despues lo hago pablo abajo esta el boton de logout alsuave */ },
+                onClick = {
+                /* para configurar despues lo hago pablo abajo esta el boton de logout alsuave */
+                    navController.navigate(ProfileSettings)
+                },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(16.dp),
