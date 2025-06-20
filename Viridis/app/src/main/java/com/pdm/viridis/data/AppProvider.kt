@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.pdm.viridis.data.local.AppDatabase
+import com.pdm.viridis.data.database.AppDatabase
 import com.pdm.viridis.data.remote.RetrofitInstance
 import com.pdm.viridis.data.repository.Auth.AuthRepository
 import com.pdm.viridis.data.repository.Auth.AuthRepositoryImpl

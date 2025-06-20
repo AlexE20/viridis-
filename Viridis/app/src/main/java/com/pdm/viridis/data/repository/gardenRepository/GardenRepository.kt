@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface GardenRepository{
     fun getGardensByUser(userId: String): Flow<List<GardenEntity>>
     suspend fun addGarden(garden: GardenEntity)
-    suspend fun deleteGarden(garden: GardenEntity)
+    suspend fun deleteGarden(gardenId: String)
     fun getLocalGardens(): Flow<List<Garden>>
 
 ///////////////

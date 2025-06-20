@@ -18,8 +18,8 @@ class GardenRepositoryImpl(private val gardenDao: GardenDao) : GardenRepository 
         gardenDao.addGarden(garden)
     }
 
-    override suspend fun deleteGarden(garden: GardenEntity) {
-        gardenDao.deleteGarden(garden)
+    override suspend fun deleteGarden(gardenId: String) {
+        gardenDao.deleteGarden(gardenId)
     }
 
     override fun getLocalGardens(): Flow<List<Garden>> {

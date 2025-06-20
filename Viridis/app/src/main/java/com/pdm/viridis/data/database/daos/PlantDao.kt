@@ -23,11 +23,10 @@ interface PlantDao {
     fun getAllPlants(): Flow<List<PlantEntity>>
 
     @Query("SELECT * FROM Plant")
-    suspend fun getAllPlantsOnce() : List<PlantEntity>
+    suspend fun getAllPlantsOnce(): List<PlantEntity>
 
 
-////////////
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun addPlants(plants: List<PlantEntity>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addPlants(plants: List<PlantEntity>)
 
 }
