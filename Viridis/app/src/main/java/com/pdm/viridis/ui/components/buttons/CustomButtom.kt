@@ -17,25 +17,24 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @Composable
 fun CustomButton(
-    text:String,
+    text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-
-){
+    buttonColor: androidx.compose.ui.graphics.Color = MainColor,
+    textColor: androidx.compose.ui.graphics.Color = BackgroundColor
+) {
     Button(
         onClick = onClick,
-        modifier = Modifier.width(377.dp).height(52.dp),
-        colors = ButtonDefaults.buttonColors(MainColor)
+        modifier = modifier
+            .width(377.dp)
+            .height(52.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
     ) {
-        Text(text, color = BackgroundColor, fontSize = 20.sp, fontFamily = urbanistFont)
-    }
-}
-
-
-@Preview
-@Composable
-fun prevCusButton(){
-    Column {
-        CustomButton("Hola test", onClick = {}) //viewer and calling example
+        Text(
+            text = text,
+            color = textColor,
+            fontSize = 20.sp,
+            fontFamily = urbanistFont
+        )
     }
 }

@@ -24,7 +24,7 @@ fun CustomScaffold(
 
     Scaffold(
         bottomBar = {
-            CustomBottomBar(navController = navController) // ✅ Pass navController
+            CustomBottomBar(navController = navController)
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
