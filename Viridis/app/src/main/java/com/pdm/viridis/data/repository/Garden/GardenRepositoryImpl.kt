@@ -43,11 +43,11 @@ class GardenRepositoryImpl(
         return addedGarden
     }
 
-    override suspend fun deleteGarden(userId: String, gardenId: String): List<Garden> {
+    override suspend fun deleteGarden(userId: String, gardenId: String){
         gardenService.deleteGarden(userId, gardenId)
         gardens = gardens.filter { it.id != gardenId }
         gardenDao.deleteGarden(gardenId)
-        return gardens
+
     }
 
     override fun getLocalGardens(): Flow<List<Garden>> {

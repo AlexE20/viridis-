@@ -10,8 +10,8 @@ import com.pdm.viridis.data.repository.Auth.AuthRepository
 import com.pdm.viridis.data.repository.Auth.AuthRepositoryImpl
 import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepositoryImpl
-import com.pdm.viridis.data.repository.Plant.UserPlantRepository
-import com.pdm.viridis.data.repository.Plant.UserPlantRepositoryImpl
+import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
+import com.pdm.viridis.data.repository.UserPlant.UserPlantRepositoryImpl
 
 private const val USER_PREFERENCE_NAME = "user_preferences"
 

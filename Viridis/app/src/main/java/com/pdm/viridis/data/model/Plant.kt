@@ -7,9 +7,6 @@ data class Plant(
     val watering:String,
     val recommendations: List<String>,
     val imageUrl:String,
-    val streak: Int,
-    val lastWatered: String,
-    val idGarden:String,
-    val difficulty:String,
+    val careLevel:String?,
     val shadeLevel:String
 )

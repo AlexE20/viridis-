@@ -41,9 +41,11 @@ import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import com.pdm.viridis.Navigation.Home
 //import com.example.viridis.Navigation.addedPlantDetail
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.cards.CustomCard
+import com.pdm.viridis.ui.screens.home.HomeScreen
 import com.pdm.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
@@ -111,7 +113,10 @@ fun GardenContentScreen(navController: NavController, gardenId: String, gardenNa
 
                     CustomIconButton(
                         icon = Icons.Filled.Delete,
-                        onClick = { /* LOgica de liminar jardín */ },
+                        onClick = {
+                            viewModel.deleteGarden(gardenId)
+                            navController.navigate(Home)
+                                  },
                         containerColor = Pink40,
                         contentColor = Color.White,
                         modifier = Modifier
