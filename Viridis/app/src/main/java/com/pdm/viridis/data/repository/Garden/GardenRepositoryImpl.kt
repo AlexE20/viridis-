@@ -4,6 +4,8 @@ import com.pdm.viridis.data.database.daos.GardenDao
 import com.pdm.viridis.data.database.entities.GardenEntity
 import com.pdm.viridis.data.model.Garden
 import com.pdm.viridis.data.remote.gardens.GardenService
+import com.pdm.viridis.data.remote.responses.GardenRequest
+import com.pdm.viridis.data.remote.responses.GardenResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -27,8 +29,8 @@ class GardenRepositoryImpl(
         }
     }
 
-    override suspend fun addGarden(userId: String, garden: Garden): List<Garden> {
-        val addedGarden = gardenService.addGarden(userId, garden)
+    override suspend fun addGarden(userId: String, garden: GardenRequest): Garden{
+        val addedGarden = gardenService.addGarden(userId,garden)
         gardens = gardens + addedGarden
 
         val entity = GardenEntity(
@@ -38,7 +40,7 @@ class GardenRepositoryImpl(
             shadeLevel = addedGarden.shadeLevel
         )
         gardenDao.addGarden(entity)
-        return gardens
+        return addedGarden
     }
 
     override suspend fun deleteGarden(userId: String, gardenId: String): List<Garden> {

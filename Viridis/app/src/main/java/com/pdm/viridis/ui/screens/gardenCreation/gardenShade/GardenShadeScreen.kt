@@ -16,10 +16,12 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +36,7 @@ import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.components.buttons.CustomRadioButton
 import com.pdm.viridis.ui.theme.urbanistFont
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 @Composable
@@ -46,6 +49,8 @@ fun GardenShadeScreen(
     val selected by viewModel.selectedShade.collectAsState()
     val isSaving by viewModel.isSaving.collectAsState()
     val error by viewModel.error.collectAsState()
+
+    val coroutineScope = rememberCoroutineScope()
 
     val icons = listOf(
         Icons.Outlined.DarkMode,
@@ -95,12 +100,12 @@ fun GardenShadeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            options.forEachIndexed { index, (label, value) ->
+            options.forEachIndexed { index, (key, label) ->
                 CustomRadioButton(
-                    selected = selected == value,
+                    selected = selected == label,
                     text = label,
                     icon = icons[index],
-                    onClick = { viewModel.onShadeSelected(value) }
+                    onClick = { viewModel.onShadeSelected(label) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -113,7 +118,10 @@ fun GardenShadeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CustomButton("Save",
-                onClick = {navController.navigate(Home)},
+                onClick = {
+                    viewModel.saveGarden {}
+                    navController.navigate(Home)
+                },
                 enabled = viewModel.isValid() && !isSaving,
                 modifier = Modifier.width(351.dp).height(51.dp)
             )

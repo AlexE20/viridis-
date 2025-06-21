@@ -7,3 +7,7 @@ package com.pdm.viridis.data.remote.responses
         val idUser: String,
         val shadeLevel: String
     )
+data class GardenRequest(
+    val name:String,
+    val shadeLevel:String
+)

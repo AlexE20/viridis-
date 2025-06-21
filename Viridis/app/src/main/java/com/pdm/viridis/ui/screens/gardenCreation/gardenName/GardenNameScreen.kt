@@ -107,10 +107,7 @@ fun GardenNameScreen(
             )
             Spacer(modifier = Modifier.height(410.dp))
             CustomButton("Next",
-                onClick = {
-                    val gardenName = viewModel.getGardenName()
-                    navController.navigate(CreationShade(gardenName))
-                          },
+                onClick = onNext,
                 enabled =  viewModel.isValid(),
                 modifier = Modifier.width(351.dp).height(51.dp)
 

@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class GardenNameViewModel(
-    private val repository : GardenRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -34,16 +33,10 @@ class GardenNameViewModel(
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val app = this[
-                    ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY
-                ] as ViridisApplication
-
                 GardenNameViewModel(
-                    repository = app.appProvider.provideGardenRepository(),
                     savedStateHandle = createSavedStateHandle()
                 )
             }
         }
     }
-
 }

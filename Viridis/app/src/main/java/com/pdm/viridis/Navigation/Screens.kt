@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 object Home
 
 @Serializable
-data class CreationName(val gardenName: String)
+object CreationName
 
 @Serializable
 data class CreationShade(val gardenName: String)
