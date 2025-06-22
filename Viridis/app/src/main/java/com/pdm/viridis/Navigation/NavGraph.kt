@@ -27,6 +27,9 @@ import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeScreen
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
+import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
+import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen
+
 //import com.example.viridis.ui.screens.plantContent.PlantContentScreen
 //import com.example.viridis.ui.screens.searchPlant.PlantSearchViewModel
 //import com.example.viridis.ui.screens.searchPlant.SearchPlantScreen
@@ -87,11 +90,11 @@ fun NavGraph(navController: NavHostController) {
             GardenShadeScreen(navController, viewModel)
         }
 
-
         composable<SearchPlant> {
-            //val searchViewModel : PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
-            //SearchPlantScreen(navController, searchViewModel)
+            val plantSearchViewModel: PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
+            SearchPlantScreen(navController = navController, viewModel = plantSearchViewModel)
         }
+
         composable<PlantContentNavigation> {
             //PlantContentScreen(navController)
         }
@@ -108,6 +111,7 @@ fun NavGraph(navController: NavHostController) {
             val gardenName=backStackEntry.arguments?.getString("gardenName")?:""
             GardenContentScreen(navController, gardenId,gardenName)
         }
+
 
 
 

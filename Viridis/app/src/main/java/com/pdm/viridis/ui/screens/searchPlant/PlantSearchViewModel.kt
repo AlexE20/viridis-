@@ -2,6 +2,7 @@ package com.pdm.viridis.ui.screens.searchPlant
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -14,59 +15,43 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class PlantSearchViewModel(
-    private val repository: PlantRepository
+    private val plantRepository: PlantRepository
 ): ViewModel() {
 
-//    private val _searchText = MutableStateFlow("")
-//    val searchText : StateFlow<String> = _searchText
-//
-//    private val _filteredPlants = MutableStateFlow<List<Plant>>(emptyList())
-//    val filteredPlants : StateFlow<List<Plant>> = _filteredPlants
-//
-//    private var allPlants : List<Plant> = emptyList()
-//
-//    private val pageSize = 10
-//    private var currentPage = 1
-//
-//    init {
-//        loadInitialPage()
-//    }
-//
-//    private fun loadInitialPage(){
-//        viewModelScope.launch {
-//            allPlants = repository.getPlants()
-//            _filteredPlants.value = allPlants.take(pageSize)
-//        }
-//    }
-//
-//    fun onSearchTextChange(newText : String){
-//        _searchText.value = newText
-//
-//        _filteredPlants.value = if (newText.isBlank()) {
-//            allPlants.take(pageSize)
-//        } else {
-//            allPlants.filter { plant ->
-//                plant.name.contains(newText, ignoreCase = true)
-//            }
-//        }
-//    }
-//
-//    fun loadNextPage() {
-//        val nextPlants = allPlants.drop(currentPage * pageSize).take(pageSize)
-//        if (nextPlants.isNotEmpty()) {
-//            _filteredPlants.value = _filteredPlants.value + nextPlants
-//            currentPage++
-//        }
-//    }
-//
-//    companion object {
-//        val Factory : ViewModelProvider.Factory = viewModelFactory {
-//            initializer {
-//                val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as ViridisApplication
-//                PlantSearchViewModel(
-//                    app.appProvider.providePlantRepository()
-//                )
-//            }
-//        }
-//    }
+    private val _searchText = MutableStateFlow("")
+    val searchText: StateFlow<String> = _searchText
+
+    private val _plants = MutableStateFlow<List<Plant>>(emptyList())
+    val plants: StateFlow<List<Plant>> = _plants
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
+    fun onSearchTextChange(newText: String) {
+        _searchText.value = newText
+    }
+
+    fun searchPlants() {
+        val query = _searchText.value.trim()
+        if (query.isBlank()) return
+
+        viewModelScope.launch {
+            _isLoading.value = true
+            _plants.value = try {
+                plantRepository.getCatalogPlantsByName(query)
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    companion object {
+        val Factory : ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val app = (this[APPLICATION_KEY] as ViridisApplication)
+                val plantRepository = app.appProvider.providePlantRepository()
+                PlantSearchViewModel(plantRepository)
+            }
+        }
+    }
 }

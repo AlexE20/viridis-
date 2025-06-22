@@ -1,24 +1,18 @@
 package com.pdm.viridis.data.remote.plants
 
-
-import com.pdm.viridis.data.model.Plant
+import com.pdm.viridis.data.remote.responses.PlantResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PlantService {
-
     @GET("api/plants")
     suspend fun getCatalogPlants(
-        @Query("limit") limit: Int?=10,
+        @Query("limit") limit: Int?=20,
         @Query("startAfter") startAfter: String? = null
-    ): List<Plant>
+    ): List<PlantResponse>
 
-
-    @GET("api/plants/{plantName}")
+    @GET("api/plants/search")
     suspend fun getCatalogPlantsByName(
-        @Path("plantName") plantName: String,
-    ):List<Plant>
-
-
+        @Query("plantName") plantName: String,
+    ):List<PlantResponse>
 }

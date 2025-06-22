@@ -2,8 +2,6 @@ package com.pdm.viridis.data.mappers
 
 import com.pdm.viridis.data.model.Garden
 import com.pdm.viridis.data.database.entities.GardenEntity
-import com.pdm.viridis.data.model.Plant
-import com.pdm.viridis.data.database.entities.PlantEntity
 
 fun Garden.toEntity(): GardenEntity {
     return GardenEntity(
@@ -23,6 +21,9 @@ fun GardenEntity.toModel(): Garden {
     )
 }
 
+
+
+//
 //fun Plant.toEntity(): PlantEntity {
 //    return PlantEntity(
 //        id = 0,
@@ -36,16 +37,16 @@ fun GardenEntity.toModel(): Garden {
 //        recommendations = recommendations
 //    )
 //}
-
-fun PlantEntity.toModel(): Plant {
-    return Plant(
-        id = plantId,
-        name = commonName,
-        scientificName = scientificName.firstOrNull() ?: "",
-        watering = watering,
-        recommendations = recommendations,
-        imageUrl = defaultImage,
-        careLevel = "",
-        shadeLevel = ""
-    )
-}
+//
+//    fun PlantEntity.toModel(): Plant {
+//    return Plant(
+//        id = plantId,
+//        name = commonName,
+//        scientificName = scientificName.firstOrNull() ?: "",
+//        watering = watering,
+//        recommendations = recommendations,
+//        imageUrl = defaultImage,
+//        careLevel = "",
+//        shadeLevel = ""
+//    )
+//}
