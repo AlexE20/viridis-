@@ -1,6 +1,6 @@
 package com.pdm.viridis.ui.screens.plantContent
 
-@ExperimentalMaterial3Api
+/*@ExperimentalMaterial3Api
 @Composable
 fun PlantContentScreen(
     navController: NavController,
@@ -114,5 +114,5 @@ fun PlantContentScreen(
             Text("Loading...", fontFamily = urbanistFont, color = MainColor)
         }
     }
-}
+}*/
 

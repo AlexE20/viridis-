@@ -98,6 +98,7 @@ fun NavGraph(navController: NavHostController) {
         composable<PlantContentNavigation> {
             //PlantContentScreen(navController)
         }
+
         //NO FUNCIONA, DESCOMENTAR CUANDO SE TENGA PlantRepository
         composable<PlantDetailNavigation> {
             //addedPlantDetailScreen(navController)
