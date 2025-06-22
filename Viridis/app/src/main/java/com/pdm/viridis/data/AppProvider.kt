@@ -10,6 +10,8 @@ import com.pdm.viridis.data.repository.Auth.AuthRepository
 import com.pdm.viridis.data.repository.Auth.AuthRepositoryImpl
 import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepositoryImpl
+import com.pdm.viridis.data.repository.Plant.PlantRepository
+import com.pdm.viridis.data.repository.Plant.PlantRepositoryImpl
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepositoryImpl
 
@@ -29,6 +31,7 @@ class AppProvider(
 
     private val userPlantService = RetrofitInstance.userPlantService
 
+    private val plantService = RetrofitInstance.plantService
 
     private val authRepository: AuthRepository = AuthRepositoryImpl(
         authService = authService,
@@ -39,6 +42,9 @@ class AppProvider(
         userPlantService
     )
 
+    private val plantRepository: PlantRepository = PlantRepositoryImpl(
+        plantService
+    )
 
     fun provideGardenRepository(): GardenRepository {
         return GardenRepositoryImpl(appDatabase.gardenDao(), gardenService)
@@ -47,5 +53,7 @@ class AppProvider(
     fun provideAuthRepository(): AuthRepository = authRepository
 
     fun provideUserPlantRepository(): UserPlantRepository = userPlantRepository
+
+    fun providePlantRepository(): PlantRepository = plantRepository
 }
 

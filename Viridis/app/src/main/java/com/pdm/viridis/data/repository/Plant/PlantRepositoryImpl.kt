@@ -13,15 +13,12 @@ class PlantRepositoryImpl(
     private val plantService: PlantService
 ) : PlantRepository {
 
-    private var plants = emptyList<Plant>()
-
     override suspend fun getCatalogPlants(limit: Int?, startAfter: String?): List<Plant> {
         return try {
-            plants = plantService.getCatalogPlants(
+            plantService.getCatalogPlants(
                 limit = limit ?: 20,
                 startAfter = startAfter
             )
-            plants
         } catch (e: retrofit2.HttpException) {
             if (e.code() == 404) {
                 emptyList()
@@ -33,14 +30,9 @@ class PlantRepositoryImpl(
 
     override suspend fun getCatalogPlantsByName(name: String): List<Plant> {
         return try {
-            plants = plantService.getCatalogPlantsByName(name)
-            plants
+            plantService.getCatalogPlantsByName(name)
         } catch (e: retrofit2.HttpException) {
-
             throw e
-
         }
     }
-
-
 }

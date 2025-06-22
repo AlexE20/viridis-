@@ -1,9 +1,5 @@
 package com.pdm.viridis.data.remote.responses
 
-
-
-
-
 data class SignUpRequest(
     val uid: String,
     val email: String,
