@@ -1,6 +1,7 @@
 package com.pdm.viridis.data.remote.gardens
 
 import com.pdm.viridis.data.model.Garden
+import com.pdm.viridis.data.remote.responses.GardenRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -17,7 +18,7 @@ interface GardenService {
     @POST("api/gardens/{userId}")
     suspend fun addGarden(
         @Path("userId") userId: String,
-        @Body garden: Garden
+        @Body garden: GardenRequest
     ): Garden
 
     @DELETE("api/gardens/{userId}/{gardenId}")

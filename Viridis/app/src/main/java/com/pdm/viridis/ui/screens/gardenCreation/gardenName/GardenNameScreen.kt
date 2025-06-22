@@ -1,4 +1,4 @@
-package com.pdm.viridis.ui.screens.gardenCreation
+package com.pdm.viridis.ui.screens.gardenCreation.gardenName
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.pdm.viridis.Navigation.CreationShade
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
@@ -39,10 +41,17 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenNameScreen(navController: NavController){
+fun GardenNameScreen(
+    navController: NavController,
+    viewModel : GardenNameViewModel,
+    onNext : () -> Unit
+){
     CustomTopBar(
         navController = navController
     ) {
+
+        val gardenName by viewModel.gNameText.collectAsState()
+
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
@@ -77,11 +86,9 @@ fun GardenNameScreen(navController: NavController){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            var gardenName by remember { mutableStateOf("") }
-
             ProfileTextfield(
                 value = gardenName,
-                onValueChange = { gardenName = it },
+                onValueChange = { viewModel.onNameChanged(it) },
                 placeholder = "Name your garden",
                 leadingIcon = {
                     Icon(
@@ -100,12 +107,14 @@ fun GardenNameScreen(navController: NavController){
             )
             Spacer(modifier = Modifier.height(410.dp))
             CustomButton("Next",
-                onClick = {navController.navigate(CreationShade)},
+                onClick = onNext,
+                enabled =  viewModel.isValid(),
                 modifier = Modifier.width(351.dp).height(51.dp)
+
             )
         }
 
-        Column(
+         /*Column(
             modifier = Modifier
                 .background(BackgroundColor)
                 .padding(16.dp).fillMaxSize(),
@@ -113,6 +122,6 @@ fun GardenNameScreen(navController: NavController){
             horizontalAlignment = Alignment.CenterHorizontally
         ){
 
-        }
+        } */
     }
 }

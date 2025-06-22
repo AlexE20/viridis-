@@ -1,4 +1,4 @@
-package com.pdm.viridis.data.remote.plants
+package com.pdm.viridis.data.remote.userPlants
 
 
 import com.pdm.viridis.data.model.UserPlant

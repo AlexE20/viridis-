@@ -23,19 +23,19 @@ fun GardenEntity.toModel(): Garden {
     )
 }
 
-fun Plant.toEntity(): PlantEntity {
-    return PlantEntity(
-        id = 0,
-        gardenId = idGarden,
-        plantId = id,
-        commonName = name,
-        scientificName = listOf(scientificName),
-        careLevel = difficulty,
-        watering = watering,
-        defaultImage = imageUrl,
-        recommendations = recommendations
-    )
-}
+//fun Plant.toEntity(): PlantEntity {
+//    return PlantEntity(
+//        id = 0,
+//        gardenId = idGarden,
+//        plantId = id,
+//        commonName = name,
+//        scientificName = listOf(scientificName),
+//        careLevel = difficulty,
+//        watering = watering,
+//        defaultImage = imageUrl,
+//        recommendations = recommendations
+//    )
+//}
 
 fun PlantEntity.toModel(): Plant {
     return Plant(
@@ -45,10 +45,7 @@ fun PlantEntity.toModel(): Plant {
         watering = watering,
         recommendations = recommendations,
         imageUrl = defaultImage,
-        streak = 0,
-        lastWatered = "",
-        idGarden = gardenId,
-        difficulty = careLevel,
+        careLevel = "",
         shadeLevel = ""
     )
 }

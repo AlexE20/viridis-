@@ -19,14 +19,10 @@ interface GardenDao {
     @Query("SELECT * FROM Garden WHERE idUser = :userId")
     suspend fun getGardensByUser(userId: String): List<GardenEntity>
 
-    @Delete
-    suspend fun deleteGarden(garden: GardenEntity)
+    @Query("DELETE FROM Garden WHERE id = :gardenId")
+    suspend fun deleteGarden(gardenId: String)
 
-//////////
 
-//    @Query("SELECT * FROM Garden")
-//    fun getAllGardens(): Flow<List<GardenEntity>>
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun addGardens(gardens: List<GardenEntity>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addGardens(gardens: List<GardenEntity>)
 }

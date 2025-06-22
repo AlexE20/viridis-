@@ -1,4 +1,4 @@
-package com.pdm.viridis.data.repository.Plant
+package com.pdm.viridis.data.repository.UserPlant
 
 import com.pdm.viridis.data.model.UserPlant
 
