@@ -53,7 +53,6 @@ import com.pdm.viridis.ui.theme.SecondaryAccent
 fun GardenContentScreen(navController: NavController, gardenId: String, gardenName: String) {
     val viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
 
-
     LaunchedEffect(gardenId) {
         viewModel.loadPlants(gardenId)
     }

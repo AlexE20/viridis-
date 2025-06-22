@@ -22,8 +22,7 @@ class AppProvider(
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCE_NAME)
 
     private val appDatabase = AppDatabase.getDatabase(context)
-
-
+    
     private val authService = RetrofitInstance.authService
 
     private val gardenService = RetrofitInstance.gardenService

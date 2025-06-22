@@ -5,6 +5,7 @@ import com.pdm.viridis.data.database.entities.PlantEntity
 import com.pdm.viridis.data.mappers.toModel
 import com.pdm.viridis.data.model.Plant
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class PlantRepositoryImpl(
     private val plantDao: PlantDao

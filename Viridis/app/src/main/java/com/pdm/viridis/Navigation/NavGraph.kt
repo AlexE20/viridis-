@@ -87,6 +87,7 @@ fun NavGraph(navController: NavHostController) {
             GardenShadeScreen(navController, viewModel)
         }
 
+
         composable<SearchPlant> {
             //val searchViewModel : PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
             //SearchPlantScreen(navController, searchViewModel)
@@ -107,6 +108,9 @@ fun NavGraph(navController: NavHostController) {
             val gardenName=backStackEntry.arguments?.getString("gardenName")?:""
             GardenContentScreen(navController, gardenId,gardenName)
         }
+
+
+
         /*
         composable("plant_detail/{plantId}") { backStackEntry ->
             val plantId = backStackEntry.arguments?.getString("plantId")?: ""

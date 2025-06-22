@@ -16,12 +16,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-
+import androidx.lifecycle.createSavedStateHandle
 
 class GardenContentViewModel(
     private val userPlantRepository: UserPlantRepository,
     private val authRepository: AuthRepository,
-    private val gardenRepository: GardenRepository
+    private val gardenRepository: GardenRepository,
 ) : ViewModel() {
     private val _plants = MutableStateFlow<List<UserPlant>>(emptyList())
     val plants: StateFlow<List<UserPlant>> get() = _plants
