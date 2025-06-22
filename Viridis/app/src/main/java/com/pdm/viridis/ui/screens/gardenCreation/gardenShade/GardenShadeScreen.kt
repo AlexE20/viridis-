@@ -29,7 +29,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.pdm.viridis.Navigation.Home
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.HomeScreen
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.theme.BackgroundColor
@@ -41,7 +43,6 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterial3Api
 @Composable
 fun GardenShadeScreen(
-    navController: NavController,
     viewModel: GardenShadeViewModel
 ){
 
@@ -49,7 +50,7 @@ fun GardenShadeScreen(
     val selected by viewModel.selectedShade.collectAsState()
     val isSaving by viewModel.isSaving.collectAsState()
     val error by viewModel.error.collectAsState()
-
+    val navigator = LocalNavigator.currentOrThrow
     val coroutineScope = rememberCoroutineScope()
 
     val icons = listOf(
@@ -60,7 +61,6 @@ fun GardenShadeScreen(
     )
 
     CustomTopBar(
-        navController = navController
     ) {
         Column(
             modifier = Modifier
@@ -120,7 +120,7 @@ fun GardenShadeScreen(
             CustomButton("Save",
                 onClick = {
                     viewModel.saveGarden {}
-                    navController.navigate(Home)
+                    navigator.push(HomeScreen)
                 },
                 enabled = viewModel.isValid() && !isSaving,
                 modifier = Modifier.width(351.dp).height(51.dp)

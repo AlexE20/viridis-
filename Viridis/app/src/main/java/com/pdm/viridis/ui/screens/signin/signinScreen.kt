@@ -14,9 +14,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.LoginScreen
 import com.pdm.viridis.R
-import com.pdm.viridis.Navigation.LogIn
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.BackgroundColor
@@ -25,8 +26,10 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun signinScreen(navController: NavController) {
-    CustomTopBar(navController = navController){
+fun signinScreen() {
+    val navigator = LocalNavigator.currentOrThrow
+    
+    CustomTopBar(){
         Spacer(modifier = Modifier.height(30.dp))
 
         Column(
@@ -71,7 +74,7 @@ fun signinScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(48.dp))
 
         CustomIconTextButton(
-            onClick = { navController.navigate(LogIn)},
+            onClick = { navigator.push(LoginScreen)},
             text = "Sign in with Email",
             imageVector = Icons.Default.Email
         )
@@ -79,7 +82,7 @@ fun signinScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         CustomIconTextButton(
-            onClick = { navController.navigate(LogIn)},
+            onClick = { navigator.push(LoginScreen)},
             text = "Sign in with Google",
             painter = painterResource(id = R.drawable.signin_google)
         )

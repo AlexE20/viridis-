@@ -24,7 +24,6 @@ import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import com.pdm.viridis.Navigation.Notification
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.ProfileStatCard
 import com.pdm.viridis.ui.theme.Pink40
@@ -33,8 +32,8 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 
 @Composable
-fun ProfileScreen(navController: NavHostController) {
-    CustomScaffold(navController = navController) {
+fun ProfileScreen() {
+    CustomScaffold() {
         Box(
             modifier = Modifier
                 .fillMaxSize()

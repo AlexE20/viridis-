@@ -28,7 +28,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.pdm.viridis.Navigation.Home
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.HomeScreen
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.components.textfields.AuthTextField
@@ -36,24 +38,24 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 
 @Composable
-fun signupScreen(navController: NavController, viewModel: SignUpViewModel = viewModel(factory = SignUpViewModel .Factory)) {
+fun signupScreen(viewModel: SignUpViewModel = viewModel(factory = SignUpViewModel .Factory)) {
     val username by viewModel.username.collectAsState()
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     val confirmPassword by viewModel.confirmPassword.collectAsState()
     val signUpSuccess by viewModel.signUpSuccess.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
-
+    val navigator = LocalNavigator.currentOrThrow
+    
+    
     var showPassword by remember { mutableStateOf(false) }
     var showConfirmPassword by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
-
+    
     LaunchedEffect(signUpSuccess) {
         if (signUpSuccess) {
-            navController.navigate(Home) {
-                popUpTo("signup") { inclusive = true }
-            }
+            navigator.replace(HomeScreen)
             viewModel.resetState()
         }
     }
@@ -90,7 +92,7 @@ fun signupScreen(navController: NavController, viewModel: SignUpViewModel = view
             )
 
             IconButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navigator.pop() },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)

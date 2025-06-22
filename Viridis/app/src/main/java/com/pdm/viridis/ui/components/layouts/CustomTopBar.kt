@@ -23,19 +23,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 
 @ExperimentalMaterial3Api
 @Composable
 fun CustomTopBar(
-    navController: NavController,
     title: String = "",
     floatingActionButton: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-
+    val navigator = LocalNavigator.currentOrThrow
+    
+    
     Scaffold(
         topBar = {
             TopAppBar(
@@ -43,7 +46,7 @@ fun CustomTopBar(
                 title = { Text(title) },
                 navigationIcon = {
                     IconButton(
-                        onClick = { navController.popBackStack() },
+                        onClick = { navigator.pop() },
                         modifier = Modifier
                             .size(50.dp)
                             .background(BackgroundColor, shape = CircleShape)

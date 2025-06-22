@@ -21,8 +21,8 @@ import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.urbanistFont
 
 @Composable
-fun NotificationsScreen(navController: NavHostController) {
-    CustomScaffold(navController = navController) {
+fun NotificationsScreen() {
+    CustomScaffold() {
         Column(
             modifier = Modifier
                 .fillMaxSize()

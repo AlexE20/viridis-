@@ -16,14 +16,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.ActiveNotificationScreen
 import com.pdm.viridis.R
-import com.pdm.viridis.Navigation.Notification
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.theme.baloo2Font
 
 @Composable
-fun MeetingScreen(navController: NavController) {
+fun MeetingScreen() {
+    val navigator = LocalNavigator.currentOrThrow
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +56,7 @@ fun MeetingScreen(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(70.dp))
         CustomButton(
-            onClick = { navController.navigate(Notification) },
+            onClick = { navigator.push(ActiveNotificationScreen) },
             text = "Let's go"
         )
     }

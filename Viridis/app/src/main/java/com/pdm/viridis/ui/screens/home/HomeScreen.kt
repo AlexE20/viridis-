@@ -28,19 +28,23 @@ import com.pdm.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.text.font.FontWeight
-import com.pdm.viridis.Navigation.CreationName
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.GardenContentScreen
+import com.pdm.viridis.GardenNameScreen
 import com.pdm.viridis.ui.theme.urbanistFont
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
     viewModel: HomeViewModel
 ) {
     val gardens by viewModel.gardens.collectAsState()
-
-    CustomScaffold(navController = navController) {
+    val navigator = LocalNavigator.currentOrThrow
+    
+    
+    CustomScaffold() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -70,7 +74,7 @@ fun HomeScreen(
 
             CustomButton(
                 text = "Add Garden",
-                onClick = {navController.navigate(CreationName)},
+                onClick = {navigator.push(GardenNameScreen)},
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
@@ -83,7 +87,7 @@ fun HomeScreen(
             ) {
                 items(gardens) { garden ->
                     StakedCards(
-                        clickable = { navController.navigate("gardenContent/${garden.id}/${garden.name}")},
+                        clickable = { navigator.push(GardenContentScreen(garden.id, garden.name))},
                         gardenName = garden.name,
                         gardenShade = garden.shadeLevel,
                         imageUrls = null,

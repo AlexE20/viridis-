@@ -40,14 +40,13 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @ExperimentalMaterial3Api
 @Composable
 fun SearchPlantScreen(
-    navController: NavController,
     viewModel: PlantSearchViewModel
 ) {
     val searchText by viewModel.searchText.collectAsStateWithLifecycle()
     val filteredPlants by viewModel.plants.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
-    CustomTopBar(navController) {
+    CustomTopBar() {
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.pdm.viridis.Navigation.CreationShade
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.textfields.ProfileTextfield
@@ -42,12 +41,10 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @ExperimentalMaterial3Api
 @Composable
 fun GardenNameScreen(
-    navController: NavController,
     viewModel : GardenNameViewModel,
     onNext : () -> Unit
 ){
     CustomTopBar(
-        navController = navController
     ) {
 
         val gardenName by viewModel.gNameText.collectAsState()

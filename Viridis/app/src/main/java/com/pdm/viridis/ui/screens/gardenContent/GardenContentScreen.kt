@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.pdm.viridis.Navigation.SearchPlant
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import com.pdm.viridis.ui.components.buttons.CustomIconTextButton
@@ -41,25 +40,28 @@ import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import com.pdm.viridis.Navigation.Home
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.HomeScreen
+import com.pdm.viridis.SearchPlantScreen
 //import com.example.viridis.Navigation.addedPlantDetail
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.cards.CustomCard
-import com.pdm.viridis.ui.screens.home.HomeScreen
 import com.pdm.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenContentScreen(navController: NavController, gardenId: String, gardenName: String) {
+fun GardenContentScreen(gardenId: String, gardenName: String) {
     val viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
-
+    val navigator = LocalNavigator.currentOrThrow
+    
     LaunchedEffect(gardenId) {
         viewModel.loadPlants(gardenId)
     }
 
     val plants by viewModel.plants.collectAsState()
 
-    CustomTopBar(navController = navController)
+    CustomTopBar()
     {
         Column(
             modifier = Modifier
@@ -114,7 +116,7 @@ fun GardenContentScreen(navController: NavController, gardenId: String, gardenNa
                         icon = Icons.Filled.Delete,
                         onClick = {
                             viewModel.deleteGarden(gardenId)
-                            navController.navigate(Home)
+                            navigator.push(HomeScreen)
                                   },
                         containerColor = Pink40,
                         contentColor = Color.White,
@@ -128,7 +130,7 @@ fun GardenContentScreen(navController: NavController, gardenId: String, gardenNa
 
                 CustomButton(
                     text = "Add Plant",
-                    onClick = { navController.navigate(SearchPlant) },
+                    onClick = { navigator.push(SearchPlantScreen) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)
@@ -140,7 +142,7 @@ fun GardenContentScreen(navController: NavController, gardenId: String, gardenNa
                         CustomCard(
                             clickable = {
                                 if (!plant.id.isNullOrBlank()) {
-                                    navController.navigate("addedPlantDetail/${plant.id}")
+                                    //navController.navigate("addedPlantDetail/${plant.id}")
                                 }
                             },
                             plantName = plant.common_name ?: "Unknown Plant" ,

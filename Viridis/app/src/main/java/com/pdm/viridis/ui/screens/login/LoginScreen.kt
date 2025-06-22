@@ -25,18 +25,21 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.navigation.NavController
-import com.pdm.viridis.Navigation.Home
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.components.textfields.AuthTextField
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.pdm.viridis.Navigation.SignUp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.HomeScreen
+import com.pdm.viridis.SignupScreen
 import com.pdm.viridis.ui.theme.urbanistFont
 
 @Composable
-fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewModel(factory = LoginViewModel.Factory)) {
-
+fun LoginScreen( viewModel: LoginViewModel = viewModel(factory = LoginViewModel.Factory)) {
+    
+    val navigator = LocalNavigator.currentOrThrow
+    
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
     var showPassword by remember { mutableStateOf(false) }
@@ -45,12 +48,10 @@ fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewM
 
     val loginSuccess by viewModel.loginSuccess.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
-
+    
     LaunchedEffect(loginSuccess) {
         if (loginSuccess) {
-            navController.navigate(Home) {
-                popUpTo("Login") { inclusive = true }
-            }
+            navigator.replace(HomeScreen)
             viewModel.resetLoginState()
         }
     }
@@ -85,7 +86,7 @@ fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewM
             )
 
             IconButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navigator.pop() },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
@@ -178,7 +179,7 @@ fun LoginScreen(navController: NavController,  viewModel: LoginViewModel = viewM
 
             CustomButton(
                 text = "Sign up",
-                onClick = { navController.navigate(SignUp) }
+                onClick = { navigator.push(SignupScreen) },
             )
         }
     }

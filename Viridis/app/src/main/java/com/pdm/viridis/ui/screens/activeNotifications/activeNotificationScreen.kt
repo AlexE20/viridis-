@@ -20,9 +20,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.R
-import com.pdm.viridis.Navigation.SignIn
+import com.pdm.viridis.SigninScreen
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.theme.BackgroundColor
@@ -30,8 +31,9 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @ExperimentalMaterial3Api
 @Composable
-fun NotificationScreen(navController: NavController) {
-    CustomTopBar(navController = navController){
+fun NotificationScreen() {
+    val navigator= LocalNavigator.currentOrThrow
+    CustomTopBar(){
         Spacer(modifier = Modifier.height(30.dp))
             Column(
                 modifier = Modifier
@@ -66,7 +68,7 @@ fun NotificationScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(150.dp))
 
         CustomButton(
-            onClick = { navController.navigate(SignIn) },
+            onClick = { navigator.push(SigninScreen) },
             text = "Continue"
         )
 
