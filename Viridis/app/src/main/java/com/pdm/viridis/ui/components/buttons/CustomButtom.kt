@@ -17,11 +17,12 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @Composable
 fun CustomButton(
-    text: String,
+    text:String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     buttonColor: androidx.compose.ui.graphics.Color = MainColor,
-    textColor: androidx.compose.ui.graphics.Color = BackgroundColor
+    textColor: androidx.compose.ui.graphics.Color = BackgroundColor,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,

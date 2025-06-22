@@ -7,9 +7,9 @@ object Home
 
 @Serializable
 object CreationName
-//probably will be combined
+
 @Serializable
-object CreationShade
+data class CreationShade(val gardenName: String)
 
 @Serializable
 object LogIn

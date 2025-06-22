@@ -1,11 +1,10 @@
-package com.pdm.viridis.data.repository.plantRepository
+package com.pdm.viridis.data.repository.Plant
 
 import com.pdm.viridis.data.database.daos.PlantDao
 import com.pdm.viridis.data.database.entities.PlantEntity
-import kotlinx.coroutines.flow.Flow
 import com.pdm.viridis.data.mappers.toModel
 import com.pdm.viridis.data.model.Plant
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.Flow
 
 class PlantRepositoryImpl(
     private val plantDao: PlantDao

@@ -8,7 +8,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.viridis" />
+                  <option name="appId" value="com.pdm.viridis" />
                   <option name="mobileSdkAppId" value="1:323853182120:android:526609ee5211da9fd48e9d" />
                   <option name="projectId" value="viridis-9d048" />
                   <option name="projectNumber" value="323853182120" />

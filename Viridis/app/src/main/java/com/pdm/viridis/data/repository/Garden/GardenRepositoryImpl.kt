@@ -1,9 +1,11 @@
 package com.pdm.viridis.data.repository.Garden
 
-import com.pdm.viridis.data.local.GardenDao
-import com.pdm.viridis.data.local.GardenEntity
+import com.pdm.viridis.data.database.daos.GardenDao
+import com.pdm.viridis.data.database.entities.GardenEntity
 import com.pdm.viridis.data.model.Garden
 import com.pdm.viridis.data.remote.gardens.GardenService
+import com.pdm.viridis.data.remote.responses.GardenRequest
+import com.pdm.viridis.data.remote.responses.GardenResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -20,33 +22,32 @@ class GardenRepositoryImpl(
             gardens
         } catch (e: retrofit2.HttpException) {
             if (e.code() == 404) {
-                // Backend says "no gardens yet", return empty list gracefully
                 emptyList()
             } else {
-                throw e // rethrow other unexpected errors
+                throw e
             }
         }
     }
 
-    override suspend fun addGarden(userId: String, garden: Garden): List<Garden> {
-        val addedGarden = gardenService.addGarden(userId, garden)
+    override suspend fun addGarden(userId: String, garden: GardenRequest): Garden{
+        val addedGarden = gardenService.addGarden(userId,garden)
         gardens = gardens + addedGarden
 
         val entity = GardenEntity(
             id = addedGarden.id,
+            idUser = addedGarden.idUser,
             name = addedGarden.name,
-            user = addedGarden.idUser,
-            shade = addedGarden.shadeLevel
+            shadeLevel = addedGarden.shadeLevel
         )
-        gardenDao.addGardens(listOf(entity))
-        return gardens
+        gardenDao.addGarden(entity)
+        return addedGarden
     }
 
-    override suspend fun deleteGarden(userId: String, gardenId: String): List<Garden> {
+    override suspend fun deleteGarden(userId: String, gardenId: String){
         gardenService.deleteGarden(userId, gardenId)
         gardens = gardens.filter { it.id != gardenId }
-        gardenDao.deleteGardenById(gardenId)
-        return gardens
+        gardenDao.deleteGarden(gardenId)
+
     }
 
     override fun getLocalGardens(): Flow<List<Garden>> {
@@ -54,9 +55,9 @@ class GardenRepositoryImpl(
             list.map { entity ->
                 Garden(
                     id = entity.id,
+                    idUser = entity.idUser,
                     name = entity.name,
-                    idUser = entity.id,
-                    shadeLevel = entity.shade
+                    shadeLevel = entity.shadeLevel
                 )
             }
         }
@@ -69,13 +70,12 @@ class GardenRepositoryImpl(
         val entities = remoteGardens.map { garden ->
             GardenEntity(
                 id = garden.id,
+                idUser = garden.idUser,
                 name = garden.name,
-                user = garden.idUser,           // Use idUser here, not garden.user
-                shade = garden.shadeLevel       // Use shadeLevel to match JSON
+                shadeLevel = garden.shadeLevel
             )
         }
 
-        gardenDao.clearAllGardens()
         gardenDao.addGardens(entities)
     }
 }

@@ -1,7 +1,7 @@
-package com.pdm.viridis.data.repository.Plant
+package com.pdm.viridis.data.repository.UserPlant
 
 import com.pdm.viridis.data.model.UserPlant
-import com.pdm.viridis.data.remote.plants.UserPlantService
+import com.pdm.viridis.data.remote.userPlants.UserPlantService
 
 class UserPlantRepositoryImpl(private val userPlantService: UserPlantService) :
     UserPlantRepository {

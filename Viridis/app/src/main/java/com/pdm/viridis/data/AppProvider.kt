@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.pdm.viridis.data.local.AppDatabase
+import com.pdm.viridis.data.database.AppDatabase
 import com.pdm.viridis.data.remote.RetrofitInstance
 import com.pdm.viridis.data.repository.Auth.AuthRepository
 import com.pdm.viridis.data.repository.Auth.AuthRepositoryImpl
 import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepositoryImpl
-import com.pdm.viridis.data.repository.Plant.UserPlantRepository
-import com.pdm.viridis.data.repository.Plant.UserPlantRepositoryImpl
+import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
+import com.pdm.viridis.data.repository.UserPlant.UserPlantRepositoryImpl
 
 private const val USER_PREFERENCE_NAME = "user_preferences"
 

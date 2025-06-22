@@ -16,9 +16,12 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,15 +36,32 @@ import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.components.buttons.CustomRadioButton
 import com.pdm.viridis.ui.theme.urbanistFont
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 @Composable
-fun GardenShade(navController: NavController){
+fun GardenShadeScreen(
+    navController: NavController,
+    viewModel: GardenShadeViewModel
+){
+
+    val options = viewModel.shadeOptions.entries.toList()
+    val selected by viewModel.selectedShade.collectAsState()
+    val isSaving by viewModel.isSaving.collectAsState()
+    val error by viewModel.error.collectAsState()
+
+    val coroutineScope = rememberCoroutineScope()
+
+    val icons = listOf(
+        Icons.Outlined.DarkMode,
+        Icons.Outlined.Cloud,
+        Icons.Filled.WbCloudy,
+        Icons.Filled.WbSunny
+    )
+
     CustomTopBar(
         navController = navController
     ) {
-        var selectedOption by remember { mutableStateOf("Full shade") }
-        var selected by remember { mutableStateOf(true) }
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
@@ -80,33 +100,15 @@ fun GardenShade(navController: NavController){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CustomRadioButton(
-                    selected = selected,
-                    text = "Full shade",
-                    icon = Icons.Outlined.DarkMode,
-                    onClick = { selected = !selected }
-            )
-            Spacer(modifier = Modifier.height(23.dp))
-            CustomRadioButton(
-                selected = !selected,
-                text = "Part shade",
-                icon = Icons.Outlined.Cloud,
-                onClick = { selected = !selected }
-            )
-            Spacer(modifier = Modifier.height(23.dp))
-            CustomRadioButton(
-                selected = !selected,
-                text = "Sun part shade",
-                icon = Icons.Filled.WbCloudy,
-                onClick = { selected = !selected }
-            )
-            Spacer(modifier = Modifier.height(23.dp))
-            CustomRadioButton(
-                selected = !selected,
-                text = "Full sun",
-                icon = Icons.Filled.WbSunny,
-                onClick = { selected = !selected }
-            )
+            options.forEachIndexed { index, (key, label) ->
+                CustomRadioButton(
+                    selected = selected == label,
+                    text = label,
+                    icon = icons[index],
+                    onClick = { viewModel.onShadeSelected(label) }
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
         Column(
             modifier = Modifier
@@ -116,9 +118,17 @@ fun GardenShade(navController: NavController){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CustomButton("Save",
-                onClick = {navController.navigate(Home)},
+                onClick = {
+                    viewModel.saveGarden {}
+                    navController.navigate(Home)
+                },
+                enabled = viewModel.isValid() && !isSaving,
                 modifier = Modifier.width(351.dp).height(51.dp)
             )
+
+            error?.let {
+
+            }
         }
     }
 }

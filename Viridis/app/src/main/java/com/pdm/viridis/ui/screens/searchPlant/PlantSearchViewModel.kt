@@ -1,8 +1,8 @@
 package com.pdm.viridis.ui.screens.searchPlant
 
-//import com.example.viridis.data.repository.PlantRepositoryImpl
+import com.pdm.viridis.data.repository.PlantRepositoryImpl
 
-/*class PlantSearchViewModel(
+class PlantSearchViewModel(
     private val repository: PlantRepository
 ): ViewModel() {
 
@@ -58,4 +58,4 @@ package com.pdm.viridis.ui.screens.searchPlant
             }
         }
     }
-}*/
+}
