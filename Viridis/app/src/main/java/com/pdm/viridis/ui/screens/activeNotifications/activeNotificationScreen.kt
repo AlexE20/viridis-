@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.R
-import com.pdm.viridis.SigninScreen
+import com.pdm.viridis.Navigation.SigninScreen
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.theme.BackgroundColor

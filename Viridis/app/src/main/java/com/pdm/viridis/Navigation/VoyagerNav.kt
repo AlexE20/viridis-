@@ -1,4 +1,4 @@
-package com.pdm.viridis
+package com.pdm.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -7,6 +7,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.data.model.Recommendation
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
 import com.pdm.viridis.ui.screens.signin.signinScreen
@@ -25,6 +26,8 @@ import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
 import com.pdm.viridis.ui.screens.notifications.NotificationsScreen
+import com.pdm.viridis.ui.screens.plantContent.PlantContentScreen as PlantContentScreenUI
+import com.pdm.viridis.ui.screens.plantContent.PlantContentViewModel
 
 
 @ExperimentalMaterial3Api
@@ -110,7 +113,7 @@ object GardenNameScreen : Screen {
 	override fun Content() {
 		val navigator = LocalNavigator.currentOrThrow
 		val viewModel: GardenNameViewModel = viewModel(factory = GardenNameViewModel.Factory)
-		GardenName(viewModel = viewModel,onNext = { navigator.push(GardenShadeScreen) })
+		GardenName(viewModel = viewModel, onNext = { navigator.push(GardenShadeScreen) })
 	}
 }
 
@@ -132,12 +135,41 @@ object SearchPlantScreen : Screen {
 		val viewModel: PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
 		searchPlantScreen(viewModel = viewModel)
 	}
+	
 	@Serializable
 	object NotificationScreenContent : Screen {
 		@OptIn(ExperimentalMaterial3Api::class)
 		@Composable
 		override fun Content() {
 			NotificationsScreen()
+		}
+	}
+	
+	@Serializable
+	data class PlantContentScreen(
+		val commonName: String,
+		val scientificName: String,
+		val careLevel: String,
+		val shadeLevel: String,
+		val watering: String,
+		val recommendations: List<Recommendation>,
+		val imageUrl: String
+	) : Screen {
+		@OptIn(ExperimentalMaterial3Api::class)
+		@Composable
+		override fun Content() {
+			val viewModel: PlantContentViewModel =
+				viewModel(factory = PlantContentViewModel.Factory)
+			PlantContentScreenUI(
+				viewModel = viewModel,
+				commonName = commonName,
+				scientificName = scientificName,
+				careLevel = careLevel,
+				shadeLevel = shadeLevel,
+				watering = watering,
+				recommendations = recommendations,
+				imageUrl = imageUrl
+			)
 		}
 	}
 }

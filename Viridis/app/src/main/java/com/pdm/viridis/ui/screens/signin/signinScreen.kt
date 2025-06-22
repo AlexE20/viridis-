@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.LoginScreen
+import com.pdm.viridis.Navigation.LoginScreen
 import com.pdm.viridis.R
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.theme.MainColor

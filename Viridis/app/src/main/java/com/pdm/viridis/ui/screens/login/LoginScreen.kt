@@ -31,8 +31,8 @@ import com.pdm.viridis.ui.components.textfields.AuthTextField
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.HomeScreen
-import com.pdm.viridis.SignupScreen
+import com.pdm.viridis.Navigation.HomeScreen
+import com.pdm.viridis.Navigation.SignupScreen
 import com.pdm.viridis.ui.theme.urbanistFont
 
 @Composable

@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import com.pdm.viridis.ui.components.cards.CustomCard
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
@@ -45,6 +47,7 @@ fun SearchPlantScreen(
     val searchText by viewModel.searchText.collectAsStateWithLifecycle()
     val filteredPlants by viewModel.plants.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+    val navigator= LocalNavigator.currentOrThrow
 
     CustomTopBar() {
         Column(
@@ -131,7 +134,7 @@ fun SearchPlantScreen(
                                         .size(18.dp)
                                 )
                             },
-                            clickable = {}
+                            clickable = {navigator.push()}
                         )
                         Spacer(modifier = Modifier.padding(8.dp))
                     }

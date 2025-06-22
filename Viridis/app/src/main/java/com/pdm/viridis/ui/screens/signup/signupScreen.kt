@@ -27,10 +27,9 @@ import androidx.compose.material.icons.filled.Mail
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.HomeScreen
+import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.components.textfields.AuthTextField

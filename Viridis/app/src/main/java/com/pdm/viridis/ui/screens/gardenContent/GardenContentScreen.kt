@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import com.pdm.viridis.ui.components.buttons.CustomIconTextButton
@@ -42,8 +41,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.HomeScreen
-import com.pdm.viridis.SearchPlantScreen
+import com.pdm.viridis.Navigation.HomeScreen
+import com.pdm.viridis.Navigation.SearchPlantScreen
 //import com.example.viridis.Navigation.addedPlantDetail
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.cards.CustomCard

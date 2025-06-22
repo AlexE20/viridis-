@@ -22,8 +22,7 @@ class PlantRepositoryImpl(
 
     override suspend fun getCatalogPlantsByName(name: String): List<Plant> {
         return try {
-            plantService.getCatalogPlantsByName(name)
-                .map { it.toModel() }
+            plantService.getCatalogPlantsByName(name).map { it.toModel() }
         } catch (e: HttpException) {
             if (e.code() == 404) emptyList() else throw e
         }

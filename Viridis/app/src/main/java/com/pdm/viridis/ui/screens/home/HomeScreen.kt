@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 //import com.pdm.viridis.Navigation.Creation
 import com.pdm.viridis.ui.components.layouts.CustomScaffold
 import com.pdm.viridis.ui.components.buttons.CustomButton
@@ -30,8 +29,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.GardenContentScreen
-import com.pdm.viridis.GardenNameScreen
+import com.pdm.viridis.Navigation.GardenContentScreen
+import com.pdm.viridis.Navigation.GardenNameScreen
 import com.pdm.viridis.ui.theme.urbanistFont
 
 
