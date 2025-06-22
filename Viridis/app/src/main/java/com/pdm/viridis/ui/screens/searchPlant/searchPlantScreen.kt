@@ -33,6 +33,7 @@ import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import com.pdm.viridis.ui.components.cards.CustomCard
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.textfields.ProfileTextfield
+import com.pdm.viridis.ui.screens.plantContent.PlantContentScreen
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.SecondaryAccent
@@ -134,7 +135,7 @@ fun SearchPlantScreen(
                                         .size(18.dp)
                                 )
                             },
-                            clickable = {navigator.push()}
+                            clickable = {navigator.push(PlantContentScreen(plant.))}
                         )
                         Spacer(modifier = Modifier.padding(8.dp))
                     }
