@@ -1,15 +1,14 @@
 package com.pdm.viridis.Navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.pdm.viridis.ViridisApplication
 import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.meeting.MeetingScreen
 import com.pdm.viridis.ui.screens.activeNotifications.NotificationScreen
@@ -27,13 +26,12 @@ import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeScreen
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
+import com.pdm.viridis.ui.screens.plantContent.PlantContentScreen
+import com.pdm.viridis.ui.screens.plantContent.PlantContentViewModel
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
 import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen
 
-//import com.example.viridis.ui.screens.plantContent.PlantContentScreen
-//import com.example.viridis.ui.screens.searchPlant.PlantSearchViewModel
-//import com.example.viridis.ui.screens.searchPlant.SearchPlantScreen
-
+@SuppressLint("WrongNavigateRouteType")
 @ExperimentalMaterial3Api
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -48,35 +46,21 @@ fun NavGraph(navController: NavHostController) {
             LoginScreen(navController,viewModel=loginViewModel)
         }
         composable<SignUp> {
-            //Declaration of the view model
-            signupScreen(navController /* THE VIEWMODEL*/)
+            signupScreen(navController)
         }
         composable<SignIn> {
-            //Declaration of the view model
-            signinScreen(navController /* THE VIEWMODEL*/)
+            signinScreen(navController)
         }
         composable<Home> {
             val homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
             HomeScreen(navController, viewModel = homeViewModel)
         }
-        /*
-        composable(
-            route = "gardenContent/{gardenId}/{gardenName}",
-            arguments = listOf(
-                navArgument("gardenId") { type = NavType.IntType },
-                navArgument("gardenName") { type = NavType.StringType }
-            )
-        ) {
-            GardenContentScreen(navController = navController)
-        } */
 
         composable<Profile> {
-            //Declaration of the view model
-            ProfileScreen(navController /* THE VIEWMODEL*/)
+            ProfileScreen(navController)
         }
         composable<Notifications> {
-            //Declaration of the view model
-            NotificationsScreen(navController /* THE VIEWMODEL*/)
+            NotificationsScreen(navController)
         }
         composable<CreationName> {
             val viewModel : GardenNameViewModel = viewModel(factory = GardenNameViewModel.Factory)
@@ -86,18 +70,29 @@ fun NavGraph(navController: NavHostController) {
             } )
         }
         composable<CreationShade> {
-            val viewModel : GardenShadeViewModel = viewModel(factory = GardenShadeViewModel.Factory)
-            GardenShadeScreen(navController, viewModel)
+            val searchViewModel : GardenShadeViewModel = viewModel(factory = GardenShadeViewModel.Factory)
+            GardenShadeScreen(navController, searchViewModel)
         }
 
         composable<SearchPlant> {
-            val plantSearchViewModel: PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
-            SearchPlantScreen(navController = navController, viewModel = plantSearchViewModel)
+            val searchViewModel: PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
+            SearchPlantScreen(
+                navController = navController,
+                viewModel = searchViewModel,
+                onPlantClick = { plant ->
+                    val plantEntry = navController.getBackStackEntry(PlantContent)
+                    plantEntry.savedStateHandle["plant"] = plant
+                    navController.navigate(PlantContent)
+                }
+
+            )
         }
 
-        composable<PlantContentNavigation> {
-            //PlantContentScreen(navController)
+        composable<PlantContent> {
+            val viewModel: PlantContentViewModel = viewModel(factory = PlantContentViewModel.Factory)
+            PlantContentScreen(navController = navController, viewModel = viewModel)
         }
+
 
         //NO FUNCIONA, DESCOMENTAR CUANDO SE TENGA PlantRepository
         composable<PlantDetailNavigation> {

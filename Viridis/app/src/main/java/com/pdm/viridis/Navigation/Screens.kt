@@ -36,7 +36,7 @@ object Notification
 object Meeting
 
 @Serializable
-data class PlantContentNavigation(val plantId : String)
+data class PlantContent(val plantId: String? = null)
 
 @Serializable
 data class PlantDetailNavigation(val plantId : String)

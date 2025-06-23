@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.pdm.viridis.data.model.Plant
 import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import com.pdm.viridis.ui.components.cards.CustomCard
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
@@ -41,7 +42,8 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @Composable
 fun SearchPlantScreen(
     navController: NavController,
-    viewModel: PlantSearchViewModel
+    viewModel: PlantSearchViewModel,
+    onPlantClick: (Plant) -> Unit
 ) {
     val searchText by viewModel.searchText.collectAsStateWithLifecycle()
     val filteredPlants by viewModel.plants.collectAsStateWithLifecycle()
@@ -132,7 +134,7 @@ fun SearchPlantScreen(
                                         .size(18.dp)
                                 )
                             },
-                            clickable = {}
+                            clickable = {onPlantClick(plant)}
                         )
                         Spacer(modifier = Modifier.padding(8.dp))
                     }

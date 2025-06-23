@@ -12,4 +12,4 @@ data class Plant(
     val imageUrl:String? = null,
     val careLevel:String? = null,
     val shadeLevel:String? = null
-)
+): java.io.Serializable
