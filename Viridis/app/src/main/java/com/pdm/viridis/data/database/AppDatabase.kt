@@ -8,12 +8,12 @@ import androidx.room.TypeConverters
 import com.pdm.viridis.data.database.daos.GardenDao
 import com.pdm.viridis.data.database.daos.PlantDao
 import com.pdm.viridis.data.database.entities.GardenEntity
-import com.pdm.viridis.data.database.entities.PlantEntity
+import com.pdm.viridis.data.database.entities.UserPlantEntity
 import com.pdm.viridis.utils.Converters
 
 @Database(
-    entities = [GardenEntity::class, PlantEntity::class],
-    version = 2,
+    entities = [GardenEntity::class, UserPlantEntity::class],
+    version = 3,
     exportSchema = false
 )
 

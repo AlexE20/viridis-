@@ -9,7 +9,7 @@ internal fun extractUidFromToken(token: String): String? {
         if (parts.size < 2) return null
         val payload = String(Base64.decode(parts[1], Base64.URL_SAFE or Base64.NO_PADDING or Base64.NO_WRAP))
         val json = JSONObject(payload)
-        json.getString("user_id") // or try "uid" if that fails
+        json.getString("user_id")
     } catch (e: Exception) {
         e.printStackTrace()
         null

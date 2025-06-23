@@ -3,10 +3,11 @@ package com.pdm.viridis.data.database.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "Plant",
+    tableName = "user_plants",
     foreignKeys = [
         ForeignKey(
             entity = GardenEntity::class,
@@ -14,11 +15,11 @@ import androidx.room.PrimaryKey
             childColumns = ["gardenId"],
             onDelete = CASCADE
         )
-    ]
+    ],
+    indices = [Index("gardenId")]
 )
-data class PlantEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+data class UserPlantEntity(
+    @PrimaryKey val id: String,
     val gardenId: String,
     val plantId: String,
     val commonName: String,

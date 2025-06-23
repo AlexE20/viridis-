@@ -24,7 +24,7 @@ class PlantRepositoryImpl(
         return try {
             plantService.getCatalogPlantsByName(name).map { it.toModel() }
             val result = plantService.getCatalogPlantsByName(name).map { it.toModel() }
-            println("🧪 Mapped recommendations sizes: ${result.map { it.recommendations.size }}")
+            println("Mapped recommendations sizes: ${result.map { it.recommendations.size }}")
             return result
 
         } catch (e: HttpException) {

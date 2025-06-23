@@ -12,10 +12,4 @@ interface UserPlantService {
         @Path("userId") userId: String,
         @Path("gardenId") gardenId: String
     ): List<UserPlant>
-
-
-
-
-
-
 }
