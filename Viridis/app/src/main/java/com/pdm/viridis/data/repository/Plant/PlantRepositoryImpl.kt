@@ -23,6 +23,10 @@ class PlantRepositoryImpl(
     override suspend fun getCatalogPlantsByName(name: String): List<Plant> {
         return try {
             plantService.getCatalogPlantsByName(name).map { it.toModel() }
+            val result = plantService.getCatalogPlantsByName(name).map { it.toModel() }
+            println("🧪 Mapped recommendations sizes: ${result.map { it.recommendations.size }}")
+            return result
+
         } catch (e: HttpException) {
             if (e.code() == 404) emptyList() else throw e
         }

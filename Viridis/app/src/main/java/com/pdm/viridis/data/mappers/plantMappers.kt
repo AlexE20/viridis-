@@ -11,7 +11,7 @@ fun PlantResponse.toModel(): Plant {
         name = name,
         scientificName = scientificName?.firstOrNull() ?: "",
         watering = watering,
-        recommendations = recommendations?.map { it.toModel() },
+        recommendations = recommendations?.map { it.toModel() } ?: emptyList(),
         imageUrl = imageUrl,
         careLevel = careLevel,
         shadeLevel = shadeLevel

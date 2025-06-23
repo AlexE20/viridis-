@@ -19,11 +19,13 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 
 @ExperimentalMaterial3Api
 @Composable
 fun ImageHeaderScaffold(
-    navController: NavController,
+    navController: NavController? = null,
     imageRes: Int? = null,
     imageUrl: String? = null,
     imageHeight: Dp = 240.dp,
@@ -31,6 +33,7 @@ fun ImageHeaderScaffold(
     content: @Composable () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val navigator = LocalNavigator.currentOrThrow
 
     Scaffold(
         topBar = {
@@ -65,7 +68,9 @@ fun ImageHeaderScaffold(
                     title = { Text("") },
                     navigationIcon = {
                         IconButton(
-                            onClick = { navController.popBackStack() },
+                            onClick = {
+                                navigator.pop()
+                            },
                             modifier = Modifier
                                 .padding(start = 2.dp)
                                 .size(45.dp)

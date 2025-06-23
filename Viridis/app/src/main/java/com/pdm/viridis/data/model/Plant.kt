@@ -8,7 +8,7 @@ data class Plant(
     val name: String? = null,
     val scientificName:String? = null,
     val watering:String? = null,
-    val recommendations: List<Recommendation>? = null,
+    val recommendations: List<Recommendation> = emptyList(),
     val imageUrl:String? = null,
     val careLevel:String? = null,
     val shadeLevel:String? = null

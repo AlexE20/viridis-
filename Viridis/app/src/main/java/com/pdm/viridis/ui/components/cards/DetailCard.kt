@@ -61,16 +61,16 @@ fun DetailCard(
             Column {
                 Text(
                     text = title,
-                    fontSize = 16.sp,
+                    fontSize = 20.sp,
                     fontFamily = urbanistFont,
                     color = SecondaryAccent,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.ExtraBold
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = description,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
                     fontFamily = urbanistFont,
                     color = SecondaryAccent
                 )

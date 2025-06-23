@@ -26,7 +26,7 @@ import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
 import com.pdm.viridis.ui.screens.notifications.NotificationsScreen
-import com.pdm.viridis.ui.screens.plantContent.PlantContentScreen as PlantContentScreenUI
+import com.pdm.viridis.ui.screens.plantContent.PlantContentScreenUI
 import com.pdm.viridis.ui.screens.plantContent.PlantContentViewModel
 
 
@@ -144,32 +144,31 @@ object SearchPlantScreen : Screen {
 			NotificationsScreen()
 		}
 	}
-	
+
 	@Serializable
 	data class PlantContentScreen(
-		val commonName: String,
-		val scientificName: String,
-		val careLevel: String,
-		val shadeLevel: String,
-		val watering: String,
-		val recommendations: List<Recommendation>,
-		val imageUrl: String
+		val commonName: String = "",
+		val scientificName: String = "",
+		val careLevel: String = "",
+		val shadeLevel: String = "",
+		val watering: String = "",
+		val recommendations: List<Recommendation> = emptyList(),
+		val imageUrl: String = ""
 	) : Screen {
+
 		@OptIn(ExperimentalMaterial3Api::class)
 		@Composable
 		override fun Content() {
-			val viewModel: PlantContentViewModel =
-				viewModel(factory = PlantContentViewModel.Factory)
 			PlantContentScreenUI(
-				viewModel = viewModel,
-				commonName = commonName,
-				scientificName = scientificName,
-				careLevel = careLevel,
-				shadeLevel = shadeLevel,
-				watering = watering,
-				recommendations = recommendations,
-				imageUrl = imageUrl
+				commonName,
+				scientificName,
+				careLevel,
+				shadeLevel,
+				watering,
+				recommendations,
+				imageUrl
 			)
 		}
 	}
+
 }
