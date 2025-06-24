@@ -27,6 +27,9 @@ data class UserPlantEntity(
     val careLevel: String,
     val watering: String,
     val defaultImage: String,
-    val recommendations: List<String>
+    val recommendations: List<String>,
+    val wateredStreak: Int = 0,
+    val lastWateredAt: Long = 0L
 )
+
 

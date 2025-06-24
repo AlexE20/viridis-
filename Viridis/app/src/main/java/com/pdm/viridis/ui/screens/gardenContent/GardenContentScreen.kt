@@ -144,11 +144,11 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
                                     //navController.navigate("addedPlantDetail/${plant.id}")
                                 }
                             },
-                            plantName = plant.common_name ?: "Unknown Plant" ,
+                            plantName = plant.commonName ?: "Unknown Plant" ,
                             plantDescription = plant.recommendations?.firstOrNull()?.description
                                 ?: "No description",
-                            plantImgUrl = plant.default_image ?: "No image available",
-                            difficulty = plant.care_level ?: "No care level",
+                            plantImgUrl = plant.defaultImage ?: "No image available",
+                            difficulty = plant.careLevel ?: "No care level",
                             difficultyIcon = {
                                 Icon(
                                     imageVector = Icons.Filled.WbSunny,

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.HomeScreen
+import com.pdm.viridis.Navigation.ActiveNotificationScreen
 import com.pdm.viridis.R
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.theme.baloo2Font
@@ -57,7 +58,7 @@ fun MeetingScreen() {
         Spacer(modifier = Modifier.height(70.dp))
         CustomButton(
             //NEED TO CHANGE THIS AT THE END
-            onClick = { navigator.push(HomeScreen) },
+            onClick = { navigator.push(ActiveNotificationScreen) },
             text = "Let's go"
         )
     }

@@ -36,15 +36,27 @@ class GardenContentViewModel(
 
     }
 
-    fun loadPlants(gardenId: String) {
-        viewModelScope.launch {
-            val token = authRepository.token.first() ?: return@launch
-            val userId = extractUidFromToken(token) ?: return@launch
+    fun listenPlants(gardenId: String) = viewModelScope.launch {
+        val token = authRepository.token.first() ?: return@launch
+        val userId = extractUidFromToken(token) ?: return@launch
 
-            val result = userPlantRepository.getPlants(userId, gardenId)
-            _plants.value = result
+        userPlantRepository.getPlants(userId, gardenId)
+        userPlantRepository.saveLocalPlants(userId, gardenId)
+        userPlantRepository.getLocalPlants(gardenId).collect { list ->
+            _plants.value = list
         }
     }
+
+
+//    fun loadPlants(gardenId: String) {
+//        viewModelScope.launch {
+//            val token = authRepository.token.first() ?: return@launch
+//            val userId = extractUidFromToken(token) ?: return@launch
+//
+//            val result = userPlantRepository.getPlants(userId, gardenId)
+//            _plants.value = result
+//        }
+//    }
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

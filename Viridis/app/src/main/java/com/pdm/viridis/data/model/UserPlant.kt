@@ -1,12 +1,15 @@
 package com.pdm.viridis.data.model
 
 data class UserPlant(
-    val id: String?,
-    val plant_id: String?,
-    val common_name: String?,
-    val scientific_name: List<String>?,
-    val care_level: String?,
-    val watering: String?,
-    val default_image: String?,
-    val recommendations: List<Recommendation>?,
+    val id: String? = null,
+    val plantId: String,
+    val gardenId: String,
+    val commonName: String,
+    val scientificName: List<String>,
+    val careLevel: String,
+    val watering: String,
+    val defaultImage: String,
+    val recommendations: List<String>,
+    val wateredStreak: Int = 0,
+    val lastWateredAt: Long = 0L
 )

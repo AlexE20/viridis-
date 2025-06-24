@@ -4,26 +4,29 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.pdm.viridis.data.model.Recommendation
+import kotlinx.serialization.json.Json
 
-object Converters {
-    private val gson = Gson()
-
-    @TypeConverter
-    fun listStringToJson(list: List<String>?): String =
-        gson.toJson(list ?: emptyList<String>())
+class Converters {
 
     @TypeConverter
-    fun jsonToListString(json: String): List<String> =
-        gson.fromJson(json, object : TypeToken<List<String>>() {}.type)
+    fun fromStringList(value: String): List<String> =
+        if (value.isBlank()) emptyList() else value.split("|")
 
     @TypeConverter
-    fun listRecToJson(list: List<Recommendation>?): String =
-        gson.toJson(list ?: emptyList<Recommendation>())
+    fun toStringList(list: List<String>): String =
+        list.joinToString("|")
 
     @TypeConverter
-    fun jsonToListRec(json: String): List<Recommendation> =
-        gson.fromJson(json, object : TypeToken<List<Recommendation>>() {}.type)
+    fun fromRecommendationList(value: String): List<Recommendation> {
+        return Json.decodeFromString(value)
+    }
+
+    @TypeConverter
+    fun toRecommendationList(list: List<Recommendation>): String {
+        return Json.encodeToString(list)
+    }
 }
+
 
 
 
