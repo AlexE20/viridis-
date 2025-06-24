@@ -22,7 +22,7 @@ fun GardenEntity.toModel(): Garden {
         shadeLevel = shadeLevel
     )
 }
-
+/*
 //fun Plant.toEntity(): PlantEntity {
 //    return PlantEntity(
 //        id = 0,
@@ -49,3 +49,4 @@ fun PlantEntity.toModel(): Plant {
         shadeLevel = ""
     )
 }
+*/

@@ -44,7 +44,6 @@ fun ProfileScreen(navController: NavHostController) {
             CustomIconButton(
                 icon = Icons.Filled.Settings,
                 onClick = {
-                /* para configurar despues lo hago pablo abajo esta el boton de logout alsuave */
                     navController.navigate(ProfileSettings)
                 },
                 modifier = Modifier

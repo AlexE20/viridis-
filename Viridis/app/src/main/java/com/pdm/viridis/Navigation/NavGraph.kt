@@ -27,7 +27,7 @@ import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeScreen
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
-import com.pdm.viridis.ui.screens.profileSettings.ProfileSettingsScreens
+import com.pdm.viridis.ui.screens.profileSettings.ProfileSettingsScreen
 
 //import com.example.viridis.ui.screens.plantContent.PlantContentScreen
 //import com.example.viridis.ui.screens.searchPlant.PlantSearchViewModel
@@ -74,7 +74,7 @@ fun NavGraph(navController: NavHostController) {
             ProfileScreen(navController /* THE VIEWMODEL*/)
         }
         composable<ProfileSettings>{
-            ProfileSettingsScreens(navController)
+            ProfileSettingsScreen(navController)
         }
         composable<Notifications> {
             //Declaration of the view model
