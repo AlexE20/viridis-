@@ -8,15 +8,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "user_plants",
-    foreignKeys = [
-        ForeignKey(
-            entity = GardenEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["gardenId"],
-            onDelete = CASCADE
-        )
-    ],
-    indices = [Index("gardenId")]
+    
 )
 data class UserPlantEntity(
     @PrimaryKey val id: String,
@@ -29,7 +21,7 @@ data class UserPlantEntity(
     val defaultImage: String,
     val recommendations: List<String>,
     val wateredStreak: Int = 0,
-    val lastWateredAt: Long = 0L
+    val lastWateredAt: String
 )
 
 

@@ -50,34 +50,33 @@ class GardenShadeViewModel(
     }
 
     fun isValid(): Boolean = _selectedShade.value != null
-
-    fun saveGarden(onSuccess: () -> Unit = {}){
+    
+    fun saveGarden(gardenName: String, onSuccess: () -> Unit = {}) {
         viewModelScope.launch {
             _isSaving.value = true
             _error.value = null
             try {
-                performSaveGarden()
+                performSaveGarden(gardenName)
                 _isSaving.value = false
+                onSuccess()
             } catch (e: Exception) {
                 _isSaving.value = false
                 _error.value = e.localizedMessage
             }
         }
     }
-
-    suspend fun performSaveGarden() {
-        val name = savedStateHandle.get<String>("gardenName")?.trim().orEmpty()
+    
+    private suspend fun performSaveGarden(gardenName: String) {
         val token = authRepository.token.first() ?: return
         val userId = extractUidFromToken(token) ?: return
         val shade = _selectedShade.value ?: return
-
+        
         val request = GardenRequest(
-            name = name,
+            name = gardenName,
             shadeLevel = shade
         )
-
+        
         repository.addGarden(userId, request)
-
     }
 
     companion object {

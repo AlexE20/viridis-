@@ -46,6 +46,7 @@ import com.pdm.viridis.Navigation.SearchPlantScreen
 //import com.example.viridis.Navigation.addedPlantDetail
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.cards.CustomCard
+import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen
 import com.pdm.viridis.ui.theme.SecondaryAccent
 
 @ExperimentalMaterial3Api
@@ -55,7 +56,7 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
     val navigator = LocalNavigator.currentOrThrow
     
     LaunchedEffect(gardenId) {
-        viewModel.loadPlants(gardenId)
+        viewModel.listenPlants(gardenId)
     }
 
     val plants by viewModel.plants.collectAsState()
@@ -129,7 +130,7 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
 
                 CustomButton(
                     text = "Add Plant",
-                    onClick = { navigator.push(SearchPlantScreen) },
+                    onClick = { navigator.push(SearchPlantScreen(gardenId)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)

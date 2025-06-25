@@ -2,6 +2,7 @@ package com.pdm.viridis.data.remote.userPlants
 
 
 import com.pdm.viridis.data.model.UserPlant
+import com.pdm.viridis.data.remote.responses.MessageResponse
 import com.pdm.viridis.data.remote.responses.UserPlantRequest
 import com.pdm.viridis.data.remote.responses.UserPlantResponse
 import retrofit2.http.Body
@@ -29,5 +30,5 @@ interface UserPlantService {
     @DELETE("api/userPlants/{userPlantId}")
     suspend fun deletePlant(
         @Path("userPlantId") userPlantId: String
-    ): UserPlantResponse
+    ): MessageResponse
 }

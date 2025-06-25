@@ -20,7 +20,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.R
 import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.Navigation.ProfileScreen
-import com.pdm.viridis.Navigation.SearchPlantScreen.NotificationScreenContent
+import com.pdm.viridis.Navigation.NotificationScreenContent
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainAccent
 import com.pdm.viridis.ui.theme.MainColor

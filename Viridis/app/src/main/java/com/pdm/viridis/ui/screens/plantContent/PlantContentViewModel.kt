@@ -24,44 +24,45 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 class PlantContentViewModel(
-    private val repo: UserPlantRepository,
-    private val authRepo: AuthRepository,
-    private val savedStateHandle: SavedStateHandle
-    ) : ViewModel(){
-
-    private val gardenId: String = savedStateHandle["gardenId"] ?: ""
-
-    val saving = MutableStateFlow(false)
-    val error = MutableStateFlow<String?>(null)
-
-    fun savePlant(plant: Plant) = viewModelScope.launch {
-        saving.value = true
-        error.value = null
-        try {
-            val token = authRepo.token.first() ?: return@launch
-            val userId = extractUidFromToken(token) ?: return@launch
-
-            val req = UserPlantRequest(
-                gardenId = gardenId,
-                userPlantId = UUID.randomUUID().toString(),
-                plantId = plant.id ?: return@launch
-            )
-            repo.addPlant(userId, gardenId, req)
-            saving.value = false
-        } catch (e: Exception) {
-            saving.value = false
-            error.value = e.message
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val app = (this[APPLICATION_KEY] as ViridisApplication)
-                val plantRepository = app.appProvider.provideUserPlantRepository()
-                val authRepository = app.appProvider.provideAuthRepository()
-                PlantContentViewModel(plantRepository, authRepository, savedStateHandle = createSavedStateHandle())
-            }
-        }
-    }
+	gardenId: String,
+	private val repo: UserPlantRepository,
+	private val authRepo: AuthRepository,
+) : ViewModel() {
+	
+	val gardenId: String = gardenId
+	
+	val saving = MutableStateFlow(false)
+	val error = MutableStateFlow<String?>(null)
+	
+	
+	
+	fun savePlant(plantId:String) = viewModelScope.launch {
+		saving.value = true
+		error.value = null
+		try {
+			val token = authRepo.token.first() ?: return@launch
+			val userId = extractUidFromToken(token) ?: return@launch
+			
+			val req = UserPlantRequest(
+				id= plantId
+			)
+			println("🌿 PLANT ID viewmodel: $plantId")
+			repo.addPlant(userId, gardenId, req)
+			saving.value = false
+		} catch (e: Exception) {
+			saving.value = false
+			error.value = e.message
+		}
+	}
+	
+	companion object {
+		fun Factory(gardenId: String): ViewModelProvider.Factory = viewModelFactory {
+			initializer {
+				val app = (this[APPLICATION_KEY] as ViridisApplication)
+				val plantRepository = app.appProvider.provideUserPlantRepository()
+				val authRepository = app.appProvider.provideAuthRepository()
+				PlantContentViewModel(gardenId, plantRepository, authRepository)
+			}
+		}
+	}
 }

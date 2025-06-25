@@ -29,6 +29,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.Navigation.PlantContentScreen
 import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import com.pdm.viridis.ui.components.cards.CustomCard
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
@@ -37,12 +38,14 @@ import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.SecondaryAccent
 import com.pdm.viridis.ui.theme.urbanistFont
+import com.pdm.viridis.Navigation.SearchPlantScreen
 
 
 @ExperimentalMaterial3Api
 @Composable
 fun SearchPlantScreen(
-    viewModel: PlantSearchViewModel
+    viewModel: PlantSearchViewModel,
+    gardenId: String,
 ) {
     val searchText by viewModel.searchText.collectAsStateWithLifecycle()
     val filteredPlants by viewModel.plants.collectAsStateWithLifecycle()
@@ -136,9 +139,13 @@ fun SearchPlantScreen(
                             },
                             clickable = {
                                 println("RECOMMENDATIONS: ${plant.recommendations?.joinToString { it.type }}")
-
+                                println("🌿 PLANT ID: ${plant.id}")
+                                
+                                
                                 navigator.push(
-                                    com.pdm.viridis.Navigation.SearchPlantScreen.PlantContentScreen(
+                                    PlantContentScreen(
+                                        plantId = plant.id.orEmpty(),
+                                        gardenId=gardenId,
                                         commonName = plant.name.orEmpty(),
                                         scientificName = plant.scientificName.orEmpty(),
                                         careLevel = plant.careLevel.orEmpty(),

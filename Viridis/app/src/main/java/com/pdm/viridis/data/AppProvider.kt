@@ -39,6 +39,7 @@ class AppProvider(
     )
 
     private val userPlantRepository: UserPlantRepository = UserPlantRepositoryImpl(
+        dao = appDatabase.plantDao(),
         userPlantService
     )
 

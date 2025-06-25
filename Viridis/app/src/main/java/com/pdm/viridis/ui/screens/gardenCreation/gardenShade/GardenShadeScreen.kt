@@ -37,7 +37,8 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @ExperimentalMaterial3Api
 @Composable
 fun GardenShadeScreen(
-    viewModel: GardenShadeViewModel
+    viewModel: GardenShadeViewModel,
+    gardenName: String
 ){
 
     val options = viewModel.shadeOptions.entries.toList()
@@ -54,8 +55,7 @@ fun GardenShadeScreen(
         Icons.Filled.WbSunny
     )
 
-    CustomTopBar(
-    ) {
+    CustomTopBar{
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
@@ -113,7 +113,7 @@ fun GardenShadeScreen(
         ) {
             CustomButton("Save",
                 onClick = {
-                    viewModel.saveGarden {}
+                    viewModel.saveGarden(gardenName)
                     navigator.push(HomeScreen)
                 },
                 enabled = viewModel.isValid() && !isSaving,

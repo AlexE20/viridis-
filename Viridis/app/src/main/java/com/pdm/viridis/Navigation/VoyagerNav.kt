@@ -2,11 +2,13 @@ package com.pdm.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.data.model.Plant
 import com.pdm.viridis.data.model.Recommendation
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
@@ -113,28 +115,32 @@ object GardenNameScreen : Screen {
 	override fun Content() {
 		val navigator = LocalNavigator.currentOrThrow
 		val viewModel: GardenNameViewModel = viewModel(factory = GardenNameViewModel.Factory)
-		GardenName(viewModel = viewModel, onNext = { navigator.push(GardenShadeScreen) })
+		GardenName(viewModel = viewModel, onNext = { gardenName->navigator.push(GardenShadeScreen(gardenName)) })
 	}
 }
 
 @Serializable
-object GardenShadeScreen : Screen {
+data class GardenShadeScreen(val gardenName: String) : Screen {
 	@OptIn(ExperimentalMaterial3Api::class)
 	@Composable
 	override fun Content() {
 		val viewModel: GardenShadeViewModel = viewModel(factory = GardenShadeViewModel.Factory)
-		GardenShade(viewModel = viewModel)
+		GardenShade(viewModel = viewModel, gardenName = gardenName)
 	}
 }
 
 @Serializable
-object SearchPlantScreen : Screen {
+data class SearchPlantScreen(val gardenId: String) : Screen {
 	@OptIn(ExperimentalMaterial3Api::class)
 	@Composable
 	override fun Content() {
 		val viewModel: PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
-		searchPlantScreen(viewModel = viewModel)
+		searchPlantScreen(viewModel=viewModel,gardenId = gardenId)
 	}
+}
+
+	
+	
 	
 	@Serializable
 	object NotificationScreenContent : Screen {
@@ -147,6 +153,8 @@ object SearchPlantScreen : Screen {
 
 	@Serializable
 	data class PlantContentScreen(
+		val plantId: String,
+		val gardenId: String,
 		val commonName: String = "",
 		val scientificName: String = "",
 		val careLevel: String = "",
@@ -159,7 +167,10 @@ object SearchPlantScreen : Screen {
 		@OptIn(ExperimentalMaterial3Api::class)
 		@Composable
 		override fun Content() {
+			val viewModel: PlantContentViewModel = viewModel(factory = PlantContentViewModel.Factory(gardenId))
 			PlantContentScreenUI(
+				viewModel=viewModel,
+				plantId,
 				commonName,
 				scientificName,
 				careLevel,
@@ -171,4 +182,3 @@ object SearchPlantScreen : Screen {
 		}
 	}
 
-}

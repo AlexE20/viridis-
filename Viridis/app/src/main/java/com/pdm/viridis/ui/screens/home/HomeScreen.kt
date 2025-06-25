@@ -43,7 +43,7 @@ fun HomeScreen(
     val navigator = LocalNavigator.currentOrThrow
     
     
-    CustomScaffold() {
+    CustomScaffold{
         Column(
             modifier = Modifier
                 .fillMaxSize()

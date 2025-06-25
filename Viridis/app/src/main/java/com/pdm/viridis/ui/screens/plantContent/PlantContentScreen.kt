@@ -27,6 +27,8 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @ExperimentalMaterial3Api
 @Composable
 fun PlantContentScreenUI(
+	viewModel: PlantContentViewModel,
+	plantId:String,
 	commonName: String,
 	scientificName: String,
 	careLevel: String,
@@ -117,7 +119,9 @@ fun PlantContentScreenUI(
 			)
 
 			Spacer(modifier = Modifier.height(20.dp))
-			CustomButton("Add Plant to Garden", {})
+			CustomButton("Add Plant to Garden", onClick = {
+				viewModel.savePlant(plantId )
+			})
 		}
 	}
 }

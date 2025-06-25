@@ -42,7 +42,7 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @Composable
 fun GardenNameScreen(
     viewModel : GardenNameViewModel,
-    onNext : () -> Unit
+    onNext : (String) -> Unit
 ){
     CustomTopBar(
     ) {
@@ -104,7 +104,7 @@ fun GardenNameScreen(
             )
             Spacer(modifier = Modifier.height(410.dp))
             CustomButton("Next",
-                onClick = onNext,
+                onClick = { onNext(viewModel.gNameText.value) },
                 enabled =  viewModel.isValid(),
                 modifier = Modifier.width(351.dp).height(51.dp)
 

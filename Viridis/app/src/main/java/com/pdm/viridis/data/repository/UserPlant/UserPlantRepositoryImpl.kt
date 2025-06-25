@@ -18,6 +18,7 @@ class UserPlantRepositoryImpl(
 
     override suspend fun getPlants(userId: String, gardenId: String): List<UserPlant> {
         val remote = service.getPlants(userId, gardenId)
+        println("flower: $remote")
         plants = remote.map { it.toDomain() }
         return plants
     }

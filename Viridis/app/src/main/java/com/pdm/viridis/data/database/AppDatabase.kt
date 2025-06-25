@@ -13,7 +13,7 @@ import com.pdm.viridis.utils.Converters
 
 @Database(
     entities = [GardenEntity::class, UserPlantEntity::class],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 
@@ -32,7 +32,9 @@ abstract class AppDatabase: RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "viridis_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                     .also{INSTANCE = it}
                 instance
             }
