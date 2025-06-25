@@ -24,19 +24,18 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 class PlantContentViewModel(
-	gardenId: String,
 	private val repo: UserPlantRepository,
 	private val authRepo: AuthRepository,
 ) : ViewModel() {
 	
-	val gardenId: String = gardenId
+
 	
 	val saving = MutableStateFlow(false)
 	val error = MutableStateFlow<String?>(null)
 	
 	
 	
-	fun savePlant(plantId:String) = viewModelScope.launch {
+	fun savePlant(gardenId: String,plantId:String) = viewModelScope.launch {
 		saving.value = true
 		error.value = null
 		try {
@@ -46,6 +45,7 @@ class PlantContentViewModel(
 			val req = UserPlantRequest(
 				id= plantId
 			)
+			println("Garden Id: $gardenId")
 			println("🌿 PLANT ID viewmodel: $plantId")
 			repo.addPlant(userId, gardenId, req)
 			saving.value = false
@@ -56,12 +56,12 @@ class PlantContentViewModel(
 	}
 	
 	companion object {
-		fun Factory(gardenId: String): ViewModelProvider.Factory = viewModelFactory {
+		fun Factory(): ViewModelProvider.Factory = viewModelFactory {
 			initializer {
 				val app = (this[APPLICATION_KEY] as ViridisApplication)
 				val plantRepository = app.appProvider.provideUserPlantRepository()
 				val authRepository = app.appProvider.provideAuthRepository()
-				PlantContentViewModel(gardenId, plantRepository, authRepository)
+				PlantContentViewModel( plantRepository, authRepository)
 			}
 		}
 	}

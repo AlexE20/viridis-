@@ -15,6 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.Navigation.GardenContentScreen
+import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.data.model.Recommendation
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.DetailCardStacked
@@ -28,6 +32,7 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @Composable
 fun PlantContentScreenUI(
 	viewModel: PlantContentViewModel,
+	gardenId: String,
 	plantId:String,
 	commonName: String,
 	scientificName: String,
@@ -37,6 +42,8 @@ fun PlantContentScreenUI(
 	recommendations: List<Recommendation>,
 	imageUrl: String
 ) {
+	val navigator = LocalNavigator.currentOrThrow
+
 	val lightIcon = when (shadeLevel) {
 		"full_shade" -> Icons.Outlined.DarkMode
 		"part_shade" -> Icons.Outlined.WbCloudy
@@ -120,7 +127,8 @@ fun PlantContentScreenUI(
 
 			Spacer(modifier = Modifier.height(20.dp))
 			CustomButton("Add Plant to Garden", onClick = {
-				viewModel.savePlant(plantId )
+				viewModel.savePlant(gardenId,plantId )
+//				navigator.push(GardenContentScreen(gardenId, gardenName))
 			})
 		}
 	}

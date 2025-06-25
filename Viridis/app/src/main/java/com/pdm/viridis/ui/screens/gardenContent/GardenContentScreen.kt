@@ -146,8 +146,8 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
                                 }
                             },
                             plantName = plant.commonName ?: "Unknown Plant" ,
-                            plantDescription = plant.recommendations?.firstOrNull()?.description
-                                ?: "No description",
+                            plantDescription = plant.scientificName?.firstOrNull()
+                                ?: "No scientific name",
                             plantImgUrl = plant.defaultImage ?: "No image available",
                             difficulty = plant.careLevel ?: "No care level",
                             difficultyIcon = {

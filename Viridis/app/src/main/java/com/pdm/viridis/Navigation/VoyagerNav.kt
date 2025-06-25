@@ -138,9 +138,6 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 		searchPlantScreen(viewModel=viewModel,gardenId = gardenId)
 	}
 }
-
-	
-	
 	
 	@Serializable
 	object NotificationScreenContent : Screen {
@@ -167,9 +164,10 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 		@OptIn(ExperimentalMaterial3Api::class)
 		@Composable
 		override fun Content() {
-			val viewModel: PlantContentViewModel = viewModel(factory = PlantContentViewModel.Factory(gardenId))
+			val viewModel: PlantContentViewModel = viewModel(factory = PlantContentViewModel.Factory())
 			PlantContentScreenUI(
 				viewModel=viewModel,
+				gardenId,
 				plantId,
 				commonName,
 				scientificName,
