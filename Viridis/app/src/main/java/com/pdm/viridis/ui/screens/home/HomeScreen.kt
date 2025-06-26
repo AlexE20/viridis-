@@ -40,6 +40,7 @@ fun HomeScreen(
     viewModel: HomeViewModel
 ) {
     val gardens by viewModel.gardens.collectAsState()
+    val imageUrlMap by viewModel.imageUrlsMap.collectAsState()
     val navigator = LocalNavigator.currentOrThrow
     
     
@@ -85,11 +86,13 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(gardens) { garden ->
+                    val urls = imageUrlMap[garden.id] ?: emptyList()
+
                     StakedCards(
                         clickable = { navigator.push(GardenContentScreen(garden.id, garden.name))},
                         gardenName = garden.name,
                         gardenShade = garden.shadeLevel,
-                        imageUrls = null,
+                        imageUrls = urls,
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 160.dp)

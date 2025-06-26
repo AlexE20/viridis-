@@ -58,7 +58,8 @@ fun MeetingScreen() {
         Spacer(modifier = Modifier.height(70.dp))
         CustomButton(
             //NEED TO CHANGE THIS AT THE END
-            onClick = { navigator.push(HomeScreen) },
+            onClick = { navigator.push(ActiveNotificationScreen) },
+            //onClick = { navigator.push(HomeScreen) },
             text = "Let's go"
         )
     }

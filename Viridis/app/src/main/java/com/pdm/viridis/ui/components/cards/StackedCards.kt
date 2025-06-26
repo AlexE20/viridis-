@@ -50,7 +50,8 @@ fun StakedCards(
             if (imageUrls.isNullOrEmpty()) {
                 Box(
                     modifier = Modifier
-                        .height(180.dp).fillMaxSize().background(BackgroundColor, RoundedCornerShape(8.dp)).border(1.dp, SecondaryAccent, RoundedCornerShape(8.dp))
+                        .height(180.dp)
+                        .fillMaxSize().background(BackgroundColor, RoundedCornerShape(8.dp)).border(1.dp, SecondaryAccent, RoundedCornerShape(8.dp))
                 ) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         val w = size.width
@@ -66,8 +67,12 @@ fun StakedCards(
                 Box(
                     modifier = Modifier
                         .height(180.dp)
-                        .fillMaxSize()
+                        .fillMaxSize().background(BackgroundColor, RoundedCornerShape(8.dp)).border(1.dp, SecondaryAccent, RoundedCornerShape(8.dp))
                 ) {
+                    Canvas(modifier = Modifier.fillMaxSize()) {
+
+                    }
+
                     imageUrls.forEachIndexed { index, url ->
                         val offset = (index * 16).dp
                         Image(
