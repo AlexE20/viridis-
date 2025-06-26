@@ -15,6 +15,7 @@ import com.pdm.viridis.utils.extractUidFromToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.update
@@ -46,10 +47,16 @@ class HomeViewModel(
             if (isConnected()) {
                 gardenRepository.getGardens(userId)
                 gardenRepository.saveLocalGardens(userId)
-                gardenRepository.getLocalGardens().collect { list ->
+                /*gardenRepository.getLocalGardens().collect { list ->
                     _gardens.value = list
                     fetchImageUrlsForGardens(list, userId)
-                }
+                }*/
+                gardenRepository.getLocalGardens()
+                    .distinctUntilChanged()
+                    .collect { list ->
+                        _gardens.value = list
+                        fetchImageUrlsForGardens(list, userId)
+                    }
             } else {
                 val offlineList = gardenRepository.getGardens(userId)
                 _gardens.value = offlineList
@@ -60,13 +67,18 @@ class HomeViewModel(
 
     private fun fetchImageUrlsForGardens(gardens: List<Garden>, userId: String) {
         gardens.forEach { garden ->
-            if (loadedGardenIds.contains(garden.id)) return@forEach
+            //if (loadedGardenIds.contains(garden.id)) return@forEach
 
             viewModelScope.launch(Dispatchers.IO) {
                 val plants = userPlantRepository.getPlants(userId, garden.id)
-                val urls = plants.map { it.defaultImage }.take(3)
+                val urls = plants.map { it.defaultImage }.take(4)
+                val currentUrls = _imageUrlsMap.value[garden.id]
 
-                _imageUrlsMap.update { it + (garden.id to urls) }
+                if (currentUrls != urls) {
+                    _imageUrlsMap.update { it + (garden.id to urls) }
+                }
+
+                //_imageUrlsMap.update { it + (garden.id to urls) }
                 loadedGardenIds.add(garden.id)
             }
         }

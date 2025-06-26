@@ -128,6 +128,7 @@ fun PlantContentScreenUI(
 			Spacer(modifier = Modifier.height(20.dp))
 			CustomButton("Add Plant to Garden", onClick = {
 				viewModel.savePlant(gardenId,plantId )
+				navigator.push(HomeScreen)
 //				navigator.push(GardenContentScreen(gardenId, gardenName))
 			})
 		}
