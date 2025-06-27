@@ -37,20 +37,27 @@ class GardenContentViewModel(
 
     }
 
-    fun listenPlants(gardenId: String) =
+    fun listenPlants(gardenId: String, isConnected: Boolean) {
         viewModelScope.launch {
-        val token = authRepository.token.first() ?: return@launch
-        val userId = extractUidFromToken(token) ?: return@launch
+            val token = authRepository.token.first() ?: return@launch
+            val userId = extractUidFromToken(token) ?: return@launch
 
-        val plants=userPlantRepository.getPlants(userId, gardenId)
-            _plants.value=plants
+            val result = if (isConnected) {
+                try {
+                    val remotePlants = userPlantRepository.getPlants(userId, gardenId)
+                    userPlantRepository.saveLocalPlants(userId, gardenId)
+                    remotePlants
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    userPlantRepository.getLocalPlants(gardenId).first() // fallback offline
+                }
+            } else {
+                userPlantRepository.getLocalPlants(gardenId).first()
+            }
 
-            /* userPlantRepository.saveLocalPlants(userId, gardenId)
-			 userPlantRepository.getLocalPlants(gardenId).collect { list ->
-				 _plants.value = list
-			 }*/
-            println("GardenContentVM Plants received: $plants")
+            _plants.value = result
         }
+    }
 
 
     companion object {
