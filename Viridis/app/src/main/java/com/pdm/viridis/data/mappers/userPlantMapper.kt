@@ -35,12 +35,13 @@ fun UserPlant.toEntity() = UserPlantEntity(
     plantId = plantId,
     commonName = commonName,
     scientificName = scientificName,
-    careLevel = careLevel,
+    careLevel = careLevel ?: "",
     watering = watering,
     defaultImage = defaultImage,
     recommendations = recommendations.map { it.description },
     lastWateredAt = lastWateredAt?:"Uknown",
     wateredStreak = wateredStreak,
+    shadeLevel = shadeLevel?:""
 )
 
 fun UserPlantEntity.toDomain() = UserPlant(

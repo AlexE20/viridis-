@@ -42,13 +42,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.Navigation.AddedPlantDetailScreen
 import com.pdm.viridis.Navigation.HomeScreen
+import com.pdm.viridis.Navigation.PlantContentScreen
 import com.pdm.viridis.Navigation.SearchPlantScreen
 import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 import com.pdm.viridis.ui.components.BottomSheets.BottomAlertSheet
 //import com.example.viridis.Navigation.addedPlantDetail
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.cards.CustomCard
+import com.pdm.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
 import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen
 import com.pdm.viridis.ui.theme.SecondaryAccent
 
@@ -168,7 +171,21 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
                         CustomCard(
                             clickable = {
                                 if (!plant.id.isNullOrBlank()) {
-                                    //navController.navigate("addedPlantDetail/${plant.id}")
+                                    navigator.push(
+                                        AddedPlantDetailScreen(
+                                            id = plant.id,
+                                            gardenId = plant.gardenId?:"",
+                                            commonName = plant.commonName.orEmpty(),
+                                            scientificName = plant.scientificName.firstOrNull() ?: "No scientific name available",
+                                            careLevel = plant.careLevel.orEmpty(),
+                                            shadeLevel = plant.shadeLevel.orEmpty(),
+                                            watering = plant.watering.orEmpty(),
+                                            defaultImage = plant.defaultImage.orEmpty(),
+                                            recommendations = plant.recommendations ?: emptyList(),
+                                            wateredStreak = plant.wateredStreak,
+                                            lastWateredAt = plant.lastWateredAt.orEmpty()
+                                        )
+                                    )
                                 }
                             },
                             plantName = plant.commonName ?: "Unknown Plant" ,

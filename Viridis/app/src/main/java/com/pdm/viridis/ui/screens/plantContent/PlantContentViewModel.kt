@@ -27,7 +27,6 @@ class PlantContentViewModel(
 	private val repo: UserPlantRepository,
 	private val authRepo: AuthRepository,
 ) : ViewModel() {
-	
 
 	val saving = MutableStateFlow(false)
 	val error = MutableStateFlow<String?>(null)
@@ -36,13 +35,14 @@ class PlantContentViewModel(
 	val showSuccessSheet: StateFlow<Boolean> = _showSuccessSheet
 	
 	
+
 	fun savePlant(gardenId: String,plantId:String) = viewModelScope.launch {
 		saving.value = true
 		error.value = null
 		try {
 			val token = authRepo.token.first() ?: return@launch
 			val userId = extractUidFromToken(token) ?: return@launch
-			
+
 			val req = UserPlantRequest(
 				id= plantId
 			)
@@ -59,10 +59,11 @@ class PlantContentViewModel(
 		}
 	}
 
+
 	fun dismissSuccessSheet(){
 		_showSuccessSheet.value = false
 	}
-	
+
 	companion object {
 		fun Factory(): ViewModelProvider.Factory = viewModelFactory {
 			initializer {

@@ -1,46 +1,48 @@
 package com.pdm.viridis.ui.screens.addedPlantDetail
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.pdm.viridis.ViridisApplication
+import com.pdm.viridis.data.repository.Auth.AuthRepository
+import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
+import com.pdm.viridis.ui.screens.gardenContent.GardenContentViewModel
+import com.pdm.viridis.ui.screens.plantContent.PlantContentViewModel
+import com.pdm.viridis.utils.extractUidFromToken
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
-/*
+
 class AddedPlantDetailViewModel(
-    private val plantRepository: PlantRepository,
-    savedStateHandle: SavedStateHandle
-) : ViewModel() {
+    private val authRepository: AuthRepository,
+    private val userPlantRepository: UserPlantRepository,
+    ) : ViewModel() {
 
-    private val plantId = savedStateHandle.get<String>("plantId") ?: ""
-
-    private val _plant = MutableStateFlow<Plant?>(null)
-    val plant: StateFlow<Plant?> get() = _plant
-
-    init {
+    fun deletePlant(userPlantId: String){
         viewModelScope.launch {
-            plantRepository.getPlantsFlow().collect { plantList ->
-                _plant.value = plantList.find { it.id == plantId }
-            }
+            val token = authRepository.token.first() ?: return@launch
+            val userId = extractUidFromToken(token) ?: return@launch
+
+            userPlantRepository.deletePlant(userId,userPlantId)
         }
+
     }
 
-//    fun deletePlant() {
-//        viewModelScope.launch {
-//            _plant.value?.let {
-//                plantRepository.deletePlant(it)
-//                _plant.value = null
-//            }
-//        }
-//    }
-
     companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
+        fun Factory(): ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val aplication = this[APPLICATION_KEY] as ViridisApplication
-                val savedStateHandle = createSavedStateHandle()
-                AddedPlantDetailViewModel(
-                    aplication.appProvider.providePlantRepository(),
-                    savedStateHandle
-                )
+                val app = (this[APPLICATION_KEY] as ViridisApplication)
+                val authRepository = app.appProvider.provideAuthRepository()
+                val plantRepository = app.appProvider.provideUserPlantRepository()
+                AddedPlantDetailViewModel(authRepository,plantRepository)
             }
         }
     }
 }
-*/
+
 

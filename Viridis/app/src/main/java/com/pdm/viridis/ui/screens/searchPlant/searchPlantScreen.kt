@@ -140,8 +140,7 @@ fun SearchPlantScreen(
                             clickable = {
                                 println("RECOMMENDATIONS: ${plant.recommendations?.joinToString { it.type }}")
                                 println("🌿 PLANT ID: ${plant.id}")
-                                
-                                
+
                                 navigator.push(
                                     PlantContentScreen(
                                         plantId = plant.id.orEmpty(),
