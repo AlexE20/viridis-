@@ -74,7 +74,7 @@ fun GardenShadeScreen(
         )
     }
 
-    CustomTopBar{ snackbarHostSate ->
+    CustomTopBar{
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
