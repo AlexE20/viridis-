@@ -64,18 +64,12 @@ fun AlertBottomSheet(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.White, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "icon",
-                    tint = color
-                )
-            }
+            Icon(
+                imageVector = icon,
+                contentDescription = "icon",
+                modifier = Modifier.size(50.dp),
+                tint = color
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 

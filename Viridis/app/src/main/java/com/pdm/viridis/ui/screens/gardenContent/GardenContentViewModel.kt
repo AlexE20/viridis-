@@ -29,6 +29,11 @@ class GardenContentViewModel(
     private val _showSuccessSheet = MutableStateFlow(false)
     val showSuccessSheet: StateFlow<Boolean> = _showSuccessSheet
 
+    private val _showDeleteConfirmation = MutableStateFlow(false)
+    val showDeleteConfirmation: StateFlow<Boolean> = _showDeleteConfirmation
+
+    private val _pendingGardenToDelete = MutableStateFlow<String?>(null)
+
     fun deleteGarden(gardenId: String){
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch
@@ -36,6 +41,7 @@ class GardenContentViewModel(
 
             gardenRepository.deleteGarden(userId,gardenId)
             _showSuccessSheet.value = true
+            _showDeleteConfirmation.value = false
         }
 
     }
@@ -55,6 +61,15 @@ class GardenContentViewModel(
 
     fun dismissSuccessSheet(){
         _showSuccessSheet.value = false
+    }
+
+    fun showDeleteConfirmation() {
+        _showDeleteConfirmation.value = true
+    }
+
+    fun cancelDelete() {
+        _showDeleteConfirmation.value = false
+        _pendingGardenToDelete.value = null
     }
 
 

@@ -45,6 +45,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.Navigation.SearchPlantScreen
 import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
+import com.pdm.viridis.ui.components.BottomSheets.BottomAlertSheet
 //import com.example.viridis.Navigation.addedPlantDetail
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.cards.CustomCard
@@ -63,6 +64,16 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
 
     val plants by viewModel.plants.collectAsState()
     val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
+    val showDeleteConfirmation by viewModel.showDeleteConfirmation.collectAsState()
+
+    if (showDeleteConfirmation) {
+        BottomAlertSheet(
+            message = "This garden will be gone forever. Are you sure you want to say goodbye?",
+            buttonText = "Delete",
+            onButtonClick = { viewModel.deleteGarden(gardenId) },
+            onDismiss = { viewModel.cancelDelete() }
+        )
+    }
 
     if (showSuccessSheet) {
         AlertBottomSheet(
@@ -131,7 +142,7 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
                     CustomIconButton(
                         icon = Icons.Filled.Delete,
                         onClick = {
-                            viewModel.deleteGarden(gardenId)
+                            viewModel.showDeleteConfirmation()
                                   },
                         containerColor = Pink40,
                         contentColor = Color.White,
