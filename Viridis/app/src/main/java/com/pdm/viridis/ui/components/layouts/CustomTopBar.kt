@@ -32,13 +32,12 @@ import com.pdm.viridis.ui.theme.MainColor
 @Composable
 fun CustomTopBar(
     title: String = "",
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     floatingActionButton: (@Composable () -> Unit)? = null,
-    content: @Composable () -> Unit
+    content: @Composable (SnackbarHostState) -> Unit
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
     val navigator = LocalNavigator.currentOrThrow
-    
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -73,7 +72,7 @@ fun CustomTopBar(
                 .background(BackgroundColor),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            content()
+            content(snackbarHostState)
         }
     }
 }

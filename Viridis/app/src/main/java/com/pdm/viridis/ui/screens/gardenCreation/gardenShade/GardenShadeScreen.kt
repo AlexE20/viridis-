@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.WbCloudy
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material.icons.outlined.Cloud
@@ -27,12 +28,16 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.HomeScreen
+import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.components.buttons.CustomRadioButton
+import com.pdm.viridis.ui.theme.SecondaryAccent
 import com.pdm.viridis.ui.theme.urbanistFont
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 @Composable
@@ -46,7 +51,8 @@ fun GardenShadeScreen(
     val isSaving by viewModel.isSaving.collectAsState()
     val error by viewModel.error.collectAsState()
     val navigator = LocalNavigator.currentOrThrow
-    val coroutineScope = rememberCoroutineScope()
+    val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
+    val scope = rememberCoroutineScope()
 
     val icons = listOf(
         Icons.Outlined.DarkMode,
@@ -55,7 +61,20 @@ fun GardenShadeScreen(
         Icons.Filled.WbSunny
     )
 
-    CustomTopBar{
+    if (showSuccessSheet) {
+        AlertBottomSheet(
+            icon = Icons.Default.CheckCircle,
+            message = "Garden created successfully!",
+            onDismiss = { viewModel.dismissSuccessSheet() },
+            color = SecondaryAccent,
+            onContentClick = {
+                viewModel.dismissSuccessSheet()
+                navigator.push(HomeScreen)
+            }
+        )
+    }
+
+    CustomTopBar{ snackbarHostSate ->
         Column(
             modifier = Modifier
                 .background(BackgroundColor)
@@ -113,8 +132,9 @@ fun GardenShadeScreen(
         ) {
             CustomButton("Save",
                 onClick = {
-                    viewModel.saveGarden(gardenName)
-                    navigator.push(HomeScreen)
+                    scope.launch {
+                        viewModel.saveGarden(gardenName)
+                    }
                 },
                 enabled = viewModel.isValid() && !isSaving,
                 modifier = Modifier.width(351.dp).height(51.dp)

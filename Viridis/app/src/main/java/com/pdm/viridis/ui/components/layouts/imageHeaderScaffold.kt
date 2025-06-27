@@ -30,7 +30,8 @@ fun ImageHeaderScaffold(
     imageUrl: String? = null,
     imageHeight: Dp = 240.dp,
     floatingActionButton: (@Composable () -> Unit)? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
+
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val navigator = LocalNavigator.currentOrThrow
