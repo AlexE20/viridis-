@@ -27,6 +27,14 @@ class PlantSearchViewModel(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
+    private val _searchStarted = MutableStateFlow(false)
+    val searchStarted: StateFlow<Boolean> = _searchStarted
+
+    fun onSearchStarted() {
+        _searchStarted.value = true
+    }
+
+
     fun onSearchTextChange(newText: String) {
         _searchText.value = newText
     }
