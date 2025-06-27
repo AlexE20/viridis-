@@ -26,12 +26,16 @@ class GardenContentViewModel(
     private val _plants = MutableStateFlow<List<UserPlant>>(emptyList())
     val plants: StateFlow<List<UserPlant>> get() = _plants
 
+    private val _showSuccessSheet = MutableStateFlow(false)
+    val showSuccessSheet: StateFlow<Boolean> = _showSuccessSheet
+
     fun deleteGarden(gardenId: String){
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch
             val userId = extractUidFromToken(token) ?: return@launch
 
             gardenRepository.deleteGarden(userId,gardenId)
+            _showSuccessSheet.value = true
         }
 
     }
@@ -49,7 +53,9 @@ class GardenContentViewModel(
 			 }*/
     }
 
-
+    fun dismissSuccessSheet(){
+        _showSuccessSheet.value = false
+    }
 
 
     companion object {

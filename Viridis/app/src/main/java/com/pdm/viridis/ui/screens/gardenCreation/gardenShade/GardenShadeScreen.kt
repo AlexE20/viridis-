@@ -64,7 +64,7 @@ fun GardenShadeScreen(
     if (showSuccessSheet) {
         AlertBottomSheet(
             icon = Icons.Default.CheckCircle,
-            message = "Garden created successfully!",
+            message = "Your Garden has been saved",
             onDismiss = { viewModel.dismissSuccessSheet() },
             color = SecondaryAccent,
             onContentClick = {

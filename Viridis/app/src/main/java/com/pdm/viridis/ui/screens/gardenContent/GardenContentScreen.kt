@@ -34,6 +34,7 @@ import com.pdm.viridis.ui.theme.Pink40
 import com.pdm.viridis.ui.theme.urbanistFont
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,6 +44,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.Navigation.SearchPlantScreen
+import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 //import com.example.viridis.Navigation.addedPlantDetail
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
 import com.pdm.viridis.ui.components.cards.CustomCard
@@ -60,6 +62,20 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
     }
 
     val plants by viewModel.plants.collectAsState()
+    val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
+
+    if (showSuccessSheet) {
+        AlertBottomSheet(
+            icon = Icons.Default.CheckCircle,
+            message = "Your Garden Was Deleted",
+            onDismiss = { viewModel.dismissSuccessSheet() },
+            color = SecondaryAccent,
+            onContentClick = {
+                viewModel.dismissSuccessSheet()
+                navigator.push(HomeScreen)
+            }
+        )
+    }
 
     CustomTopBar()
     {
@@ -116,7 +132,6 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
                         icon = Icons.Filled.Delete,
                         onClick = {
                             viewModel.deleteGarden(gardenId)
-                            navigator.push(HomeScreen)
                                   },
                         containerColor = Pink40,
                         contentColor = Color.White,

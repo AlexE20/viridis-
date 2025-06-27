@@ -60,7 +60,7 @@ fun PlantContentScreenUI(
 	if (showSuccessSheet) {
 		AlertBottomSheet(
 			icon = Icons.Default.CheckCircle,
-			message = "Garden created successfully!",
+			message = "Your Plant has been saved",
 			onDismiss = { viewModel.dismissSuccessSheet() },
 			color = SecondaryAccent,
 			onContentClick = {
