@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import com.pdm.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -42,7 +43,10 @@ fun HomeScreen(
     val gardens by viewModel.gardens.collectAsState()
     val imageUrlMap by viewModel.imageUrlsMap.collectAsState()
     val navigator = LocalNavigator.currentOrThrow
-    
+
+    LaunchedEffect(Unit) {
+        viewModel.loadGardens()
+    }
     
     CustomScaffold{
         Column(
