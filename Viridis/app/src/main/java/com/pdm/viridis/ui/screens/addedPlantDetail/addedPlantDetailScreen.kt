@@ -1,5 +1,6 @@
 package com.pdm.viridis.ui.screens.addedPlantDetail
 
+import android.R.attr.subtitle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -66,6 +67,12 @@ fun addedPlantDetailScreen(
     lastWateredAt:String
 ) {
     val navigator = LocalNavigator.currentOrThrow
+    var wateringV=watering
+    if(watering=="Average"){
+        wateringV= "1 day"
+    }else{
+        wateringV="2 days"
+    }
 
     ImageHeaderScaffold(
             imageUrl = defaultImage,
@@ -139,7 +146,7 @@ fun addedPlantDetailScreen(
                 ) {
                     InfoCard(
                         title = "Watering",
-                        subtitle = "Next watering in $watering",
+                        subtitle = "Every $wateringV",
                         modifier = Modifier.weight(1f),
                         containerColor = WaterColor,
                         textColor = BackgroundColor,

@@ -48,6 +48,7 @@ fun UserPlant.toEntity() = UserPlantEntity(
 fun UserPlantEntity.toDomain() = UserPlant(
     id = id,
     plantId = plantId,
+    gardenId = gardenId,
     commonName = commonName,
     scientificName = scientificName,
     careLevel = careLevel,
