@@ -45,6 +45,9 @@ import com.pdm.viridis.ui.theme.MainAccent
 import com.pdm.viridis.ui.theme.ShadeColor
 import com.pdm.viridis.ui.theme.WaterColor
 import androidx.compose.foundation.layout.size
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.Navigation.HomeScreen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -62,8 +65,9 @@ fun addedPlantDetailScreen(
     wateredStreak:Int,
     lastWateredAt:String
 ) {
+    val navigator = LocalNavigator.currentOrThrow
 
-        ImageHeaderScaffold(
+    ImageHeaderScaffold(
             imageUrl = defaultImage,
             imageHeight = 300.dp,
         ) {
@@ -100,8 +104,8 @@ fun addedPlantDetailScreen(
                         CustomIconButton(
                             icon = Icons.Filled.Delete,
                             onClick = {
-                                /* viewModel.deletePlant()
-                                navController.popBackStack() */
+                                viewModel.deletePlant(id)
+                                navigator.push(HomeScreen)
                             },
                             containerColor = Pink40,
                             contentColor = Color.White,
