@@ -116,7 +116,7 @@ fun SearchPlantScreen(
 
             if (isLoading) {
                 CircularProgressIndicator(
-                    color = SecondaryAccent,
+                    color = MainColor,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)

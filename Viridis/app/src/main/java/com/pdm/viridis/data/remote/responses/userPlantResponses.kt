@@ -12,10 +12,10 @@ data class UserPlantResponse(
     val common_name: String,
     val scientific_name: List<String>,
     val care_level: String,
+    val shade_level: String,
     val watering: String,
     val default_image: String,
     val recommendations: List<RecommendationResponse>,
     val last_watered: String,
-    val streak: Int,
-    val shade_level: String
+    val streak: Int
 )

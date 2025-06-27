@@ -1,5 +1,6 @@
 package com.pdm.viridis.ui.screens.gardenContent
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -43,11 +44,13 @@ class GardenContentViewModel(
 
         val plants=userPlantRepository.getPlants(userId, gardenId)
             _plants.value=plants
+
             /* userPlantRepository.saveLocalPlants(userId, gardenId)
 			 userPlantRepository.getLocalPlants(gardenId).collect { list ->
 				 _plants.value = list
 			 }*/
-    }
+            println("GardenContentVM Plants received: $plants")
+        }
 
 
     companion object {

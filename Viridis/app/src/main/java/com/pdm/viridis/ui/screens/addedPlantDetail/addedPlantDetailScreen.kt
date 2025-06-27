@@ -145,6 +145,7 @@ fun addedPlantDetailScreen(
                         textColor = BackgroundColor,
                         imageVector = Icons.Filled.Shower
                     )
+
                     InfoCard(
                         title = "Sunlight",
                         subtitle = shadeLevel,
