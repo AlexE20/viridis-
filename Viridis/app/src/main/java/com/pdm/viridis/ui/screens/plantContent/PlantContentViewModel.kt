@@ -27,21 +27,17 @@ class PlantContentViewModel(
 	private val repo: UserPlantRepository,
 	private val authRepo: AuthRepository,
 ) : ViewModel() {
-	
 
-	
 	val saving = MutableStateFlow(false)
 	val error = MutableStateFlow<String?>(null)
-	
-	
-	
+
 	fun savePlant(gardenId: String,plantId:String) = viewModelScope.launch {
 		saving.value = true
 		error.value = null
 		try {
 			val token = authRepo.token.first() ?: return@launch
 			val userId = extractUidFromToken(token) ?: return@launch
-			
+
 			val req = UserPlantRequest(
 				id= plantId
 			)
@@ -54,7 +50,7 @@ class PlantContentViewModel(
 			error.value = e.message
 		}
 	}
-	
+
 	companion object {
 		fun Factory(): ViewModelProvider.Factory = viewModelFactory {
 			initializer {

@@ -10,6 +10,8 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.data.model.Plant
 import com.pdm.viridis.data.model.Recommendation
+import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
+import com.pdm.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
 import com.pdm.viridis.ui.screens.signin.signinScreen
@@ -160,7 +162,6 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 		val recommendations: List<Recommendation> = emptyList(),
 		val imageUrl: String = ""
 	) : Screen {
-
 		@OptIn(ExperimentalMaterial3Api::class)
 		@Composable
 		override fun Content() {
@@ -179,4 +180,41 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 			)
 		}
 	}
+
+	@Serializable
+	data class AddedPlantDetailScreen(
+		val id: String,
+		val gardenId: String,
+		val commonName: String = "",
+		val scientificName: String = "",
+		val careLevel: String = "",
+		val shadeLevel: String = "",
+		val watering: String = "",
+		val defaultImage: String,
+		val recommendations: List<Recommendation> = emptyList(),
+		val wateredStreak: Int = 0,
+		val lastWateredAt: String?= null
+	) : Screen {
+		@OptIn(ExperimentalMaterial3Api::class)
+		@Composable
+		override fun Content() {
+			val viewModel: AddedPlantDetailViewModel = viewModel(factory = AddedPlantDetailViewModel.Factory())
+			addedPlantDetailScreen(
+				viewModel=viewModel,
+				id,
+				gardenId,
+				commonName,
+				scientificName,
+				careLevel,
+				shadeLevel,
+				watering,
+				defaultImage,
+				recommendations,
+				wateredStreak,
+				lastWateredAt?:""
+			)
+		}
+	}
+
+
 

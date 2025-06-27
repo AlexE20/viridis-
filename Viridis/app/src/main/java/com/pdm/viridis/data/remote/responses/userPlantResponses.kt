@@ -16,5 +16,6 @@ data class UserPlantResponse(
     val default_image: String,
     val recommendations: List<RecommendationResponse>,
     val last_watered: String,
-    val streak: Int
+    val streak: Int,
+    val shade_level: String
 )

@@ -13,7 +13,7 @@ import com.pdm.viridis.utils.Converters
 
 @Database(
     entities = [GardenEntity::class, UserPlantEntity::class],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 
