@@ -63,6 +63,8 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
     }
 
     val plants by viewModel.plants.collectAsState()
+    
+  
 
     CustomTopBar()
     {
