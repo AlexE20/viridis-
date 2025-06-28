@@ -117,7 +117,7 @@ fun LoginScreen( viewModel: LoginViewModel = viewModel(factory = LoginViewModel.
                 style = TextStyle(
                     fontFamily = urbanistFont,
                     fontSize = 30.sp,
-                    color = Color(0xFF014946)
+                    color = MainColor
                 )
             )
 
@@ -163,7 +163,7 @@ fun LoginScreen( viewModel: LoginViewModel = viewModel(factory = LoginViewModel.
                 text = "Sign in",
                 onClick = {
                     viewModel.login()
-
+                    navigator.push(HomeScreen)
                 }
             )
 
