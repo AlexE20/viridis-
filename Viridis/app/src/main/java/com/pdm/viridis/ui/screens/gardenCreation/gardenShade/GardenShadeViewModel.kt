@@ -1,5 +1,6 @@
 package com.pdm.viridis.ui.screens.gardenCreation.gardenShade
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -42,8 +43,13 @@ class GardenShadeViewModel(
     private val _isSaving = MutableStateFlow(false)
     val isSaving: StateFlow<Boolean> = _isSaving
 
+
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
+
+    private val _showSuccessSheet = MutableStateFlow(false)
+    val showSuccessSheet: StateFlow<Boolean> = _showSuccessSheet
+
 
     fun onShadeSelected(shade: String) {
         _selectedShade.value = shade
@@ -51,20 +57,44 @@ class GardenShadeViewModel(
 
     fun isValid(): Boolean = _selectedShade.value != null
     
-    fun saveGarden(gardenName: String, onSuccess: () -> Unit = {}) {
+    fun saveGarden(gardenName: String,  /* onSuccess: () -> Unit = {} */ ) /*: Boolean */ {
+         /*
+         return try {
+            performSaveGarden(gardenName)
+            _isSaving.value = true
+            _error.value = null
+            true
+        } catch (e : Exception) {
+            _isSaving.value = false
+            _error.value = e.localizedMessage
+            false
+        } finally {
+            _isSaving
+        }
+        */
+        //this is the original with improvements
         viewModelScope.launch {
             _isSaving.value = true
             _error.value = null
+
             try {
                 performSaveGarden(gardenName)
-                _isSaving.value = false
-                onSuccess()
+                _showSuccessSheet.value = true
+                //_isSaving.value = false
+                //onSuccess()
             } catch (e: Exception) {
+                //_isSaving.value = false
+                _error.value = e.localizedMessage ?: "Failed to save Garden"
+            } finally {
                 _isSaving.value = false
-                _error.value = e.localizedMessage
             }
         }
     }
+
+    fun dismissSuccessSheet(){
+        _showSuccessSheet.value = false
+    }
+
     
     private suspend fun performSaveGarden(gardenName: String) {
         val token = authRepository.token.first() ?: return

@@ -35,11 +35,7 @@ class HomeViewModel(
 
     private val loadedGardenIds = mutableSetOf<String>()
 
-    init {
-        loadGardens()
-    }
-
-    private fun loadGardens() {
+    fun loadGardens() {
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch
             val userId = extractUidFromToken(token) ?: return@launch
@@ -65,7 +61,7 @@ class HomeViewModel(
         }
     }
 
-    private fun fetchImageUrlsForGardens(gardens: List<Garden>, userId: String) {
+    fun fetchImageUrlsForGardens(gardens: List<Garden>, userId: String) {
         gardens.forEach { garden ->
             //if (loadedGardenIds.contains(garden.id)) return@forEach
 
@@ -84,7 +80,7 @@ class HomeViewModel(
         }
     }
 
-    private fun isConnected(): Boolean {
+    fun isConnected(): Boolean {
         // Replace with real connectivity check
         return true
     }

@@ -27,6 +27,7 @@ import com.pdm.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -44,7 +45,11 @@ fun HomeScreen(
     val imageUrlMap by viewModel.imageUrlsMap.collectAsState()
     val navigator = LocalNavigator.currentOrThrow
     val isLoading = gardens.isEmpty()
-    
+
+    LaunchedEffect(Unit) {
+        viewModel.loadGardens()
+    }
+
     CustomScaffold{
         Column(
             modifier = Modifier

@@ -24,6 +24,10 @@ import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.Navigation.NotificationScreenContent
+import com.pdm.viridis.Navigation.ProfileSettings
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.ProfileStatCard
 import com.pdm.viridis.ui.theme.Pink40
@@ -33,6 +37,10 @@ import com.pdm.viridis.ui.theme.urbanistFont
 
 @Composable
 fun ProfileScreen() {
+
+    val navigator = LocalNavigator.currentOrThrow
+
+
     CustomScaffold() {
         Box(
             modifier = Modifier
@@ -41,7 +49,7 @@ fun ProfileScreen() {
         ) {
             CustomIconButton(
                 icon = Icons.Filled.Settings,
-                onClick = { /* para configurar despues lo hago pablo abajo esta el boton de logout alsuave */ },
+                onClick = { navigator.push(ProfileSettings) },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(16.dp),

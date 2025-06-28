@@ -4,12 +4,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.WbCloudy
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.WbCloudy
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +23,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.GardenContentScreen
 import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.data.model.Recommendation
+import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.DetailCardStacked
 import com.pdm.viridis.ui.components.layouts.ImageHeaderScaffold
@@ -43,6 +47,7 @@ fun PlantContentScreenUI(
 	imageUrl: String
 ) {
 	val navigator = LocalNavigator.currentOrThrow
+	val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
 
 	val lightIcon = when (shadeLevel) {
 		"full_shade" -> Icons.Outlined.DarkMode
@@ -50,6 +55,20 @@ fun PlantContentScreenUI(
 		"sun-part_shade" -> Icons.Filled.WbCloudy
 		"full_sun" -> Icons.Filled.WbSunny
 		else -> Icons.Filled.WbSunny
+	}
+
+	if (showSuccessSheet) {
+		AlertBottomSheet(
+			icon = Icons.Default.CheckCircle,
+			message = "Your Plant has been saved",
+			onDismiss = { viewModel.dismissSuccessSheet() },
+			color = SecondaryAccent,
+			onContentClick = {
+				viewModel.dismissSuccessSheet()
+				navigator.push(HomeScreen)
+				//navigator.push(GardenContentScreen(gardenId, gardenName))
+			}
+		)
 	}
 
 	ImageHeaderScaffold(
@@ -126,10 +145,9 @@ fun PlantContentScreenUI(
 			)
 
 			Spacer(modifier = Modifier.height(20.dp))
-			CustomButton("Add Plant to Garden", onClick = {
+			CustomButton("Add Plant to Garden",
+				onClick = {
 				viewModel.savePlant(gardenId,plantId )
-				navigator.push(HomeScreen)
-//				navigator.push(GardenContentScreen(gardenId, gardenName))
 			})
 		}
 	}

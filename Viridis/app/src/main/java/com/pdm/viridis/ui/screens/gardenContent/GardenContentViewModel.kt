@@ -27,12 +27,22 @@ class GardenContentViewModel(
     private val _plants = MutableStateFlow<List<UserPlant>>(emptyList())
     val plants: StateFlow<List<UserPlant>> get() = _plants
 
+    private val _showSuccessSheet = MutableStateFlow(false)
+    val showSuccessSheet: StateFlow<Boolean> = _showSuccessSheet
+
+    private val _showDeleteConfirmation = MutableStateFlow(false)
+    val showDeleteConfirmation: StateFlow<Boolean> = _showDeleteConfirmation
+
+    private val _pendingGardenToDelete = MutableStateFlow<String?>(null)
+
     fun deleteGarden(gardenId: String){
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch
             val userId = extractUidFromToken(token) ?: return@launch
 
             gardenRepository.deleteGarden(userId,gardenId)
+            _showSuccessSheet.value = true
+            _showDeleteConfirmation.value = false
         }
 
     }
@@ -51,6 +61,19 @@ class GardenContentViewModel(
 			 }*/
             println("GardenContentVM Plants received: $plants")
         }
+
+    fun dismissSuccessSheet(){
+        _showSuccessSheet.value = false
+    }
+
+    fun showDeleteConfirmation() {
+        _showDeleteConfirmation.value = true
+    }
+
+    fun cancelDelete() {
+        _showDeleteConfirmation.value = false
+        _pendingGardenToDelete.value = null
+    }
 
 
     companion object {

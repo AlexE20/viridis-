@@ -31,6 +31,11 @@ class PlantContentViewModel(
 	val saving = MutableStateFlow(false)
 	val error = MutableStateFlow<String?>(null)
 
+	private val _showSuccessSheet = MutableStateFlow(false)
+	val showSuccessSheet: StateFlow<Boolean> = _showSuccessSheet
+	
+	
+
 	fun savePlant(gardenId: String,plantId:String) = viewModelScope.launch {
 		saving.value = true
 		error.value = null
@@ -44,11 +49,19 @@ class PlantContentViewModel(
 			println("Garden Id: $gardenId")
 			println("🌿 PLANT ID viewmodel: $plantId")
 			repo.addPlant(userId, gardenId, req)
-			saving.value = false
+			_showSuccessSheet.value = true
+			//saving.value = false
 		} catch (e: Exception) {
-			saving.value = false
-			error.value = e.message
+			//saving.value = false
+			error.value = e.message ?: "Failed to save Plant"
+		} finally {
+		    saving.value = false
 		}
+	}
+
+
+	fun dismissSuccessSheet(){
+		_showSuccessSheet.value = false
 	}
 
 	companion object {
