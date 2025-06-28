@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.SettingCard
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
@@ -28,9 +30,11 @@ import com.pdm.viridis.ui.theme.*
 @ExperimentalMaterial3Api
 @Composable
 fun ProfileSettingsScreen(
-    navController: NavController
 ) {
-    CustomTopBar(navController = navController) {
+
+    val navigator = LocalNavigator.currentOrThrow
+
+    CustomTopBar {
         Column(
             modifier = Modifier
                 .fillMaxSize()

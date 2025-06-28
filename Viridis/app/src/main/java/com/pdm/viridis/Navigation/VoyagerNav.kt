@@ -26,6 +26,7 @@ import com.pdm.viridis.ui.screens.meeting.MeetingScreen as MeetingScreenUI
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameScreen as GardenName
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeScreen as GardenShade
 import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen as searchPlantScreen
+import com.pdm.viridis.ui.screens.profileSettings.ProfileSettingsScreen as ProfileSettingsUI
 import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
@@ -216,5 +217,12 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 		}
 	}
 
-
+@Serializable
+object  ProfileSettings: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		ProfileSettingsUI()
+	}
+}
 
