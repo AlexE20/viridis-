@@ -45,9 +45,14 @@ import com.pdm.viridis.ui.theme.MainAccent
 import com.pdm.viridis.ui.theme.ShadeColor
 import com.pdm.viridis.ui.theme.WaterColor
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.HomeScreen
+import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
+import com.pdm.viridis.ui.components.BottomSheets.BottomAlertSheet
 
 @ExperimentalMaterial3Api
 @Composable
@@ -66,6 +71,31 @@ fun addedPlantDetailScreen(
     lastWateredAt:String
 ) {
     val navigator = LocalNavigator.currentOrThrow
+    val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
+    val showDeleteConfirmation by viewModel.showDeleteConfirmation.collectAsState()
+
+    if (showDeleteConfirmation) {
+        BottomAlertSheet(
+            message = "This plant will be gone forever. Are you sure you want to say goodbye?",
+            buttonText = "Delete",
+            onButtonClick = { viewModel.deletePlant(id) },
+            onDismiss = { viewModel.cancelDelete() }
+        )
+    }
+
+    if (showSuccessSheet) {
+        AlertBottomSheet(
+            icon = Icons.Default.CheckCircle,
+            message = "Your Garden Was Deleted",
+            onDismiss = { viewModel.dismissSuccessSheet() },
+            color = SecondaryAccent,
+            onContentClick = {
+                viewModel.dismissSuccessSheet()
+                navigator.push(HomeScreen)
+            }
+        )
+    }
+
 
     ImageHeaderScaffold(
             imageUrl = defaultImage,
@@ -104,8 +134,7 @@ fun addedPlantDetailScreen(
                         CustomIconButton(
                             icon = Icons.Filled.Delete,
                             onClick = {
-                                viewModel.deletePlant(id)
-                                navigator.push(HomeScreen)
+                                viewModel.showDeleteConfirmation()
                             },
                             containerColor = Pink40,
                             contentColor = Color.White,
