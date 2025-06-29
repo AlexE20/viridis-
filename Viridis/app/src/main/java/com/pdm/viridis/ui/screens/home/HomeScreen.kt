@@ -45,6 +45,7 @@ fun HomeScreen(
     val imageUrlMap by viewModel.imageUrlsMap.collectAsState()
     val navigator = LocalNavigator.currentOrThrow
     val isLoading = gardens.isEmpty()
+    val isFavorite /* a state in the viewModel*/
 
     LaunchedEffect(Unit) {
         viewModel.loadGardens()
@@ -110,7 +111,8 @@ fun HomeScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .heightIn(min = 160.dp)
-                                .padding(vertical = 8.dp)
+                                .padding(vertical = 8.dp),
+                            isFavorite = isFavorite //here needs to know if is favorite
                         )
                     }
                 }

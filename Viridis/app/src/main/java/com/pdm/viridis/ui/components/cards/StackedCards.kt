@@ -30,9 +30,13 @@ import com.pdm.viridis.ui.theme.SecondaryAccent
 import com.pdm.viridis.ui.theme.urbanistFont
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Icon
 import androidx.compose.ui.draw.clip
 
 @ExperimentalMaterial3Api
@@ -42,7 +46,8 @@ fun StakedCards(
     gardenName: String,
     gardenShade: String,
     imageUrls: List<String>? = null,
-    clickable: () -> Unit
+    clickable: () -> Unit,
+    isFavorite : Boolean = true
 ) {
     Card(
         modifier = modifier,
@@ -112,16 +117,28 @@ fun StakedCards(
 
 
             Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = gardenName,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    fontFamily = urbanistFont,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = BackgroundColor
+                )
+                Spacer(Modifier.height(4.dp))
+                if (isFavorite){
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = "star",
+                        tint = BackgroundColor
+                    )
+                }
+            }
 
-            Text(
-                text = gardenName,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                fontFamily = urbanistFont,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = BackgroundColor
-            )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = gardenShade,
