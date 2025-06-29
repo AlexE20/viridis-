@@ -87,7 +87,7 @@ fun addedPlantDetailScreen(
     if (showSuccessSheet) {
         AlertBottomSheet(
             icon = Icons.Default.CheckCircle,
-            message = "Your Garden Was Deleted",
+            message = "Your Plant Was Deleted",
             onDismiss = { viewModel.dismissSuccessSheet() },
             color = SecondaryAccent,
             onContentClick = {

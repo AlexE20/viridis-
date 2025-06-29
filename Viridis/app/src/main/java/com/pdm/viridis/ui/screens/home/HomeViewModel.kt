@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.pdm.viridis.ViridisApplication
 import com.pdm.viridis.data.model.Garden
 import com.pdm.viridis.data.repository.Auth.AuthRepository
+import com.pdm.viridis.data.repository.Favorite.FavoriteRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
 import com.pdm.viridis.utils.NetworkUtils.isConnected
@@ -27,6 +28,7 @@ class HomeViewModel(
     private val gardenRepository: GardenRepository,
     private val authRepository: AuthRepository,
     private val userPlantRepository: UserPlantRepository,
+    private val favoriteRepository : FavoriteRepository
     ) : ViewModel() {
 
 
@@ -35,7 +37,10 @@ class HomeViewModel(
 
     private val _imageUrlsMap = MutableStateFlow<Map<String, List<String>>>(emptyMap())
     val imageUrlsMap: StateFlow<Map<String, List<String>>> = _imageUrlsMap
+    private val _favoriteStates = MutableStateFlow<Map<String, Boolean>>(emptyMap())
+    val favoriteStates: StateFlow<Map<String, Boolean>> = _favoriteStates
 
+    private val _refreshFavorites = MutableStateFlow(0)
     private val loadedGardenIds = mutableSetOf<String>()
 
     fun loadGardens(isConnected: Boolean) {
@@ -60,6 +65,9 @@ class HomeViewModel(
                 .distinctUntilChanged()
                 .collect { list ->
                     _gardens.value = list
+                    _favoriteStates.value = list.associate {
+                        garden -> garden.id to favoriteRepository.isFavorite(garden.id)
+                    }
                     fetchImageUrlsForGardens(list, userId, isConnected)
                 }
         }
@@ -90,7 +98,16 @@ class HomeViewModel(
             }
         }
     }
+    //just in case is necessary
+    suspend fun loadFavoriteStates(gardenIds: List<String>) {
+        _favoriteStates.value = gardenIds.associateWith { gardenId ->
+            favoriteRepository.isFavorite(gardenId)
+        }
+    }
 
+    fun refreshFavoriteStates() {
+        _refreshFavorites.value++
+    }
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
@@ -99,7 +116,8 @@ class HomeViewModel(
                 val gardenRepository = app.appProvider.provideGardenRepository()
                 val authRepository = app.appProvider.provideAuthRepository()
                 val plantRepository = app.appProvider.provideUserPlantRepository()
-                HomeViewModel(gardenRepository, authRepository, plantRepository)
+                val favoriteRepository = app.appProvider.provideFavoriteRepository()
+                HomeViewModel(gardenRepository, authRepository, plantRepository, favoriteRepository)
             }
         }
     }

@@ -18,11 +18,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import androidx.lifecycle.createSavedStateHandle
+import com.pdm.viridis.data.repository.Favorite.FavoriteRepository
 
 class GardenContentViewModel(
     private val userPlantRepository: UserPlantRepository,
     private val authRepository: AuthRepository,
     private val gardenRepository: GardenRepository,
+    private val favoriteRepository : FavoriteRepository,
+    private val onFavoriteChanged: () -> Unit = {}
 ) : ViewModel() {
     private val _plants = MutableStateFlow<List<UserPlant>>(emptyList())
     val plants: StateFlow<List<UserPlant>> get() = _plants
@@ -33,7 +36,10 @@ class GardenContentViewModel(
     private val _showDeleteConfirmation = MutableStateFlow(false)
     val showDeleteConfirmation: StateFlow<Boolean> = _showDeleteConfirmation
 
-    private val _pendingGardenToDelete = MutableStateFlow<String?>(null)
+    private val _isFavorite = MutableStateFlow(false)
+    val isFavorite: StateFlow<Boolean> = _isFavorite
+
+    //private val _pendingGardenToDelete = MutableStateFlow<String?>(null)
 
     fun deleteGarden(gardenId: String){
         viewModelScope.launch {
@@ -79,7 +85,21 @@ class GardenContentViewModel(
 
     fun cancelDelete() {
         _showDeleteConfirmation.value = false
-        _pendingGardenToDelete.value = null
+        //_pendingGardenToDelete.value = null
+    }
+
+    fun toggleFavorite(gardenId: String) {
+        viewModelScope.launch {
+            val currentState = favoriteRepository.isFavorite(gardenId)
+            val newState = !currentState
+            favoriteRepository.setFavorite(gardenId, newState)
+            _isFavorite.value = newState
+            onFavoriteChanged?.invoke()
+        }
+    }
+
+    suspend fun checkInitialFavoriteState(gardenId: String) {
+        _isFavorite.value = favoriteRepository.isFavorite(gardenId)
     }
 
 
@@ -90,7 +110,8 @@ class GardenContentViewModel(
                 val plantRepository = app.appProvider.provideUserPlantRepository()
                 val authRepository = app.appProvider.provideAuthRepository()
                 val gardenRepository =  app.appProvider.provideGardenRepository()
-                GardenContentViewModel(plantRepository, authRepository, gardenRepository)
+                val favoriteRepository = app.appProvider.provideFavoriteRepository()
+                GardenContentViewModel(plantRepository, authRepository, gardenRepository, favoriteRepository)
             }
         }
     }

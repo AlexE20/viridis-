@@ -34,7 +34,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.ui.draw.clip
@@ -129,11 +131,11 @@ fun StakedCards(
                     overflow = TextOverflow.Ellipsis,
                     color = BackgroundColor
                 )
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.width(4.dp))
                 if (isFavorite){
                     Icon(
-                        imageVector = Icons.Filled.Star,
-                        contentDescription = "star",
+                        imageVector = Icons.Filled.Favorite,
+                        contentDescription = "fav",
                         tint = BackgroundColor
                     )
                 }

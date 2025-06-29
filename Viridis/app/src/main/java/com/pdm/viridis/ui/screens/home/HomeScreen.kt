@@ -49,7 +49,7 @@ fun HomeScreen(
     val isLoading = gardens.isEmpty()
     val context = LocalContext.current
     val isConnected = NetworkUtils.isConnected(context)
-    val isFavorite /* a state in the viewModel*/
+    val favoriteStates by viewModel.favoriteStates.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.loadGardens(isConnected)
@@ -116,7 +116,7 @@ fun HomeScreen(
                                 .fillMaxWidth()
                                 .heightIn(min = 160.dp)
                                 .padding(vertical = 8.dp),
-                            isFavorite = isFavorite //here needs to know if is favorite
+                            isFavorite = favoriteStates[garden.id] ?: false
                         )
                     }
                 }

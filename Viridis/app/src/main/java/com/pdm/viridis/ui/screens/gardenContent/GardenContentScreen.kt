@@ -36,9 +36,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -66,15 +70,16 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
     val navigator = LocalNavigator.currentOrThrow
     val context = LocalContext.current
     val isConnected = NetworkUtils.isConnected(context)
-    
+    val isFavorite by viewModel.isFavorite.collectAsState()
+
     LaunchedEffect(gardenId) {
         viewModel.listenPlants(gardenId, isConnected)
+        viewModel.checkInitialFavoriteState(gardenId)
     }
-    var icon = Icons.Outlined.Star
+
     val plants by viewModel.plants.collectAsState()
     val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
     val showDeleteConfirmation by viewModel.showDeleteConfirmation.collectAsState()
-    val isFavorite /* a state in the viewModel*/
 
     if (showDeleteConfirmation) {
         BottomAlertSheet(
@@ -83,10 +88,6 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
             onButtonClick = { viewModel.deleteGarden(gardenId) },
             onDismiss = { viewModel.cancelDelete() }
         )
-    }
-
-    if (isFavorite){ //here need to know if it's favorite
-        icon = Icons.Filled.Star
     }
 
     if (showSuccessSheet) {
@@ -143,9 +144,9 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     CustomIconTextButton(
-                        onClick = { /* here will go a function that changes the value of isFavorite */ },
-                        text = "Mark as favorite",
-                        imageVector = icon,
+                        onClick = { viewModel.toggleFavorite(gardenId) },
+                        text = if (isFavorite) "Unmark favorite" else "Mark as favorite",
+                        imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         containerColor = MainAccent,
                         contentColor = MainColor,
                         modifier = Modifier
