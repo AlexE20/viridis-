@@ -28,12 +28,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.GardenContentScreen
 import com.pdm.viridis.Navigation.GardenNameScreen
 import com.pdm.viridis.ui.theme.urbanistFont
+import com.pdm.viridis.utils.NetworkUtils
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,10 +47,12 @@ fun HomeScreen(
     val imageUrlMap by viewModel.imageUrlsMap.collectAsState()
     val navigator = LocalNavigator.currentOrThrow
     val isLoading = gardens.isEmpty()
+    val context = LocalContext.current
+    val isConnected = NetworkUtils.isConnected(context)
     val isFavorite /* a state in the viewModel*/
 
     LaunchedEffect(Unit) {
-        viewModel.loadGardens()
+        viewModel.loadGardens(isConnected)
     }
 
     CustomScaffold{

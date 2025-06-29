@@ -11,6 +11,7 @@ import com.pdm.viridis.data.model.Garden
 import com.pdm.viridis.data.repository.Auth.AuthRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
+import com.pdm.viridis.utils.NetworkUtils.isConnected
 import com.pdm.viridis.utils.extractUidFromToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,12 +21,14 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class HomeViewModel(
     private val gardenRepository: GardenRepository,
     private val authRepository: AuthRepository,
     private val userPlantRepository: UserPlantRepository,
     ) : ViewModel() {
+
 
     private val _gardens = MutableStateFlow<List<Garden>>(emptyList())
     val gardens: StateFlow<List<Garden>> get() = _gardens
@@ -35,54 +38,57 @@ class HomeViewModel(
 
     private val loadedGardenIds = mutableSetOf<String>()
 
-    fun loadGardens() {
+    fun loadGardens(isConnected: Boolean) {
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch
             val userId = extractUidFromToken(token) ?: return@launch
 
-            if (isConnected()) {
-                gardenRepository.getGardens(userId)
-                gardenRepository.saveLocalGardens(userId)
-                /*gardenRepository.getLocalGardens().collect { list ->
-                    _gardens.value = list
-                    fetchImageUrlsForGardens(list, userId)
-                }*/
-                gardenRepository.getLocalGardens()
-                    .distinctUntilChanged()
-                    .collect { list ->
-                        _gardens.value = list
-                        fetchImageUrlsForGardens(list, userId)
+            if (isConnected) {
+                try {
+                    val remoteGardens = gardenRepository.getGardens(userId)
+                    gardenRepository.saveLocalGardens(userId)
+
+                    remoteGardens.forEach { garden ->
+                        userPlantRepository.saveLocalPlants(userId, garden.id)
                     }
-            } else {
-                val offlineList = gardenRepository.getGardens(userId)
-                _gardens.value = offlineList
-                fetchImageUrlsForGardens(offlineList, userId)
-            }
-        }
-    }
-
-    fun fetchImageUrlsForGardens(gardens: List<Garden>, userId: String) {
-        gardens.forEach { garden ->
-            //if (loadedGardenIds.contains(garden.id)) return@forEach
-
-            viewModelScope.launch(Dispatchers.IO) {
-                val plants = userPlantRepository.getPlants(userId, garden.id)
-                val urls = plants.map { it.defaultImage }.take(4)
-                val currentUrls = _imageUrlsMap.value[garden.id]
-
-                if (currentUrls != urls) {
-                    _imageUrlsMap.update { it + (garden.id to urls) }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-
-                //_imageUrlsMap.update { it + (garden.id to urls) }
-                loadedGardenIds.add(garden.id)
             }
+
+            gardenRepository.getLocalGardens()
+                .distinctUntilChanged()
+                .collect { list ->
+                    _gardens.value = list
+                    fetchImageUrlsForGardens(list, userId, isConnected)
+                }
         }
     }
 
-    fun isConnected(): Boolean {
-        // Replace with real connectivity check
-        return true
+
+    private fun fetchImageUrlsForGardens(gardens: List<Garden>, userId: String, isConnected: Boolean) {
+        gardens.forEach { garden ->
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val plants = if (isConnected) {
+                        userPlantRepository.getPlants(userId, garden.id)
+                    } else {
+                        userPlantRepository.getLocalPlants(garden.id).first()
+                    }
+
+                    val urls = plants.map { it.defaultImage }.take(4)
+                    val currentUrls = _imageUrlsMap.value[garden.id]
+
+                    if (currentUrls != urls) {
+                        _imageUrlsMap.update { it + (garden.id to urls) }
+                    }
+
+                    loadedGardenIds.add(garden.id)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
 
