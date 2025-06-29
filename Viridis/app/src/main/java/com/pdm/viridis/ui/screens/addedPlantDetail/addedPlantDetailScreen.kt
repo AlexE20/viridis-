@@ -175,7 +175,7 @@ fun addedPlantDetailScreen(
                 ) {
                     InfoCard(
                         title = "Watering",
-                        subtitle = "Every $wateringV",
+                        subtitle = "Must water every $wateringV",
                         modifier = Modifier.weight(1f),
                         containerColor = WaterColor,
                         textColor = BackgroundColor,

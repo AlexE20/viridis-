@@ -8,6 +8,7 @@ import com.pdm.viridis.data.remote.responses.GardenRequest
 import com.pdm.viridis.data.remote.responses.GardenResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.io.IOException
 
 class GardenRepositoryImpl(
     private val gardenDao: GardenDao,
@@ -20,14 +21,13 @@ class GardenRepositoryImpl(
         return try {
             gardens = gardenService.getGardens(userId)
             gardens
+        } catch (e: IOException) {
+            emptyList()
         } catch (e: retrofit2.HttpException) {
-            if (e.code() == 404) {
-                emptyList()
-            } else {
-                throw e
-            }
+            if (e.code() == 404) emptyList() else throw e
         }
     }
+
 
     override suspend fun addGarden(userId: String, garden: GardenRequest): Garden{
         val addedGarden = gardenService.addGarden(userId,garden)

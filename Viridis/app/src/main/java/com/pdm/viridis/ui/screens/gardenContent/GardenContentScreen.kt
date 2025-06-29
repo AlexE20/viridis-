@@ -40,6 +40,7 @@ import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.AddedPlantDetailScreen
@@ -54,15 +55,18 @@ import com.pdm.viridis.ui.components.cards.CustomCard
 import com.pdm.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
 import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen
 import com.pdm.viridis.ui.theme.SecondaryAccent
+import com.pdm.viridis.utils.NetworkUtils
 
 @ExperimentalMaterial3Api
 @Composable
 fun GardenContentScreen(gardenId: String, gardenName: String) {
     val viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
     val navigator = LocalNavigator.currentOrThrow
+    val context = LocalContext.current
+    val isConnected = NetworkUtils.isConnected(context)
     
     LaunchedEffect(gardenId) {
-        viewModel.listenPlants(gardenId)
+        viewModel.listenPlants(gardenId, isConnected)
     }
 
     val plants by viewModel.plants.collectAsState()
