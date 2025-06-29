@@ -10,8 +10,10 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.data.model.Plant
 import com.pdm.viridis.data.model.Recommendation
+import com.pdm.viridis.ui.screens.aboutUs.AboutUsScreen
 import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
 import com.pdm.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
+import com.pdm.viridis.ui.screens.appThemeSetting.AppThemeSettingScreen
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
 import com.pdm.viridis.ui.screens.signin.signinScreen
@@ -29,6 +31,7 @@ import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen as searchPlantSc
 import com.pdm.viridis.ui.screens.profileSettings.ProfileSettingsScreen as ProfileSettingsUI
 import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
+import com.pdm.viridis.ui.screens.notificationSettings.NotificationSettingScreen
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
 import com.pdm.viridis.ui.screens.notifications.NotificationsScreen
 import com.pdm.viridis.ui.screens.plantContent.PlantContentScreenUI
@@ -223,6 +226,33 @@ object  ProfileSettings: Screen {
 	@Composable
 	override fun Content() {
 		ProfileSettingsUI()
+	}
+}
+
+@Serializable
+object  AboutUs: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		AboutUsScreen()
+	}
+}
+
+@Serializable
+object  NotificationSetting: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		NotificationSettingScreen()
+	}
+}
+
+@Serializable
+object  AppThemeSettings: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		AppThemeSettingScreen()
 	}
 }
 

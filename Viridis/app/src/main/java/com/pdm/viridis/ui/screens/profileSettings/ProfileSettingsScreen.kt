@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Mood
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -22,6 +23,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.Navigation.AboutUs
+import com.pdm.viridis.Navigation.AppThemeSettings
+import com.pdm.viridis.Navigation.NotificationSetting
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.SettingCard
 import com.pdm.viridis.ui.components.layouts.CustomTopBar
@@ -76,13 +80,6 @@ fun ProfileSettingsScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                CustomButton(
-                    onClick = { /* Navega a editar perfil */ },
-                    text = "Edit Profile",
-                    buttonColor = SecondaryAccent,
-                    textColor = BackgroundColor,
-                    modifier = Modifier.width(166.dp)
-                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -92,7 +89,7 @@ fun ProfileSettingsScreen(
                 about = "Notifications",
                 icon = Icons.Outlined.Notifications
             ) {
-                // onClick
+                navigator.push(NotificationSetting)
             }
 
             SettingCard(
@@ -100,7 +97,14 @@ fun ProfileSettingsScreen(
                 about = "About Us",
                 icon = Icons.Outlined.Mood
             ) {
-                // onClick
+                navigator.push(AboutUs)
+            }
+            SettingCard(
+                title = "System Setting",
+                about = "App theme",
+                icon = Icons.Outlined.WbSunny
+            ){
+                navigator.push(AppThemeSettings)
             }
         }
     }

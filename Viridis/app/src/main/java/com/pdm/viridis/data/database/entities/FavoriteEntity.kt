@@ -2,9 +2,10 @@ package com.pdm.viridis.data.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Entity(tableName = "favorite_gardens", primaryKeys = ["gardenId"])
-class FavoriteEntity(
-    @ColumnInfo(name = "gardenId") val gardenId: String,
-    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean = false
+@Entity(tableName = "favorite_gardens")
+data class FavoriteEntity(
+    @PrimaryKey val gardenId: String,
+    val isFavorite: Boolean = false
 )
