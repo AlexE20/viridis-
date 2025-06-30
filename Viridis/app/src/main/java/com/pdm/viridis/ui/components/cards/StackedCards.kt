@@ -136,12 +136,14 @@ fun StakedCards(
                     Icon(
                         imageVector = Icons.Filled.Favorite,
                         contentDescription = "fav",
-                        tint = BackgroundColor
+                        tint = BackgroundColor,
+                        modifier = Modifier.size(19.dp)
                     )
                 }
             }
 
             Spacer(modifier = Modifier.height(2.dp))
+
             Text(
                 text = gardenShade,
                 color = BackgroundColor,

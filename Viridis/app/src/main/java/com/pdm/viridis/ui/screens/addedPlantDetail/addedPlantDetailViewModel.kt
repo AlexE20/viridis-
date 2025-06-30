@@ -33,6 +33,24 @@ class AddedPlantDetailViewModel(
 
     private val _pendingGardenToDelete = MutableStateFlow<String?>(null)
 
+    private val _isConnected = MutableStateFlow(true)
+    val isConnected: StateFlow<Boolean> = _isConnected
+
+    private val _showConnectionError = MutableStateFlow(false)
+    val showConnectionError: StateFlow<Boolean> = _showConnectionError
+
+    fun showConnectionError() {
+        _showConnectionError.value = true
+    }
+
+    fun dismissConnectionError() {
+        _showConnectionError.value = false
+    }
+
+
+    fun setConnectedState(state: Boolean) {
+        _isConnected.value = state
+    }
 
     fun deletePlant(userPlantId: String){
         viewModelScope.launch {

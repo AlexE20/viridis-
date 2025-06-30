@@ -39,6 +39,17 @@ class GardenContentViewModel(
     private val _isFavorite = MutableStateFlow(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite
 
+    private val _isConnected = MutableStateFlow(true)
+    val isConnected: StateFlow<Boolean> = _isConnected
+
+    private val _showConnectionError = MutableStateFlow(false)
+    val showConnectionError: StateFlow<Boolean> = _showConnectionError
+
+    fun setConnectedState(state: Boolean) {
+        _isConnected.value = state
+    }
+
+
     //private val _pendingGardenToDelete = MutableStateFlow<String?>(null)
 
     fun deleteGarden(gardenId: String){
@@ -86,6 +97,14 @@ class GardenContentViewModel(
     fun cancelDelete() {
         _showDeleteConfirmation.value = false
         //_pendingGardenToDelete.value = null
+    }
+
+    fun showConnectionError() {
+        _showConnectionError.value = true
+    }
+
+    fun dismissConnectionError() {
+        _showConnectionError.value = false
     }
 
     fun toggleFavorite(gardenId: String) {

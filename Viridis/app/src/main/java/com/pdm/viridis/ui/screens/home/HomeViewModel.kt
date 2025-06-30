@@ -12,7 +12,6 @@ import com.pdm.viridis.data.repository.Auth.AuthRepository
 import com.pdm.viridis.data.repository.Favorite.FavoriteRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
-import com.pdm.viridis.utils.NetworkUtils.isConnected
 import com.pdm.viridis.utils.extractUidFromToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

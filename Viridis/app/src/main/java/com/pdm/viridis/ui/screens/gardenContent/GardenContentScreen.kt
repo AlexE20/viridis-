@@ -61,7 +61,7 @@ import com.pdm.viridis.ui.components.cards.CustomCard
 import com.pdm.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
 import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen
 import com.pdm.viridis.ui.theme.SecondaryAccent
-import com.pdm.viridis.utils.NetworkUtils
+import com.pdm.viridis.utils.ConnectivityObserver
 
 @ExperimentalMaterial3Api
 @Composable
@@ -69,17 +69,23 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
     val viewModel: GardenContentViewModel = viewModel(factory = GardenContentViewModel.Factory)
     val navigator = LocalNavigator.currentOrThrow
     val context = LocalContext.current
-    val isConnected = NetworkUtils.isConnected(context)
+    val isConnected by viewModel.isConnected.collectAsState()
     val isFavorite by viewModel.isFavorite.collectAsState()
+    val plants by viewModel.plants.collectAsState()
+    val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
+    val showDeleteConfirmation by viewModel.showDeleteConfirmation.collectAsState()
+    val showConnectionError by viewModel.showConnectionError.collectAsState()
 
     LaunchedEffect(gardenId) {
         viewModel.listenPlants(gardenId, isConnected)
         viewModel.checkInitialFavoriteState(gardenId)
     }
 
-    val plants by viewModel.plants.collectAsState()
-    val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
-    val showDeleteConfirmation by viewModel.showDeleteConfirmation.collectAsState()
+    LaunchedEffect(Unit) {
+        ConnectivityObserver.observe(context).collect { connected ->
+            viewModel.setConnectedState(connected)
+        }
+    }
 
     if (showDeleteConfirmation) {
         BottomAlertSheet(
@@ -103,7 +109,14 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
         )
     }
 
-
+    if (showConnectionError) {
+        AlertBottomSheet(
+            icon = Icons.Filled.Delete,
+            message = "You are offline. This action requires internet connection!",
+            onDismiss = { viewModel.dismissConnectionError() },
+            color = Pink40
+        )
+    }
 
     CustomTopBar()
     {
@@ -159,25 +172,37 @@ fun GardenContentScreen(gardenId: String, gardenName: String) {
                     CustomIconButton(
                         icon = Icons.Filled.Delete,
                         onClick = {
-                            viewModel.showDeleteConfirmation()
-                                  },
+                            if (isConnected) {
+                                viewModel.showDeleteConfirmation()
+                            } else {
+                                viewModel.showConnectionError()
+                            }
+                        },
                         containerColor = Pink40,
                         contentColor = Color.White,
                         modifier = Modifier
                             .width(80.dp)
                             .height(42.dp)
                     )
+
                 }
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 CustomButton(
                     text = "Add Plant",
-                    onClick = { navigator.push(SearchPlantScreen(gardenId)) },
+                    onClick = {
+                        if (isConnected) {
+                            navigator.push(SearchPlantScreen(gardenId))
+                        } else {
+                            viewModel.showConnectionError()
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 LazyColumn {
