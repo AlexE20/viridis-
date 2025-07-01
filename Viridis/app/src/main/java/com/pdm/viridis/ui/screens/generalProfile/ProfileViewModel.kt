@@ -25,6 +25,13 @@ class ProfileViewModel(
     private val _user = MutableStateFlow(User.empty())
     val user: StateFlow<User> = _user
 
+    private val _isConnected = MutableStateFlow(true)
+    val isConnected: StateFlow<Boolean> = _isConnected
+
+    fun setConnectedState(state: Boolean) {
+        _isConnected.value = state
+    }
+
     fun loadUserStreak() {
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch

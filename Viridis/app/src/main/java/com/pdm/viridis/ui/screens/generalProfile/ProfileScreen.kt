@@ -30,15 +30,22 @@ import com.pdm.viridis.ui.theme.Pink40
 import com.pdm.viridis.ui.theme.SecondaryAccent
 import com.pdm.viridis.ui.theme.urbanistFont
 import androidx.compose.material.icons.filled.Cloud
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 import com.pdm.viridis.ui.components.badges.BadgeItem
 import com.pdm.viridis.ui.components.badges.BadgeRow
 import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
+import com.pdm.viridis.utils.ConnectivityObserver
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel
@@ -46,8 +53,14 @@ fun ProfileScreen(
 
     val navigator = LocalNavigator.currentOrThrow
     val user by viewModel.user.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val isConnected by viewModel.isConnected.collectAsState()
 
     LaunchedEffect(Unit) {
+        ConnectivityObserver.observe(context).collect { connected ->
+            viewModel.setConnectedState(connected)
+        }
+
         viewModel.loadUserStreak()
     }
 
@@ -119,7 +132,10 @@ fun ProfileScreen(
                     text = "Active Streaks: ${user.user.currentStreak}"
                 )
 
-                BadgeRow(activeStreaks = user.user.currentStreak)
+                if (isConnected) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    BadgeRow(activeStreaks = user.user.currentStreak)
+                }
 
                 Box(modifier = Modifier.fillMaxSize()) {
 
