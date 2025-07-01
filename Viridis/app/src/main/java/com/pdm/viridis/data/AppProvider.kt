@@ -14,6 +14,8 @@ import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepositoryImpl
 import com.pdm.viridis.data.repository.Plant.PlantRepository
 import com.pdm.viridis.data.repository.Plant.PlantRepositoryImpl
+import com.pdm.viridis.data.repository.UserInfo.UserInfoImpl
+import com.pdm.viridis.data.repository.UserInfo.UserInfoRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepositoryImpl
 
@@ -54,6 +56,10 @@ class AppProvider(
         appDatabase.favoriteDao()
     )
 
+    private val userInfoRepository : UserInfoRepository = UserInfoImpl(
+        userService
+    )
+
     fun provideGardenRepository(): GardenRepository {
         return GardenRepositoryImpl(appDatabase.gardenDao(), gardenService)
     }
@@ -65,5 +71,7 @@ class AppProvider(
     fun providePlantRepository(): PlantRepository = plantRepository
 
     fun provideFavoriteRepository() : FavoriteRepository = favoriteRepository
+
+    fun provideUserInfoRepository() : UserInfoRepository = userInfoRepository
 }
 
