@@ -45,7 +45,6 @@ fun GardenShadeScreen(
     viewModel: GardenShadeViewModel,
     gardenName: String
 ){
-
     val options = viewModel.shadeOptions.entries.toList()
     val selected by viewModel.selectedShade.collectAsState()
     val isSaving by viewModel.isSaving.collectAsState()

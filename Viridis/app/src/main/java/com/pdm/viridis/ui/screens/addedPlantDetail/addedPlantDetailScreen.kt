@@ -47,13 +47,17 @@ import com.pdm.viridis.ui.theme.ShadeColor
 import com.pdm.viridis.ui.theme.WaterColor
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.HomeScreen
+import com.pdm.viridis.Navigation.SearchPlantScreen
 import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 import com.pdm.viridis.ui.components.BottomSheets.BottomAlertSheet
+import com.pdm.viridis.utils.ConnectivityObserver
 
 @ExperimentalMaterial3Api
 @Composable
@@ -74,6 +78,24 @@ fun addedPlantDetailScreen(
     val navigator = LocalNavigator.currentOrThrow
     val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
     val showDeleteConfirmation by viewModel.showDeleteConfirmation.collectAsState()
+    val context = LocalContext.current
+    val isConnected by viewModel.isConnected.collectAsState()
+    val showConnectionError by viewModel.showConnectionError.collectAsState()
+
+    LaunchedEffect(Unit) {
+        ConnectivityObserver.observe(context).collect { connected ->
+            viewModel.setConnectedState(connected)
+        }
+    }
+
+    if (showConnectionError) {
+        AlertBottomSheet(
+            icon = Icons.Default.Delete,
+            message = "You are offline. This action requires internet connection!",
+            onDismiss = { viewModel.dismissConnectionError() },
+            color = Pink40
+        )
+    }
 
     if (showDeleteConfirmation) {
         BottomAlertSheet(
@@ -141,7 +163,11 @@ fun addedPlantDetailScreen(
                         CustomIconButton(
                             icon = Icons.Filled.Delete,
                             onClick = {
-                                viewModel.showDeleteConfirmation()
+                                if (isConnected){
+                                    viewModel.showDeleteConfirmation()
+                                }else{
+                                    viewModel.showConnectionError()
+                                }
                             },
                             containerColor = Pink40,
                             contentColor = Color.White,

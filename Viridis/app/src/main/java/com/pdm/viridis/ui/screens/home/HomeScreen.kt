@@ -35,7 +35,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.GardenContentScreen
 import com.pdm.viridis.Navigation.GardenNameScreen
 import com.pdm.viridis.ui.theme.urbanistFont
-import com.pdm.viridis.utils.NetworkUtils
+import com.pdm.viridis.utils.isConnected
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +48,7 @@ fun HomeScreen(
     val navigator = LocalNavigator.currentOrThrow
     val isLoading = gardens.isEmpty()
     val context = LocalContext.current
-    val isConnected = NetworkUtils.isConnected(context)
+    val isConnected = isConnected(context)
     val favoriteStates by viewModel.favoriteStates.collectAsState()
 
     LaunchedEffect(Unit) {
