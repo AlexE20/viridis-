@@ -78,4 +78,12 @@ class GardenRepositoryImpl(
 
         gardenDao.addGardens(entities)
     }
+
+    override suspend fun getGarden(userId: String) : Garden {
+        return try{
+            gardenService.getGarden(userId)
+        } catch (e : IOException) {
+            throw Exception("Network error ocurred", e)
+        }
+    }
 }

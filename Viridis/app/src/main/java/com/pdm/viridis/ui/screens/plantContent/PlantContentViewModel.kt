@@ -10,8 +10,10 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.pdm.viridis.ViridisApplication
 import com.pdm.viridis.data.model.Plant
+import com.pdm.viridis.data.remote.responses.GardenRequest
 import com.pdm.viridis.data.remote.responses.UserPlantRequest
 import com.pdm.viridis.data.repository.Auth.AuthRepository
+import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.Plant.PlantRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
 import com.pdm.viridis.ui.screens.gardenContent.GardenContentViewModel
@@ -26,6 +28,7 @@ import java.util.UUID
 class PlantContentViewModel(
 	private val repo: UserPlantRepository,
 	private val authRepo: AuthRepository,
+	private val gardeRepo : GardenRepository
 ) : ViewModel() {
 
 	val saving = MutableStateFlow(false)
@@ -59,6 +62,9 @@ class PlantContentViewModel(
 		}
 	}
 
+	fun match(){
+
+	}
 
 	fun dismissSuccessSheet(){
 		_showSuccessSheet.value = false
@@ -70,7 +76,8 @@ class PlantContentViewModel(
 				val app = (this[APPLICATION_KEY] as ViridisApplication)
 				val plantRepository = app.appProvider.provideUserPlantRepository()
 				val authRepository = app.appProvider.provideAuthRepository()
-				PlantContentViewModel( plantRepository, authRepository)
+				val gardenRepository = app.appProvider.provideGardenRepository()
+				PlantContentViewModel( plantRepository, authRepository, gardenRepository)
 			}
 		}
 	}
