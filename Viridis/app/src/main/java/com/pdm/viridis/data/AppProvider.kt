@@ -34,6 +34,8 @@ class AppProvider(
     private val userPlantService = RetrofitInstance.userPlantService
 
     private val plantService = RetrofitInstance.plantService
+    
+    private val userService = RetrofitInstance.userService
 
     private val authRepository: AuthRepository = AuthRepositoryImpl(
         authService = authService,
