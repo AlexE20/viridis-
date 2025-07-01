@@ -1,25 +1,26 @@
 [versions]
-agp = "8.9.1"
+agp = "8.9.3"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
-composeBom = "2024.09.00"
-navigation="2.8.9"
-serialization = "1.8.0"
+composeBom = "2025.06.01"
+navigation="2.9.0"
+serialization = "1.8.1"
 coil = "2.4.0"
-materialIcons = "1.6.0"
+materialIcons = "1.7.8"
 datastore = "1.1.7"
-room = "2.7.1"
+room = "2.7.2"
 ksp = "2.1.20-2.0.1"
 firebase = "23.2.1"
 retrofit = "3.0.0"
 logingInterceptor = "4.12.0"
 voyager = "1.0.0-rc04"
-
+fcm = "24.1.2"
+gms = "18.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +51,8 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+firebase-messaging = {module = "com.google.firebase:firebase-messaging", version.ref = "fcm"}
+google-service = {module="com.google.android.gms:play-services-base", version.ref ="gms"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
