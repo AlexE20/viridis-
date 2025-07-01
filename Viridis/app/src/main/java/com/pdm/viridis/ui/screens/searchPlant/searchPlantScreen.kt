@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -50,6 +51,7 @@ fun SearchPlantScreen(
     val searchText by viewModel.searchText.collectAsStateWithLifecycle()
     val filteredPlants by viewModel.plants.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+    val searchStarted by viewModel.searchStarted.collectAsStateWithLifecycle()
     val navigator= LocalNavigator.currentOrThrow
 
     CustomTopBar() {
@@ -102,18 +104,25 @@ fun SearchPlantScreen(
                     onClick = {
                         if (searchText.isNotBlank()) {
                             viewModel.searchPlants()
+                            viewModel.onSearchStarted()
                         }
                     },
                     modifier = Modifier.height(56.dp),
                     containerColor = SecondaryAccent
                 )
             }
+
             Spacer(Modifier.padding(16.dp))
 
             if (isLoading) {
-                Text("Loading...", color = MainColor)
-            } else if (filteredPlants.isEmpty()) {
-                Text("No results found", color = MainColor)
+                CircularProgressIndicator(
+                    color = SecondaryAccent,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(16.dp)
+                )
+            } else if (searchStarted && filteredPlants.isEmpty()) {
+                Text("Nothing here, try a different plant!", color = MainColor, modifier = Modifier.align(Alignment.CenterHorizontally))
             } else {
                 LazyColumn {
                     items(filteredPlants) { plant ->
@@ -140,8 +149,7 @@ fun SearchPlantScreen(
                             clickable = {
                                 println("RECOMMENDATIONS: ${plant.recommendations?.joinToString { it.type }}")
                                 println("🌿 PLANT ID: ${plant.id}")
-                                
-                                
+
                                 navigator.push(
                                     PlantContentScreen(
                                         plantId = plant.id.orEmpty(),

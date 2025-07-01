@@ -5,6 +5,7 @@ import com.pdm.viridis.BuildConfig
 import com.pdm.viridis.data.remote.gardens.GardenService
 import com.pdm.viridis.data.remote.notifications.NotificationService
 import com.pdm.viridis.data.remote.plants.PlantService
+import com.pdm.viridis.data.remote.user.UserService
 import com.pdm.viridis.data.remote.userPlants.UserPlantService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,6 +42,10 @@ object RetrofitInstance {
 
     val plantService: PlantService by lazy {
         retrofit.create(PlantService::class.java)
+    }
+    
+    val userService: UserService by lazy {
+        retrofit.create(UserService::class.java)
     }
 
     val notificationService: NotificationService by lazy {

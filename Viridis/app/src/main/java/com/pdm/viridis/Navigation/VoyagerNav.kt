@@ -2,14 +2,16 @@ package com.pdm.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.data.model.Plant
 import com.pdm.viridis.data.model.Recommendation
+import com.pdm.viridis.ui.screens.aboutUs.AboutUsScreen
+import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
+import com.pdm.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
+import com.pdm.viridis.ui.screens.appThemeSetting.AppThemeSettingScreen
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
 import com.pdm.viridis.ui.screens.signin.signinScreen
@@ -18,14 +20,17 @@ import kotlinx.serialization.Serializable
 import com.pdm.viridis.ui.screens.login.LoginScreen as LoginScreenUI
 import com.pdm.viridis.ui.screens.home.HomeScreen as HomeScreenContent
 import com.pdm.viridis.ui.screens.gardenContent.GardenContentScreen as GardenContentScreenContent
-import com.pdm.viridis.ui.screens.profile.ProfileScreen as ProfileScreenUI
+import com.pdm.viridis.ui.screens.generalProfile.ProfileScreen as ProfileScreenUI
 import com.pdm.viridis.ui.screens.activeNotifications.NotificationScreen as ActiveNotificationScreenUI
 import com.pdm.viridis.ui.screens.meeting.MeetingScreen as MeetingScreenUI
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameScreen as GardenName
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeScreen as GardenShade
 import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen as searchPlantScreen
+import com.pdm.viridis.ui.screens.profileSettings.ProfileSettingsScreen as ProfileSettingsUI
 import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
+import com.pdm.viridis.ui.screens.generalProfile.ProfileViewModel
+import com.pdm.viridis.ui.screens.notificationSettings.NotificationSettingScreen
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
 import com.pdm.viridis.ui.screens.notifications.NotificationsScreen
 import com.pdm.viridis.ui.screens.plantContent.PlantContentScreenUI
@@ -86,7 +91,8 @@ data class GardenContentScreen(val gardenId: String, val gardenName: String) : S
 object ProfileScreen : Screen {
 	@Composable
 	override fun Content() {
-		ProfileScreenUI()
+		val viewModel : ProfileViewModel = viewModel(factory = ProfileViewModel.Factory)
+		ProfileScreenUI(viewModel = viewModel)
 	}
 }
 
@@ -160,7 +166,6 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 		val recommendations: List<Recommendation> = emptyList(),
 		val imageUrl: String = ""
 	) : Screen {
-
 		@OptIn(ExperimentalMaterial3Api::class)
 		@Composable
 		override fun Content() {
@@ -179,4 +184,75 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 			)
 		}
 	}
+
+	@Serializable
+	data class AddedPlantDetailScreen(
+		val id: String,
+		val gardenId: String,
+		val commonName: String = "",
+		val scientificName: String = "",
+		val careLevel: String = "",
+		val shadeLevel: String = "",
+		val watering: String = "",
+		val defaultImage: String,
+		val recommendations: List<Recommendation> = emptyList(),
+		val wateredStreak: Int = 0,
+		val lastWateredAt: String?= null
+	) : Screen {
+		@OptIn(ExperimentalMaterial3Api::class)
+		@Composable
+		override fun Content() {
+			val viewModel: AddedPlantDetailViewModel = viewModel(factory = AddedPlantDetailViewModel.Factory())
+			addedPlantDetailScreen(
+				viewModel=viewModel,
+				id,
+				gardenId,
+				commonName,
+				scientificName,
+				careLevel,
+				shadeLevel,
+				watering,
+				defaultImage,
+				recommendations,
+				wateredStreak,
+				lastWateredAt?:""
+			)
+		}
+	}
+
+@Serializable
+object  ProfileSettings: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		ProfileSettingsUI()
+	}
+}
+
+@Serializable
+object  AboutUs: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		AboutUsScreen()
+	}
+}
+
+@Serializable
+object  NotificationSetting: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		NotificationSettingScreen()
+	}
+}
+
+@Serializable
+object  AppThemeSettings: Screen {
+	@OptIn(ExperimentalMaterial3Api::class)
+	@Composable
+	override fun Content() {
+		AppThemeSettingScreen()
+	}
+}
 

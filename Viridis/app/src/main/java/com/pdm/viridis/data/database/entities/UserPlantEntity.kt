@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "user_plants",
-    
 )
 data class UserPlantEntity(
     @PrimaryKey val id: String,
@@ -17,6 +16,7 @@ data class UserPlantEntity(
     val commonName: String,
     val scientificName: List<String>,
     val careLevel: String,
+    val shadeLevel: String,
     val watering: String,
     val defaultImage: String,
     val recommendations: List<String>,

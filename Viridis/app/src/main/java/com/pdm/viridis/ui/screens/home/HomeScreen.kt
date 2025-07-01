@@ -25,13 +25,17 @@ import com.pdm.viridis.ui.theme.BackgroundColor
 import androidx.compose.runtime.getValue
 import com.pdm.viridis.ui.theme.MainColor
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.pdm.viridis.Navigation.GardenContentScreen
 import com.pdm.viridis.Navigation.GardenNameScreen
 import com.pdm.viridis.ui.theme.urbanistFont
+import com.pdm.viridis.utils.isConnected
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,8 +46,15 @@ fun HomeScreen(
     val gardens by viewModel.gardens.collectAsState()
     val imageUrlMap by viewModel.imageUrlsMap.collectAsState()
     val navigator = LocalNavigator.currentOrThrow
-    
-    
+    val isLoading = gardens.isEmpty()
+    val context = LocalContext.current
+    val isConnected = isConnected(context)
+    val favoriteStates by viewModel.favoriteStates.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadGardens(isConnected)
+    }
+
     CustomScaffold{
         Column(
             modifier = Modifier
@@ -82,22 +93,32 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(gardens) { garden ->
-                    val urls = imageUrlMap[garden.id] ?: emptyList()
+            if(isLoading){
+                CircularProgressIndicator(
+                    color = MainColor,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(16.dp)
+                )
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(gardens) { garden ->
+                        val urls = imageUrlMap[garden.id] ?: emptyList()
 
-                    StakedCards(
-                        clickable = { navigator.push(GardenContentScreen(garden.id, garden.name))},
-                        gardenName = garden.name,
-                        gardenShade = garden.shadeLevel,
-                        imageUrls = urls,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 160.dp)
-                            .padding(vertical = 8.dp)
-                    )
+                        StakedCards(
+                            clickable = { navigator.push(GardenContentScreen(garden.id, garden.name))},
+                            gardenName = garden.name,
+                            gardenShade = garden.shadeLevel,
+                            imageUrls = urls,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 160.dp)
+                                .padding(vertical = 8.dp),
+                            isFavorite = favoriteStates[garden.id] ?: false
+                        )
+                    }
                 }
             }
         }

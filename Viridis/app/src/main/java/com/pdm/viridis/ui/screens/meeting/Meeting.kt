@@ -59,7 +59,7 @@ fun MeetingScreen() {
         CustomButton(
             //NEED TO CHANGE THIS AT THE END
             onClick = { navigator.push(ActiveNotificationScreen) },
-            //onClick = { navigator.push(HomeScreen) },
+//            onClick = { navigator.push(HomeScreen) },
             text = "Let's go"
         )
     }

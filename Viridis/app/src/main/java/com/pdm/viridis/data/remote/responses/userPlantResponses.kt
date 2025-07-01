@@ -12,6 +12,7 @@ data class UserPlantResponse(
     val common_name: String,
     val scientific_name: List<String>,
     val care_level: String,
+    val shade_level: String,
     val watering: String,
     val default_image: String,
     val recommendations: List<RecommendationResponse>,
