@@ -75,15 +75,15 @@ fun ProfileScreen(
                 .fillMaxSize()
                 .background(BackgroundColor)
         ) {
-            CustomIconButton(
-                icon = Icons.Filled.Settings,
-                onClick = { navigator.push(ProfileSettings) },
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp),
-                containerColor = SecondaryAccent,
-                contentColor = BackgroundColor
-            )
+//            CustomIconButton(
+//                icon = Icons.Filled.Settings,
+//                onClick = { navigator.push(ProfileSettings) },
+//                modifier = Modifier
+//                    .align(Alignment.TopEnd)
+//                    .padding(16.dp),
+//                containerColor = SecondaryAccent,
+//                contentColor = BackgroundColor
+//            )
 
             Column(
                 modifier = Modifier
