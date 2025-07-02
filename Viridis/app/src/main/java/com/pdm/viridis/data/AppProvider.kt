@@ -14,6 +14,8 @@ import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepositoryImpl
 import com.pdm.viridis.data.repository.Plant.PlantRepository
 import com.pdm.viridis.data.repository.Plant.PlantRepositoryImpl
+import com.pdm.viridis.data.repository.Reminder.ReminderRepository
+import com.pdm.viridis.data.repository.Reminder.ReminderRepositoryImpl
 import com.pdm.viridis.data.repository.UserInfo.UserInfoImpl
 import com.pdm.viridis.data.repository.UserInfo.UserInfoRepository
 import com.pdm.viridis.data.repository.UserPlant.UserPlantRepository
@@ -39,6 +41,8 @@ class AppProvider(
     
     private val userService = RetrofitInstance.userService
 
+    private val reminderService = RetrofitInstance.reminderService
+
     private val authRepository: AuthRepository = AuthRepositoryImpl(
         authService = authService,
         dataStore = context.dataStore
@@ -55,6 +59,8 @@ class AppProvider(
     private val favoriteRepository : FavoriteRepository = FavoriteRepositoryImp(
         appDatabase.favoriteDao()
     )
+
+    private val reminderRepository: ReminderRepository = ReminderRepositoryImpl(reminderService)
 
     private val userInfoRepository : UserInfoRepository = UserInfoImpl(
         userService
@@ -73,5 +79,7 @@ class AppProvider(
     fun provideFavoriteRepository() : FavoriteRepository = favoriteRepository
 
     fun provideUserInfoRepository() : UserInfoRepository = userInfoRepository
+
+    fun provideReminderRepository() : ReminderRepository = reminderRepository
 }
 

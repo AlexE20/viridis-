@@ -5,12 +5,14 @@ import com.pdm.viridis.BuildConfig
 import com.pdm.viridis.data.remote.gardens.GardenService
 import com.pdm.viridis.data.remote.notifications.NotificationService
 import com.pdm.viridis.data.remote.plants.PlantService
+import com.pdm.viridis.data.remote.reminders.ReminderService
 import com.pdm.viridis.data.remote.user.UserService
 import com.pdm.viridis.data.remote.userPlants.UserPlantService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object RetrofitInstance {
     private const val BASE_URL = BuildConfig.API_URL
@@ -50,6 +52,9 @@ object RetrofitInstance {
 
     val notificationService: NotificationService by lazy {
         retrofit.create(NotificationService::class.java)
+    }
+    val reminderService: ReminderService by lazy{
+        retrofit.create(ReminderService::class.java)
     }
 
 

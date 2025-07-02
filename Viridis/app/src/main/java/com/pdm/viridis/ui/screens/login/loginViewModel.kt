@@ -17,8 +17,6 @@ class LoginViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
     private val _email = MutableStateFlow("")
     val email: StateFlow<String> = _email
 
