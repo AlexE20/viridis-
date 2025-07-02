@@ -163,7 +163,6 @@ fun LoginScreen( viewModel: LoginViewModel = viewModel(factory = LoginViewModel.
                 text = "Sign in",
                 onClick = {
                     viewModel.login()
-                    navigator.push(HomeScreen)
                 }
             )
 

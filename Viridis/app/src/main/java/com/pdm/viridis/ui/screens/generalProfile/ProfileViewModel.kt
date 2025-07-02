@@ -42,6 +42,13 @@ class ProfileViewModel(
         }
     }
 
+    fun logout(onLoggedOut: () -> Unit) {
+        viewModelScope.launch {
+            authRepository.clearToken()
+            onLoggedOut()
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

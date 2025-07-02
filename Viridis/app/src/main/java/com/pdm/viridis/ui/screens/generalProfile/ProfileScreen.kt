@@ -43,7 +43,7 @@ import com.pdm.viridis.ui.components.badges.BadgeItem
 import com.pdm.viridis.ui.components.badges.BadgeRow
 import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
 import com.pdm.viridis.utils.ConnectivityObserver
-
+import com.pdm.viridis.Navigation.LoginScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -140,7 +140,11 @@ fun ProfileScreen(
                 Box(modifier = Modifier.fillMaxSize()) {
 
                     CustomButton(
-                        onClick = { /* logout */ },
+                        onClick = {
+                            viewModel.logout {
+                                navigator.replaceAll(LoginScreen)
+                            }
+                        },
                         text = "Log Out",
                         buttonColor = Pink40,
                         textColor = BackgroundColor,
