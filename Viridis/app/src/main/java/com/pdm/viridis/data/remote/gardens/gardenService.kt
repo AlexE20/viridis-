@@ -26,4 +26,9 @@ interface GardenService {
         @Path("userId") userId: String,
         @Path("gardenId") gardenId: String
     )
+
+    @GET("api/gardens/garden/{userId}")
+    suspend fun getGarden(
+        @Path("userId") userId: String
+    ) : Garden
 }

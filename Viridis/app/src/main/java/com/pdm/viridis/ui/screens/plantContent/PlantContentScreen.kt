@@ -11,6 +11,7 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.WbCloudy
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -20,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.Navigation.GardenContentScreen
 import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.data.model.Recommendation
 import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
+import com.pdm.viridis.ui.components.BottomSheets.BottomAlertSheet
 import com.pdm.viridis.ui.components.buttons.CustomButton
 import com.pdm.viridis.ui.components.cards.DetailCardStacked
 import com.pdm.viridis.ui.components.layouts.ImageHeaderScaffold
@@ -31,6 +32,10 @@ import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.SecondaryAccent
 import com.pdm.viridis.ui.theme.urbanistFont
+import androidx.lifecycle.viewModelScope
+import com.pdm.viridis.Navigation.GardenContentScreen
+import kotlinx.coroutines.launch
+
 
 @ExperimentalMaterial3Api
 @Composable
@@ -48,6 +53,8 @@ fun PlantContentScreenUI(
 ) {
 	val navigator = LocalNavigator.currentOrThrow
 	val showSuccessSheet by viewModel.showSuccessSheet.collectAsState()
+	val showShadeMismatchDialog by viewModel.showShadeMismatchDialog.collectAsState()
+	val gardenName by viewModel.gardenName.collectAsState()
 
 	val lightIcon = when (shadeLevel) {
 		"full_shade" -> Icons.Outlined.DarkMode
@@ -55,6 +62,10 @@ fun PlantContentScreenUI(
 		"sun-part_shade" -> Icons.Filled.WbCloudy
 		"full_sun" -> Icons.Filled.WbSunny
 		else -> Icons.Filled.WbSunny
+	}
+
+	LaunchedEffect(Unit) {
+		viewModel.resetStates()
 	}
 
 	if (showSuccessSheet) {
@@ -65,8 +76,35 @@ fun PlantContentScreenUI(
 			color = SecondaryAccent,
 			onContentClick = {
 				viewModel.dismissSuccessSheet()
-				navigator.replaceAll(HomeScreen)
-				//navigator.push(GardenContentScreen(gardenId, gardenName))
+				/*
+				gardenName?.let { name ->
+					navigator.push(GardenContentScreen(gardenId, name))
+				} ?: navigator.push(HomeScreen)
+				 */
+				navigator.push(HomeScreen)
+			}
+		)
+	}
+
+	if (showShadeMismatchDialog) {
+		BottomAlertSheet(
+			message = "Oops! This plant prefers different lighting. It might not feel at home here.",
+			buttonText = "Add anyway",
+			onButtonClick = {
+				viewModel.confirmSaveAnyway(gardenId, plantId)
+				viewModel.dismissSuccessSheet()
+				viewModel.dismissShadeMismatchDialog()
+				/*
+				gardenName?.let { name ->
+					navigator.push(GardenContentScreen(gardenId, name))
+				} ?: navigator.push(HomeScreen)
+				 */
+				navigator.push(HomeScreen)
+
+			},
+			onDismiss = {
+				viewModel.dismissShadeMismatchDialog()
+				viewModel.dismissSuccessSheet()
 			}
 		)
 	}
@@ -147,8 +185,13 @@ fun PlantContentScreenUI(
 			Spacer(modifier = Modifier.height(20.dp))
 			CustomButton("Add Plant to Garden",
 				onClick = {
-				viewModel.savePlant(gardenId,plantId )
-			})
+						viewModel.checkShadeAndSave(
+							gardenId = gardenId,
+							plantId = plantId,
+							plantShadeLevel = shadeLevel
+						)
+				}
+			)
 		}
 	}
 }

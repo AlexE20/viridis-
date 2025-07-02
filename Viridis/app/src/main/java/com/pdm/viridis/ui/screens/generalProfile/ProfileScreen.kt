@@ -57,12 +57,15 @@ fun ProfileScreen(
     val user by viewModel.user.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val isConnected by viewModel.isConnected.collectAsState()
+    val gardenCount by viewModel.gardenCount.collectAsState()
+
+    println("DEBUG: ProfileScreen recomposing")
 
     LaunchedEffect(Unit) {
+        viewModel.loadGardenCount()
         ConnectivityObserver.observe(context).collect { connected ->
             viewModel.setConnectedState(connected)
         }
-
         viewModel.loadUserStreak()
     }
 
@@ -72,15 +75,15 @@ fun ProfileScreen(
                 .fillMaxSize()
                 .background(BackgroundColor)
         ) {
-            CustomIconButton(
-                icon = Icons.Filled.Settings,
-                onClick = { navigator.push(ProfileSettings) },
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp),
-                containerColor = SecondaryAccent,
-                contentColor = BackgroundColor
-            )
+//            CustomIconButton(
+//                icon = Icons.Filled.Settings,
+//                onClick = { navigator.push(ProfileSettings) },
+//                modifier = Modifier
+//                    .align(Alignment.TopEnd)
+//                    .padding(16.dp),
+//                containerColor = SecondaryAccent,
+//                contentColor = BackgroundColor
+//            )
 
             Column(
                 modifier = Modifier
@@ -120,11 +123,9 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                //pablo chill esta quemado porque no tengo estos datos de la api es para testear
-
                 ProfileStatCard(
                     icon = Icons.Default.LocalFlorist,
-                    text = "Gardens Owned: 1",
+                    text = "Gardens Owned: $gardenCount",
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
