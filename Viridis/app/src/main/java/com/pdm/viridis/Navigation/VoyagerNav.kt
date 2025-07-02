@@ -2,13 +2,11 @@ package com.pdm.viridis.Navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.pdm.viridis.data.model.Plant
 import com.pdm.viridis.data.model.Recommendation
 import com.pdm.viridis.ui.screens.aboutUs.AboutUsScreen
 import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
@@ -22,7 +20,7 @@ import kotlinx.serialization.Serializable
 import com.pdm.viridis.ui.screens.login.LoginScreen as LoginScreenUI
 import com.pdm.viridis.ui.screens.home.HomeScreen as HomeScreenContent
 import com.pdm.viridis.ui.screens.gardenContent.GardenContentScreen as GardenContentScreenContent
-import com.pdm.viridis.ui.screens.profile.ProfileScreen as ProfileScreenUI
+import com.pdm.viridis.ui.screens.generalProfile.ProfileScreen as ProfileScreenUI
 import com.pdm.viridis.ui.screens.activeNotifications.NotificationScreen as ActiveNotificationScreenUI
 import com.pdm.viridis.ui.screens.meeting.MeetingScreen as MeetingScreenUI
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameScreen as GardenName
@@ -31,6 +29,7 @@ import com.pdm.viridis.ui.screens.searchPlant.SearchPlantScreen as searchPlantSc
 import com.pdm.viridis.ui.screens.profileSettings.ProfileSettingsScreen as ProfileSettingsUI
 import com.pdm.viridis.ui.screens.home.HomeViewModel
 import com.pdm.viridis.ui.screens.gardenCreation.gardenShade.GardenShadeViewModel
+import com.pdm.viridis.ui.screens.generalProfile.ProfileViewModel
 import com.pdm.viridis.ui.screens.notificationSettings.NotificationSettingScreen
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
 import com.pdm.viridis.ui.screens.notifications.NotificationsScreen
@@ -92,7 +91,8 @@ data class GardenContentScreen(val gardenId: String, val gardenName: String) : S
 object ProfileScreen : Screen {
 	@Composable
 	override fun Content() {
-		ProfileScreenUI()
+		val viewModel : ProfileViewModel = viewModel(factory = ProfileViewModel.Factory)
+		ProfileScreenUI(viewModel = viewModel)
 	}
 }
 

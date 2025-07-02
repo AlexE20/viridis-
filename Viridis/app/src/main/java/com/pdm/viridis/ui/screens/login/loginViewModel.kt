@@ -58,9 +58,6 @@ class LoginViewModel(
             try {
                 auth.signInWithEmailAndPassword(email, password).await()
 
-
-
-
                 val firebaseToken = auth.currentUser?.getIdToken(false)?.await()?.token
                     ?: throw Exception("Failed to retrieve Firebase token")
 

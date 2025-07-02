@@ -50,8 +50,8 @@ class GardenRepositoryImpl(
 
     }
 
-    override fun getLocalGardens(): Flow<List<Garden>> {
-        return gardenDao.getAllGardens().map { list ->
+    override fun getLocalGardens(userId: String): Flow<List<Garden>> {
+        return gardenDao.getGardensByUser(userId).map { list ->
             list.map { entity ->
                 Garden(
                     id = entity.id,
