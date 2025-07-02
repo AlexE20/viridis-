@@ -14,4 +14,6 @@ interface AuthRepository {
         password: String
     ): Result<Unit>
 
+    suspend fun login(email: String, password: String): String
+
 }

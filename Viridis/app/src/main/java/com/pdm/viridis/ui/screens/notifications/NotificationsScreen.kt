@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -12,17 +14,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.getValue
 import com.pdm.viridis.R
 import com.pdm.viridis.ui.components.cards.ReminderCard
 import com.pdm.viridis.ui.components.layouts.CustomScaffold
 import com.pdm.viridis.ui.theme.BackgroundColor
 import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.urbanistFont
+import com.pdm.viridis.utils.toFormattedDate
 
 @Composable
-fun NotificationsScreen() {
-    CustomScaffold() {
+fun NotificationsScreen(viewModel: NotificationsViewModel = viewModel(factory = NotificationsViewModel.Factory)) {
+
+
+    val reminders by viewModel.reminders.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val error by viewModel.error.collectAsState()
+
+    // Trigger loading once
+    LaunchedEffect(Unit) {
+        viewModel.loadReminders()
+    }
+
+    CustomScaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -51,87 +66,36 @@ fun NotificationsScreen() {
                 fontWeight = FontWeight.SemiBold
             )
 
-            //girl relax this is for testing purposes only
-
             Spacer(modifier = Modifier.height(24.dp))
 
-            val checked1 = remember { mutableStateOf(false) }
-            val checked2 = remember { mutableStateOf(false) }
-            val checked3 = remember { mutableStateOf(false) }
+            if (isLoading) {
+                Text("Loading reminders...", color = MainColor)
+            } else if (error != null) {
+                Text("Error: $error", color = MainColor)
+            } else if (reminders.isEmpty()) {
+                Text("No reminders 🎉", color = MainColor)
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    reminders.forEach { reminder ->
+                        val isChecked = remember { mutableStateOf(false) }
 
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                ReminderCard(
-                    plantName = "Aloe Vera",
-                    location = "Daniel's Studio",
-                    dueDate = "8/5/2024",
-                    imagePainter = painterResource(R.drawable.login_header_image),
-                    isDue = false,
-                    isChecked = checked1.value,
-                    onCheckedChange = { checked1.value = it }
-                )
-
-                ReminderCard(
-                    plantName = "Aloe Vera",
-                    location = "Daniel's Studio",
-                    dueDate = "2/5/2024",
-                    imagePainter = painterResource(R.drawable.login_header_image),
-                    isDue = true,
-                    isChecked = checked2.value,
-                    onCheckedChange = { checked2.value = it }
-                )
-
-                ReminderCard(
-                    plantName = "Aloe Vera",
-                    location = "Daniel's Studio",
-                    dueDate = "3/5/2024",
-                    imagePainter = painterResource(R.drawable.login_header_image),
-                    isDue = false,
-                    isChecked = checked3.value,
-                    onCheckedChange = { checked3.value = it }
-                )
+                        ReminderCard(
+                            plantName = reminder.common_name,
+                            location = reminder.garden_name ?: "Unknown location",
+                            dueDate = reminder.dueAt.toFormattedDate(),
+                            imagePainter = painterResource(R.drawable.login_header_image), // Replace with actual image loading
+                            isDue = true, // You may want to compute this based on `dueAt`
+                            isChecked = isChecked.value,
+                            onCheckedChange = { checked ->
+                                isChecked.value = checked
+                                if (checked) {
+                                    viewModel.markReminderDone(reminder.id)
+                                }
+                            }
+                        )
+                    }
+                }
             }
         }
     }
 }
-
-
-//@Composable
-//fun NotificationsScreen(navController: NavHostController, viewModel: NotificationsViewModel = viewModel()) {
-//    val reminders by viewModel.reminders.collectAsState()
-//
-//    CustomScaffold(navController = navController) {
-//        Column(
-//            modifier = Modifier
-//                .background(BackgroundColor)
-//                .fillMaxSize()
-//                .padding(16.dp)
-//        ) {
-//            Text("Watering Reminder", fontSize = 22.sp)
-//            Spacer(Modifier.height(8.dp))
-//            Text(
-//                text = "Do not let your lovely plants dehydrate, they deserve to be loved too!",
-//                fontSize = 14.sp
-//            )
-//
-//            Spacer(Modifier.height(24.dp))
-//
-//            LazyColumn(
-//                verticalArrangement = Arrangement.spacedBy(12.dp)
-//            ) {
-//                items(reminders) { reminder ->
-//                    ReminderCard(
-//                        plantName = reminder.plantName,
-//                        location = reminder.location,
-//                        dueDate = reminder.dueDate,
-//                        imagePainter = painterResource(id = R.drawable.login_header_image), // temporal
-//                        isDue = reminder.isDue,
-//                        isChecked = reminder.isChecked,
-//                        onCheckedChange = { viewModel.toggleChecked(reminder.id) }
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
-
-

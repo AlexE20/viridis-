@@ -17,8 +17,6 @@ class LoginViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
     private val _email = MutableStateFlow("")
     val email: StateFlow<String> = _email
 
@@ -56,10 +54,13 @@ class LoginViewModel(
 
         viewModelScope.launch {
             try {
-                auth.signInWithEmailAndPassword(email, password).await()
 
-                val firebaseToken = auth.currentUser?.getIdToken(false)?.await()?.token
-                    ?: throw Exception("Failed to retrieve Firebase token")
+
+
+
+
+
+                val firebaseToken = authRepository.login(email,password)
 
                 authRepository.saveToken(firebaseToken)
                 _loginSuccess.value = true

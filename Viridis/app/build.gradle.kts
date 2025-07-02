@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.ksp)
     implementation(libs.voyager.navigator)
+    implementation(libs.google.service)
+    implementation(libs.firebase.messaging)
     implementation(libs.material.icons.extended)
     implementation(libs.google.firebase)
     implementation(libs.retrofit)

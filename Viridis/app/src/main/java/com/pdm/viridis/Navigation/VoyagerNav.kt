@@ -33,6 +33,7 @@ import com.pdm.viridis.ui.screens.generalProfile.ProfileViewModel
 import com.pdm.viridis.ui.screens.notificationSettings.NotificationSettingScreen
 import com.pdm.viridis.ui.screens.searchPlant.PlantSearchViewModel
 import com.pdm.viridis.ui.screens.notifications.NotificationsScreen
+import com.pdm.viridis.ui.screens.notifications.NotificationsViewModel
 import com.pdm.viridis.ui.screens.plantContent.PlantContentScreenUI
 import com.pdm.viridis.ui.screens.plantContent.PlantContentViewModel
 
@@ -150,7 +151,8 @@ data class SearchPlantScreen(val gardenId: String) : Screen {
 		@OptIn(ExperimentalMaterial3Api::class)
 		@Composable
 		override fun Content() {
-			NotificationsScreen()
+			val viewModel: NotificationsViewModel = viewModel(factory = NotificationsViewModel.Factory)
+			NotificationsScreen(viewModel)
 		}
 	}
 
