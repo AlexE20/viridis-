@@ -51,7 +51,7 @@ fun LoginScreen( viewModel: LoginViewModel = viewModel(factory = LoginViewModel.
     
     LaunchedEffect(loginSuccess) {
         if (loginSuccess) {
-            navigator.replace(HomeScreen)
+            navigator.replaceAll(HomeScreen)
             viewModel.resetLoginState()
         }
     }
