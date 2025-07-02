@@ -78,7 +78,7 @@ fun MeetingScreen() {
 	LaunchedEffect(hasToken.value) {
 		when (hasToken.value) {
 			true -> {
-				navigator.push(HomeScreen)
+				navigator.replaceAll(HomeScreen)
 			}
 			
 			false -> {
