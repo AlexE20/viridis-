@@ -65,7 +65,7 @@ fun PlantContentScreenUI(
 			color = SecondaryAccent,
 			onContentClick = {
 				viewModel.dismissSuccessSheet()
-				navigator.push(HomeScreen)
+				navigator.replaceAll(HomeScreen)
 				//navigator.push(GardenContentScreen(gardenId, gardenName))
 			}
 		)
