@@ -38,12 +38,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 import com.pdm.viridis.ui.components.badges.BadgeItem
 import com.pdm.viridis.ui.components.badges.BadgeRow
 import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
 import com.pdm.viridis.utils.ConnectivityObserver
 import com.pdm.viridis.Navigation.LoginScreen
+import com.pdm.viridis.Navigation.MeetingScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

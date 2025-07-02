@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.firebase.auth.FirebaseAuth
 import com.pdm.viridis.ViridisApplication
 import com.pdm.viridis.data.model.User
 import com.pdm.viridis.data.repository.Auth.AuthRepository
@@ -45,6 +46,7 @@ class ProfileViewModel(
     fun logout(onLoggedOut: () -> Unit) {
         viewModelScope.launch {
             authRepository.clearToken()
+            FirebaseAuth.getInstance().signOut()
             onLoggedOut()
         }
     }
