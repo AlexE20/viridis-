@@ -17,7 +17,7 @@ interface GardenDao {
     suspend fun addGarden(garden: GardenEntity)
 
     @Query("SELECT * FROM Garden WHERE idUser = :userId")
-    suspend fun getGardensByUser(userId: String): List<GardenEntity>
+    fun getGardensByUser(userId: String): Flow<List<GardenEntity>>
 
     @Query("DELETE FROM Garden WHERE id = :gardenId")
     suspend fun deleteGarden(gardenId: String)

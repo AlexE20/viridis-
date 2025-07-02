@@ -38,12 +38,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.pdm.viridis.Navigation.HomeScreen
 import com.pdm.viridis.ui.components.BottomSheets.AlertBottomSheet
 import com.pdm.viridis.ui.components.badges.BadgeItem
 import com.pdm.viridis.ui.components.badges.BadgeRow
 import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
 import com.pdm.viridis.utils.ConnectivityObserver
-
+import com.pdm.viridis.Navigation.LoginScreen
+import com.pdm.viridis.Navigation.MeetingScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,12 +57,15 @@ fun ProfileScreen(
     val user by viewModel.user.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val isConnected by viewModel.isConnected.collectAsState()
+    val gardenCount by viewModel.gardenCount.collectAsState()
+
+    println("DEBUG: ProfileScreen recomposing")
 
     LaunchedEffect(Unit) {
+        viewModel.loadGardenCount()
         ConnectivityObserver.observe(context).collect { connected ->
             viewModel.setConnectedState(connected)
         }
-
         viewModel.loadUserStreak()
     }
 
@@ -70,15 +75,15 @@ fun ProfileScreen(
                 .fillMaxSize()
                 .background(BackgroundColor)
         ) {
-            CustomIconButton(
-                icon = Icons.Filled.Settings,
-                onClick = { navigator.push(ProfileSettings) },
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp),
-                containerColor = SecondaryAccent,
-                contentColor = BackgroundColor
-            )
+//            CustomIconButton(
+//                icon = Icons.Filled.Settings,
+//                onClick = { navigator.push(ProfileSettings) },
+//                modifier = Modifier
+//                    .align(Alignment.TopEnd)
+//                    .padding(16.dp),
+//                containerColor = SecondaryAccent,
+//                contentColor = BackgroundColor
+//            )
 
             Column(
                 modifier = Modifier
@@ -118,11 +123,9 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                //pablo chill esta quemado porque no tengo estos datos de la api es para testear
-
                 ProfileStatCard(
                     icon = Icons.Default.LocalFlorist,
-                    text = "Gardens Owned: 1",
+                    text = "Gardens Owned: $gardenCount",
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -140,7 +143,11 @@ fun ProfileScreen(
                 Box(modifier = Modifier.fillMaxSize()) {
 
                     CustomButton(
-                        onClick = { /* logout */ },
+                        onClick = {
+                            viewModel.logout {
+                                navigator.replaceAll(LoginScreen)
+                            }
+                        },
                         text = "Log Out",
                         buttonColor = Pink40,
                         textColor = BackgroundColor,

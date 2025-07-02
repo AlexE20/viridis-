@@ -10,7 +10,8 @@ interface GardenRepository{
     suspend fun getGardens(userId: String): List<Garden>
     suspend fun addGarden(userId: String, garden: GardenRequest) : Garden
     suspend fun deleteGarden(userId: String, gardenId: String)
-    fun getLocalGardens(): Flow<List<Garden>>
     suspend fun saveLocalGardens(userId: String)
+    fun getLocalGardens(userId: String): Flow<List<Garden>>
+    suspend fun getGarden(userId: String) : Garden
 }
 

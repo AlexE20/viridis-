@@ -50,8 +50,8 @@ class GardenRepositoryImpl(
 
     }
 
-    override fun getLocalGardens(): Flow<List<Garden>> {
-        return gardenDao.getAllGardens().map { list ->
+    override fun getLocalGardens(userId: String): Flow<List<Garden>> {
+        return gardenDao.getGardensByUser(userId).map { list ->
             list.map { entity ->
                 Garden(
                     id = entity.id,
@@ -77,5 +77,13 @@ class GardenRepositoryImpl(
         }
 
         gardenDao.addGardens(entities)
+    }
+
+    override suspend fun getGarden(userId: String) : Garden {
+        return try{
+            gardenService.getGarden(userId)
+        } catch (e : IOException) {
+            throw Exception("Network error ocurred", e)
+        }
     }
 }

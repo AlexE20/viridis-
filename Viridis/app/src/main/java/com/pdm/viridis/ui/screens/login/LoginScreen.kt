@@ -51,7 +51,7 @@ fun LoginScreen( viewModel: LoginViewModel = viewModel(factory = LoginViewModel.
     
     LaunchedEffect(loginSuccess) {
         if (loginSuccess) {
-            navigator.replace(HomeScreen)
+            navigator.replaceAll(HomeScreen)
             viewModel.resetLoginState()
         }
     }
@@ -163,7 +163,6 @@ fun LoginScreen( viewModel: LoginViewModel = viewModel(factory = LoginViewModel.
                 text = "Sign in",
                 onClick = {
                     viewModel.login()
-                    navigator.push(HomeScreen)
                 }
             )
 

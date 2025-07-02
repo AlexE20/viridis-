@@ -19,9 +19,11 @@ import kotlinx.coroutines.tasks.await
 import java.io.IOException
 
 class AuthRepositoryImpl(
-    private val dataStore: DataStore<Preferences>,
-    private val authService: AuthService
+	private val dataStore: DataStore<Preferences>,
+	private val authService: AuthService
 ) : AuthRepository {
+
+
 
     companion object {
         private val TOKEN_KEY = stringPreferencesKey("AUTH_TOKEN")
@@ -164,6 +166,7 @@ class AuthRepositoryImpl(
 
         return firebaseToken
     }
+
 
 
 

@@ -1,5 +1,9 @@
 package com.pdm.viridis.ui.screens.activeNotifications
 
+import android.os.Build
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,46 +37,61 @@ import com.pdm.viridis.ui.theme.urbanistFont
 @ExperimentalMaterial3Api
 @Composable
 fun NotificationScreen() {
-    val navigator= LocalNavigator.currentOrThrow
-    CustomTopBar(){
-        Spacer(modifier = Modifier.height(30.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp)
-                    .background(BackgroundColor),
-                horizontalAlignment = Alignment.Start
-            ){
-                Spacer(modifier = Modifier.height(1.dp))
-
-                Text(
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.width(400.dp),
-                    text = "Would you like to get reminders from Viridis?",
-                    style = TextStyle(
-                        fontFamily = urbanistFont,
-                        fontSize = 30.sp,
-                        color = Color(0xFF014946)
-                    )
-                )
-            }
-
-        Spacer(modifier = Modifier.height(100.dp))
-
-        Image(
-            painterResource(id = R.drawable.notification_image),
-            contentDescription = "Notification image",
-            modifier = Modifier.size(300.dp)
-
-        )
-
-        Spacer(modifier = Modifier.height(150.dp))
-
-        CustomButton(
-            onClick = { navigator.push(SigninScreen) },
-            text = "Continue"
-        )
-
-    }
-
+	val context = LocalContext.current
+	val navigator = LocalNavigator.currentOrThrow
+	
+	val requestPermissionLauncher = rememberLauncherForActivityResult(
+		contract = ActivityResultContracts.RequestPermission()
+	) { isGranted: Boolean ->
+		if (isGranted) {
+			Toast.makeText(context, "Notifications Activated", Toast.LENGTH_SHORT).show()
+		} else {
+			Toast.makeText(context, "Notifications Delegated", Toast.LENGTH_SHORT).show()
+		}
+		navigator.replaceAll(SigninScreen)
+	}
+	
+	CustomTopBar {
+		Spacer(modifier = Modifier.height(30.dp))
+		
+		Column(
+			modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp)
+                .background(BackgroundColor),
+			horizontalAlignment = Alignment.Start
+		) {
+			Text(
+				textAlign = TextAlign.Start,
+				modifier = Modifier.width(400.dp),
+				text = "Would you like to get reminders from Viridis?",
+				style = TextStyle(
+					fontFamily = urbanistFont,
+					fontSize = 30.sp,
+					color = Color(0xFF014946)
+				)
+			)
+		}
+		
+		Spacer(modifier = Modifier.height(100.dp))
+		
+		Image(
+			painterResource(id = R.drawable.notification_image),
+			contentDescription = "Notification image",
+			modifier = Modifier.size(300.dp)
+		)
+		
+		Spacer(modifier = Modifier.height(150.dp))
+		
+		CustomButton(
+			text = "Continue",
+			onClick = {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+					requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+				} else {
+					navigator.replaceAll(SigninScreen)
+				}
+			}
+		)
+	}
 }

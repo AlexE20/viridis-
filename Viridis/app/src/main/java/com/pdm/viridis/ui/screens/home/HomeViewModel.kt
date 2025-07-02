@@ -60,7 +60,7 @@ class HomeViewModel(
                 }
             }
 
-            gardenRepository.getLocalGardens()
+            gardenRepository.getLocalGardens(userId)
                 .distinctUntilChanged()
                 .collect { list ->
                     _gardens.value = list
