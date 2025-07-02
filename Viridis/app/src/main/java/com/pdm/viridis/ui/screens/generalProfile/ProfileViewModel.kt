@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.pdm.viridis.ViridisApplication
 import com.pdm.viridis.data.model.User
 import com.pdm.viridis.data.repository.Auth.AuthRepository
+import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.UserInfo.UserInfoRepository
 import com.pdm.viridis.ui.screens.gardenContent.GardenContentViewModel
 import com.pdm.viridis.utils.extractUidFromToken
@@ -19,7 +20,8 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val userInfoRepository: UserInfoRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val gardenRepository: GardenRepository
 ) : ViewModel() {
 
     private val _user = MutableStateFlow(User.empty())
@@ -27,6 +29,9 @@ class ProfileViewModel(
 
     private val _isConnected = MutableStateFlow(true)
     val isConnected: StateFlow<Boolean> = _isConnected
+
+    private val _gardenCount = MutableStateFlow(0)
+    val gardenCount : StateFlow<Int> = _gardenCount
 
     fun setConnectedState(state: Boolean) {
         _isConnected.value = state
@@ -39,6 +44,17 @@ class ProfileViewModel(
 
             val result = userInfoRepository.updateStreak(userId)
             _user.value = result
+        }
+    }
+
+    fun loadGardenCount(){
+        viewModelScope.launch {
+            val token = authRepository.token.first() ?: return@launch
+            val userId = extractUidFromToken(token) ?: return@launch
+
+            gardenRepository.getLocalGardens(userId).collect { gardens ->
+                _gardenCount.value = gardens.size
+            }
         }
     }
 
@@ -55,7 +71,8 @@ class ProfileViewModel(
                 val app = (this[APPLICATION_KEY] as ViridisApplication)
                 val userRepo = app.appProvider.provideUserInfoRepository()
                 val authRepository = app.appProvider.provideAuthRepository()
-                ProfileViewModel(userRepo, authRepository)
+                val gardenRepository = app.appProvider.provideGardenRepository()
+                ProfileViewModel(userRepo, authRepository, gardenRepository)
             }
         }
     }
