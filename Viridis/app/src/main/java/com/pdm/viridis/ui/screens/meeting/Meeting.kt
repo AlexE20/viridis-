@@ -82,7 +82,7 @@ fun MeetingScreen() {
 			}
 			
 			false -> {
-				navigator.replaceAll(LoginScreen)
+				navigator.replaceAll(ActiveNotificationScreen)
 			}
 			
 			else -> {}
