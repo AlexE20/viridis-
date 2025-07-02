@@ -28,7 +28,7 @@ import java.util.UUID
 class PlantContentViewModel(
 	private val repo: UserPlantRepository,
 	private val authRepo: AuthRepository,
-	private val gardeRepo : GardenRepository
+	private val gardenRepo : GardenRepository
 ) : ViewModel() {
 
 	val saving = MutableStateFlow(false)
@@ -36,8 +36,49 @@ class PlantContentViewModel(
 
 	private val _showSuccessSheet = MutableStateFlow(false)
 	val showSuccessSheet: StateFlow<Boolean> = _showSuccessSheet
-	
-	
+
+	private val _showShadeMismatchDialog = MutableStateFlow(false)
+	val showShadeMismatchDialog: StateFlow<Boolean> = _showShadeMismatchDialog
+
+	private val _gardenName = MutableStateFlow<String?>(null)
+	val gardenName: StateFlow<String?> = _gardenName
+
+	fun resetStates() {
+		_showSuccessSheet.value = false
+		_showShadeMismatchDialog.value = false
+		_gardenName.value = null
+		error.value = null
+	}
+
+	fun checkShadeAndSave(
+		gardenId: String,
+		plantId: String,
+		plantShadeLevel: String,
+		forceSave: Boolean = false
+	) {
+		viewModelScope.launch {
+			saving.value = true
+			try {
+				val garden = gardenRepo.getGarden(gardenId)
+				val gardenShadeLevel = garden.shadeLevel
+				_gardenName.value = garden.name
+
+				if (forceSave || gardenShadeLevel.equals(plantShadeLevel, ignoreCase = true)) {
+					savePlant(gardenId, plantId)
+				} else {
+					_showShadeMismatchDialog.value = true
+				}
+			} catch (e: Exception) {
+				error.value = e.message ?: "Error checking shade levels"
+			} finally {
+				saving.value = false
+			}
+		}
+	}
+
+	fun confirmSaveAnyway(gardenId: String, plantId: String) {
+			checkShadeAndSave(gardenId, plantId, "", true)
+	}
 
 	fun savePlant(gardenId: String,plantId:String) = viewModelScope.launch {
 		saving.value = true
@@ -62,11 +103,11 @@ class PlantContentViewModel(
 		}
 	}
 
-	fun match(){
-
+	fun dismissShadeMismatchDialog() {
+		_showShadeMismatchDialog.value = false
 	}
 
-	fun dismissSuccessSheet(){
+	fun dismissSuccessSheet() {
 		_showSuccessSheet.value = false
 	}
 
