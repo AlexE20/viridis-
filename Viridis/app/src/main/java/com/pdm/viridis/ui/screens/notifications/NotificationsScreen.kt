@@ -1,7 +1,10 @@
 package com.pdm.viridis.ui.screens.notifications
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,6 +27,7 @@ import com.pdm.viridis.ui.theme.MainColor
 import com.pdm.viridis.ui.theme.urbanistFont
 import com.pdm.viridis.utils.toFormattedDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NotificationsScreen(viewModel: NotificationsViewModel = viewModel(factory = NotificationsViewModel.Factory)) {
 
@@ -69,7 +73,12 @@ fun NotificationsScreen(viewModel: NotificationsViewModel = viewModel(factory = 
             Spacer(modifier = Modifier.height(24.dp))
 
             if (isLoading) {
-                Text("Loading reminders...", color = MainColor)
+                CircularProgressIndicator(
+                    color = MainColor,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(16.dp)
+                )
             } else if (error != null) {
                 Text("Error: $error", color = MainColor)
             } else if (reminders.isEmpty()) {

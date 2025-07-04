@@ -55,19 +55,23 @@ fun ProfileScreen(
 
     val navigator = LocalNavigator.currentOrThrow
     val user by viewModel.user.collectAsStateWithLifecycle()
+    val username by viewModel.username.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val isConnected by viewModel.isConnected.collectAsState()
     val gardenCount by viewModel.gardenCount.collectAsState()
 
-    println("DEBUG: ProfileScreen recomposing")
+    //println("DEBUG: ProfileScreen recomposing")
 
     LaunchedEffect(Unit) {
         viewModel.loadGardenCount()
+        viewModel.loadUserStreak()
+        viewModel.loadUsername()
         ConnectivityObserver.observe(context).collect { connected ->
             viewModel.setConnectedState(connected)
         }
-        viewModel.loadUserStreak()
+
     }
+
 
     CustomScaffold() {
         Box(
@@ -114,7 +118,7 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "Username",
+                    text = "$username",
                     fontSize = 20.sp,
                     fontFamily = urbanistFont,
                     fontWeight = FontWeight.Bold,

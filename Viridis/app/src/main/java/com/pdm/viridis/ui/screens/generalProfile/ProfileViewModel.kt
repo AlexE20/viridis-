@@ -13,6 +13,7 @@ import com.pdm.viridis.data.repository.Auth.AuthRepository
 import com.pdm.viridis.data.repository.Garden.GardenRepository
 import com.pdm.viridis.data.repository.UserInfo.UserInfoRepository
 import com.pdm.viridis.ui.screens.gardenContent.GardenContentViewModel
+import com.pdm.viridis.utils.decodeJwtPayload
 import com.pdm.viridis.utils.extractUidFromToken
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,6 +29,10 @@ class ProfileViewModel(
     private val _user = MutableStateFlow(User.empty())
     val user: StateFlow<User> = _user
 
+    private val _username = MutableStateFlow("Username")
+    val username: StateFlow<String?> = _username
+
+
     private val _isConnected = MutableStateFlow(true)
     val isConnected: StateFlow<Boolean> = _isConnected
 
@@ -38,12 +43,25 @@ class ProfileViewModel(
         _isConnected.value = state
     }
 
+    fun loadUsername() {
+        viewModelScope.launch {
+            val token = authRepository.token.first() ?: return@launch
+            val userId = extractUidFromToken(token) ?: return@launch
+
+            val result = userInfoRepository.getUsername(userId)
+            _username.value = result.username
+        }
+    }
+
+
+
     fun loadUserStreak() {
         viewModelScope.launch {
             val token = authRepository.token.first() ?: return@launch
             val userId = extractUidFromToken(token) ?: return@launch
 
             val result = userInfoRepository.updateStreak(userId)
+            println(result)
             _user.value = result
         }
     }

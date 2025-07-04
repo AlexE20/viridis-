@@ -102,23 +102,22 @@ fun GardenNameScreen(
                     .clip(RoundedCornerShape(28.dp))
                     .background(SecondaryAccent)
             )
-            Spacer(modifier = Modifier.height(410.dp))
-            CustomButton("Next",
-                onClick = { onNext(viewModel.gNameText.value) },
-                enabled =  viewModel.isValid(),
-                modifier = Modifier.width(351.dp).height(51.dp)
 
-            )
         }
 
-         /*Column(
+         Column(
             modifier = Modifier
                 .background(BackgroundColor)
                 .padding(16.dp).fillMaxSize(),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
+             CustomButton("Next",
+                 onClick = { onNext(viewModel.gNameText.value) },
+                 enabled =  viewModel.isValid(),
+                 modifier = Modifier.width(351.dp).height(51.dp)
 
-        } */
+             )
+        }
     }
 }

@@ -10,3 +10,7 @@ data class UserInfo(
 	val currentStreak: Int,
 )
 
+data class UsernameResponse(
+	val username: String
+)
+
