@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.CircularProgressIndicator
@@ -30,6 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.pdm.viridis.Navigation.Camera
 import com.pdm.viridis.Navigation.PlantContentScreen
 import com.pdm.viridis.ui.components.buttons.CustomIconButton
 import com.pdm.viridis.ui.components.cards.CustomCard
@@ -84,6 +86,14 @@ fun SearchPlantScreen(
                     .background(BackgroundColor),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                CustomIconButton(
+                    Icons.Filled.Camera,
+                    onClick = {
+                        navigator.push(Camera(gardenId = gardenId))
+                    } ,
+                    modifier = Modifier.height(56.dp),
+                    containerColor = SecondaryAccent
+                )
                 ProfileTextfield(
                     value = searchText,
                     onValueChange = viewModel::onSearchTextChange,
@@ -110,6 +120,7 @@ fun SearchPlantScreen(
                     modifier = Modifier.height(56.dp),
                     containerColor = SecondaryAccent
                 )
+
             }
 
             Spacer(Modifier.padding(16.dp))

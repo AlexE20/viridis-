@@ -12,6 +12,7 @@ import com.pdm.viridis.ui.screens.aboutUs.AboutUsScreen
 import com.pdm.viridis.ui.screens.addedPlantDetail.AddedPlantDetailViewModel
 import com.pdm.viridis.ui.screens.addedPlantDetail.addedPlantDetailScreen
 import com.pdm.viridis.ui.screens.appThemeSetting.AppThemeSettingScreen
+import com.pdm.viridis.ui.screens.camera.CameraCaptureScreen
 import com.pdm.viridis.ui.screens.gardenCreation.gardenName.GardenNameViewModel
 import com.pdm.viridis.ui.screens.login.LoginViewModel
 import com.pdm.viridis.ui.screens.signin.signinScreen
@@ -136,15 +137,15 @@ data class GardenShadeScreen(val gardenName: String) : Screen {
 	}
 }
 
-@Serializable
-data class SearchPlantScreen(val gardenId: String) : Screen {
-	@OptIn(ExperimentalMaterial3Api::class)
-	@Composable
-	override fun Content() {
-		val viewModel: PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
-		searchPlantScreen(viewModel=viewModel,gardenId = gardenId)
+	@Serializable
+	data class SearchPlantScreen(val gardenId: String) : Screen {
+		@OptIn(ExperimentalMaterial3Api::class)
+		@Composable
+		override fun Content() {
+			val viewModel: PlantSearchViewModel = viewModel(factory = PlantSearchViewModel.Factory)
+			searchPlantScreen(viewModel=viewModel,gardenId = gardenId)
+		}
 	}
-}
 	
 	@Serializable
 	object NotificationScreenContent : Screen {
@@ -246,6 +247,15 @@ object  NotificationSetting: Screen {
 	@Composable
 	override fun Content() {
 		NotificationSettingScreen()
+	}
+}
+
+@Serializable
+data class Camera(val gardenId: String): Screen{
+
+	@Composable
+	override  fun Content(){
+		CameraCaptureScreen(gardenId)
 	}
 }
 

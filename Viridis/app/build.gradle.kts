@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -19,12 +20,13 @@ android {
     val properties = Properties()
     properties.load(FileInputStream(file))
 
+
     defaultConfig {
         applicationId = "com.pdm.viridis"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
         buildConfigField("String", "API_URL", properties.getProperty("API_URL"))
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -40,6 +42,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -50,6 +53,7 @@ android {
         compose = true
         buildConfig = true
     }
+
 }
 
 dependencies {
@@ -67,6 +71,12 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.tensorflow)
+    implementation ("androidx.camera:camera-core:1.4.2")
+    implementation ("androidx.camera:camera-camera2:1.4.2")
+    implementation ("androidx.camera:camera-lifecycle:1.4.2")
+    implementation ("androidx.camera:camera-view:1.4.2")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.3")
     ksp(libs.room.ksp)
     implementation(libs.voyager.navigator)
     implementation(libs.google.service)
